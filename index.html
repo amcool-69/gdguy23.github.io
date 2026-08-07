@@ -33,6 +33,15 @@
             z-index: 1000;
         }
 
+        #wip {
+            position: absolute;
+            bottom: 24px;
+            right: 25px;
+            font-size: 20px;
+            user-select: none;
+            z-index: 1000;
+        }
+
         .falling-image {
             position: fixed;
             width: 90px;
@@ -60,6 +69,7 @@
 <body>
 
     <div id="button">CLICK ME!</div>
+    <div id="wip">WIP</div>
 
     <script>
         const button = document.getElementById("button");
@@ -72,21 +82,17 @@
             img.src = "image.png";
             img.className = "falling-image";
 
-            // Random horizontal position
             img.style.left =
                 Math.random() * (window.innerWidth - 100) + "px";
 
-            // Small variation in size
             const size = 70 + Math.random() * 40;
             img.style.width = size + "px";
 
-            // Slow, comfortable falling speed
             const duration = 7 + Math.random() * 5;
             img.style.animationDuration = duration + "s";
 
             document.body.appendChild(img);
 
-            // Remove after reaching the bottom
             setTimeout(() => {
                 img.remove();
             }, duration * 1000 + 500);
@@ -97,14 +103,12 @@
 
             started = true;
 
-            // Small initial amount
             for (let i = 0; i < 10; i++) {
                 setTimeout(() => {
                     createImage();
                 }, i * 300);
             }
 
-            // Gentle continuous rain
             setInterval(() => {
                 createImage();
             }, 700);
