@@ -35,20 +35,23 @@
 
         .falling-image {
             position: fixed;
-            width: 120px;
+            width: 90px;
             height: auto;
             pointer-events: none;
             z-index: 1;
-            animation: fall linear forwards;
+
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-150px) rotate(0deg);
+            from {
+                transform: translateY(-120px);
             }
 
-            100% {
-                transform: translateY(calc(100vh + 200px)) rotate(720deg);
+            to {
+                transform: translateY(calc(100vh + 150px));
             }
         }
     </style>
@@ -71,23 +74,19 @@
 
             // Random horizontal position
             img.style.left =
-                Math.random() * (window.innerWidth - 120) + "px";
+                Math.random() * (window.innerWidth - 100) + "px";
 
-            // Random size
-            const size = 70 + Math.random() * 100;
+            // Small variation in size
+            const size = 70 + Math.random() * 40;
             img.style.width = size + "px";
 
-            // Random falling speed
-            const duration = 3 + Math.random() * 5;
+            // Slow, comfortable falling speed
+            const duration = 7 + Math.random() * 5;
             img.style.animationDuration = duration + "s";
-
-            // Random starting rotation
-            img.style.transform =
-                `rotate(${Math.random() * 360}deg)`;
 
             document.body.appendChild(img);
 
-            // Remove it after it falls off-screen
+            // Remove after reaching the bottom
             setTimeout(() => {
                 img.remove();
             }, duration * 1000 + 500);
@@ -98,19 +97,17 @@
 
             started = true;
 
-            // HUGE initial burst
-            for (let i = 0; i < 80; i++) {
+            // Small initial amount
+            for (let i = 0; i < 10; i++) {
                 setTimeout(() => {
                     createImage();
-                }, i * 25);
+                }, i * 300);
             }
 
-            // Keep raining images FOREVER
+            // Gentle continuous rain
             setInterval(() => {
-                for (let i = 0; i < 3; i++) {
-                    createImage();
-                }
-            }, 150);
+                createImage();
+            }, 700);
         });
     </script>
 
