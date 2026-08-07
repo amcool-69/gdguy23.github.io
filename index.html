@@ -30,15 +30,26 @@
             font-size: 20px;
             cursor: pointer;
             user-select: none;
-            z-index: 10;
+            z-index: 1000;
         }
 
-        canvas {
+        .falling-image {
             position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
+            width: 120px;
+            height: auto;
             pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-150px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(calc(100vh + 200px)) rotate(720deg);
+            }
         }
     </style>
 </head>
@@ -47,140 +58,59 @@
 
     <div id="button">CLICK ME!</div>
 
-    <canvas id="canvas"></canvas>
-
     <script>
-        const canvas = document.getElementById("canvas");
-        const ctx = canvas.getContext("2d");
         const button = document.getElementById("button");
 
-        const image = new Image();
-
-        // Your image file
-        image.src = "image.png";
-
-        let pieces = [];
         let started = false;
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function createImage() {
+            const img = document.createElement("img");
 
-        window.addEventListener("resize", resize);
-        resize();
+            img.src = "image.png";
+            img.className = "falling-image";
 
-        class Piece {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
+            // Random horizontal position
+            img.style.left =
+                Math.random() * (window.innerWidth - 120) + "px";
 
-                this.sx = Math.random() * image.width;
-                this.sy = Math.random() * image.height;
+            // Random size
+            const size = 70 + Math.random() * 100;
+            img.style.width = size + "px";
 
-                this.sw = 25 + Math.random() * 55;
-                this.sh = 25 + Math.random() * 55;
+            // Random falling speed
+            const duration = 3 + Math.random() * 5;
+            img.style.animationDuration = duration + "s";
 
-                this.size = 20 + Math.random() * 45;
+            // Random starting rotation
+            img.style.transform =
+                `rotate(${Math.random() * 360}deg)`;
 
-                this.vx = (Math.random() - 0.5) * 14;
-                this.vy = -Math.random() * 12 - 2;
+            document.body.appendChild(img);
 
-                this.gravity = 0.08 + Math.random() * 0.12;
-
-                this.rotation = Math.random() * Math.PI * 2;
-                this.rotationSpeed =
-                    (Math.random() - 0.5) * 0.15;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                this.vy += this.gravity;
-                this.vx *= 0.995;
-
-                this.rotation += this.rotationSpeed;
-
-                // Reappear at the top forever
-                if (this.y > canvas.height + 100) {
-                    this.y = -100;
-                    this.x = Math.random() * canvas.width;
-
-                    this.vy = Math.random() * 3 + 1;
-                    this.vx = (Math.random() - 0.5) * 4;
-                }
-            }
-
-            draw() {
-                ctx.save();
-
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
-
-                ctx.drawImage(
-                    image,
-                    this.sx,
-                    this.sy,
-                    this.sw,
-                    this.sh,
-                    -this.size / 2,
-                    -this.size / 2,
-                    this.size,
-                    this.size
-                );
-
-                ctx.restore();
-            }
-        }
-
-        function createConfetti() {
-            // BIG initial explosion
-            for (let i = 0; i < 250; i++) {
-                pieces.push(
-                    new Piece(
-                        window.innerWidth / 2,
-                        window.innerHeight / 2
-                    )
-                );
-            }
-
-            // Keep spawning pieces forever
-            setInterval(() => {
-                for (let i = 0; i < 8; i++) {
-                    pieces.push(
-                        new Piece(
-                            Math.random() * canvas.width,
-                            -50
-                        )
-                    );
-                }
-            }, 100);
-
-            started = true;
-        }
-
-        function animate() {
-            ctx.clearRect(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
-
-            for (const piece of pieces) {
-                piece.update();
-                piece.draw();
-            }
-
-            requestAnimationFrame(animate);
+            // Remove it after it falls off-screen
+            setTimeout(() => {
+                img.remove();
+            }, duration * 1000 + 500);
         }
 
         button.addEventListener("click", () => {
-            if (!started) {
-                createConfetti();
-                animate();
+            if (started) return;
+
+            started = true;
+
+            // HUGE initial burst
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    createImage();
+                }, i * 25);
             }
+
+            // Keep raining images FOREVER
+            setInterval(() => {
+                for (let i = 0; i < 3; i++) {
+                    createImage();
+                }
+            }, 150);
         });
     </script>
 
