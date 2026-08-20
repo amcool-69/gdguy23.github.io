@@ -31,9 +31,12 @@
 
         body {
             border-top: 2px solid #7b00ff;
+            transition: background 1s ease;
         }
 
-        /* MAIN BUTTON */
+        /* =========================
+           MAIN PAGE
+        ========================= */
 
         #button {
             position: absolute;
@@ -50,8 +53,6 @@
             color: #7b00ff;
         }
 
-        /* WIP */
-
         #wip {
             position: absolute;
             bottom: 24px;
@@ -62,7 +63,9 @@
             z-index: 1000;
         }
 
-        /* FALLING IMAGES */
+        /* =========================
+           FALLING IMAGES
+        ========================= */
 
         .falling-image {
             position: fixed;
@@ -86,7 +89,9 @@
             }
         }
 
-        /* DA HIDDEN BUTTON */
+        /* =========================
+           DA HIDDEN BUTTON
+        ========================= */
 
         #hiddenButton {
             display: none;
@@ -115,7 +120,9 @@
             background: #7b00ff;
         }
 
-        /* NUMBER PAD */
+        /* =========================
+           NUMBER PAD
+        ========================= */
 
         #keypad {
             display: none;
@@ -169,7 +176,9 @@
             background: #7b00ff;
         }
 
-        /* SECRET BUTTON */
+        /* =========================
+           SECRET BUTTON
+        ========================= */
 
         #secretButton {
             display: none;
@@ -198,7 +207,9 @@
             background: #7b00ff;
         }
 
-        /* SECRET VIDEO */
+        /* =========================
+           SECRET VIDEO
+        ========================= */
 
         #secretVideo {
             display: none;
@@ -216,7 +227,9 @@
             background: black;
         }
 
-        /* WIP RIP SCREEN */
+        /* =========================
+           WIP RIP SCREEN
+        ========================= */
 
         #ripScreen {
             display: none;
@@ -231,7 +244,9 @@
             overflow: hidden;
         }
 
-        /* STICKMAN */
+        /* =========================
+           STICKMAN
+        ========================= */
 
         #stickman {
             position: absolute;
@@ -310,8 +325,6 @@
             transform: rotate(60deg);
         }
 
-        /* RIP TEXT */
-
         .rip-text {
             position: absolute;
 
@@ -326,8 +339,6 @@
 
             opacity: 0;
         }
-
-        /* FINAL SCREEN */
 
         .rip-final {
             display: none;
@@ -350,8 +361,6 @@
             margin-top: 10px;
             color: #888;
         }
-
-        /* RIP ANIMATIONS */
 
         #stickman.ripping {
             animation: grabAndRip 2s forwards;
@@ -400,6 +409,98 @@
                 transform: scale(1.4);
             }
         }
+
+        /* =========================
+           DOT EASTER EGG
+        ========================= */
+
+        #secretDot {
+            display: none;
+
+            position: fixed;
+
+            width: 55px;
+            height: 55px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            cursor: pointer;
+
+            z-index: 9000;
+
+            box-shadow: 0 0 15px white;
+
+            transition:
+                left 0.25s ease,
+                top 0.25s ease;
+        }
+
+        #dotMessage {
+            display: none;
+
+            position: fixed;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            padding: 20px 30px;
+
+            background: rgba(0, 0, 0, 0.85);
+
+            border: 2px solid white;
+
+            border-radius: 10px;
+
+            color: white;
+
+            font-size: 22px;
+
+            text-align: center;
+
+            z-index: 9500;
+        }
+
+        /* =========================
+           RAINBOW MODE
+        ========================= */
+
+        body.rainbow {
+            animation: rainbowBackground 3s linear infinite;
+        }
+
+        @keyframes rainbowBackground {
+            0% {
+                background: #ff0000;
+            }
+
+            16% {
+                background: #ff7f00;
+            }
+
+            33% {
+                background: #ffff00;
+            }
+
+            50% {
+                background: #00ff00;
+            }
+
+            66% {
+                background: #00ffff;
+            }
+
+            83% {
+                background: #0000ff;
+            }
+
+            100% {
+                background: #ff00ff;
+            }
+        }
     </style>
 </head>
 
@@ -409,9 +510,13 @@
 
     <div id="wip">WIP</div>
 
+    <!-- HIDDEN PASSCODE BUTTON -->
+
     <button id="hiddenButton">
         da hidden button
     </button>
+
+    <!-- NUMBER PAD -->
 
     <div id="keypad">
 
@@ -447,9 +552,13 @@
 
     </div>
 
+    <!-- SECRET BUTTON -->
+
     <button id="secretButton">
         SECRET
     </button>
+
+    <!-- SECRET VIDEO -->
 
     <video
         id="secretVideo"
@@ -497,7 +606,19 @@
 
     </div>
 
+    <!-- DOT EASTER EGG -->
+
+    <div id="secretDot"></div>
+
+    <div id="dotMessage">
+        congratulations, you clicked the dot.
+    </div>
+
     <script>
+
+        /* =========================
+           ELEMENTS
+        ========================= */
 
         const button =
             document.getElementById("button");
@@ -532,7 +653,16 @@
         const ripFinal =
             document.getElementById("ripFinal");
 
-        /* PASSCODE */
+        const secretDot =
+            document.getElementById("secretDot");
+
+        const dotMessage =
+            document.getElementById("dotMessage");
+
+
+        /* =========================
+           PASSCODE EASTER EGG
+        ========================= */
 
         let typed = "";
 
@@ -544,9 +674,12 @@
                     return;
                 }
 
-                typed += event.key.toLowerCase();
+                typed +=
+                    event.key.toLowerCase();
 
-                if (typed.endsWith("passcode")) {
+                if (
+                    typed.endsWith("passcode")
+                ) {
 
                     hiddenButton.style.display =
                         "block";
@@ -562,7 +695,10 @@
             }
         );
 
-        /* HIDDEN BUTTON */
+
+        /* =========================
+           HIDDEN BUTTON
+        ========================= */
 
         hiddenButton.addEventListener(
             "click",
@@ -578,10 +714,15 @@
             }
         );
 
-        /* NUMBER PAD */
+
+        /* =========================
+           NUMBER PAD
+        ========================= */
 
         document
-            .querySelectorAll(".key[data-num]")
+            .querySelectorAll(
+                ".key[data-num]"
+            )
             .forEach(
                 (key) => {
 
@@ -596,7 +737,10 @@
                 }
             );
 
-        /* CLEAR */
+
+        /* =========================
+           CLEAR
+        ========================= */
 
         document
             .getElementById("clear")
@@ -608,7 +752,10 @@
                 }
             );
 
-        /* ENTER 2309 */
+
+        /* =========================
+           ENTER 2309
+        ========================= */
 
         document
             .getElementById("enter")
@@ -630,12 +777,17 @@
 
                         display.value = "";
 
-                        alert("wrong code 😭");
+                        alert(
+                            "wrong code 😭"
+                        );
                     }
                 }
             );
 
-        /* IMAGE RAIN */
+
+        /* =========================
+           CLICK ME IMAGE RAIN
+        ========================= */
 
         let started = false;
 
@@ -644,7 +796,8 @@
             const img =
                 document.createElement("img");
 
-            img.src = "image.png";
+            img.src =
+                "image.png";
 
             img.className =
                 "falling-image";
@@ -655,13 +808,15 @@
                 "px";
 
             const size =
-                70 + Math.random() * 40;
+                70 +
+                Math.random() * 40;
 
             img.style.width =
                 size + "px";
 
             const duration =
-                7 + Math.random() * 5;
+                7 +
+                Math.random() * 5;
 
             img.style.animationDuration =
                 duration + "s";
@@ -676,7 +831,6 @@
             );
         }
 
-        /* CLICK ME */
 
         button.addEventListener(
             "click",
@@ -711,7 +865,10 @@
             }
         );
 
-        /* SECRET → VIDEO */
+
+        /* =========================
+           SECRET VIDEO
+        ========================= */
 
         secretButton.addEventListener(
             "click",
@@ -729,7 +886,10 @@
             }
         );
 
-        /* WIP → STICKMAN RIP */
+
+        /* =========================
+           WIP STICKMAN
+        ========================= */
 
         let ripped = false;
 
@@ -769,6 +929,157 @@
 
                     },
                     2200
+                );
+            }
+        );
+
+
+        /* =========================
+           A1B2C3 DOT EASTER EGG
+        ========================= */
+
+        let dotCode = "";
+
+        let dotTimer = null;
+
+        let dotMoving = null;
+
+        document.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (event.key.length !== 1) {
+                    return;
+                }
+
+                dotCode +=
+                    event.key.toLowerCase();
+
+                if (
+                    dotCode.endsWith("a1b2c3")
+                ) {
+
+                    spawnDot();
+
+                    dotCode = "";
+                }
+
+                if (dotCode.length > 6) {
+
+                    dotCode =
+                        dotCode.slice(-6);
+                }
+            }
+        );
+
+
+        /* =========================
+           SPAWN DOT
+        ========================= */
+
+        function spawnDot() {
+
+            clearTimeout(dotTimer);
+
+            clearInterval(dotMoving);
+
+            dotMessage.style.display =
+                "none";
+
+            secretDot.style.display =
+                "block";
+
+            moveDot();
+
+            dotMoving =
+                setInterval(
+                    moveDot,
+                    350
+                );
+
+            dotTimer =
+                setTimeout(
+                    () => {
+
+                        secretDot.style.display =
+                            "none";
+
+                        clearInterval(
+                            dotMoving
+                        );
+
+                    },
+                    5000
+                );
+        }
+
+
+        /* =========================
+           RANDOM DOT MOVEMENT
+        ========================= */
+
+        function moveDot() {
+
+            const padding = 80;
+
+            const maxX =
+                window.innerWidth -
+                secretDot.offsetWidth -
+                padding;
+
+            const maxY =
+                window.innerHeight -
+                secretDot.offsetHeight -
+                padding;
+
+            const x =
+                padding +
+                Math.random() *
+                Math.max(maxX - padding, 1);
+
+            const y =
+                padding +
+                Math.random() *
+                Math.max(maxY - padding, 1);
+
+            secretDot.style.left =
+                x + "px";
+
+            secretDot.style.top =
+                y + "px";
+        }
+
+
+        /* =========================
+           CLICK THE DOT
+        ========================= */
+
+        secretDot.addEventListener(
+            "click",
+            () => {
+
+                clearTimeout(dotTimer);
+
+                clearInterval(dotMoving);
+
+                secretDot.style.display =
+                    "none";
+
+                dotMessage.style.display =
+                    "block";
+
+                document.body.classList.add(
+                    "rainbow"
+                );
+
+                setTimeout(
+                    () => {
+
+                        dotMessage.style.display =
+                            "none";
+
+                    },
+                    3000
                 );
             }
         );
