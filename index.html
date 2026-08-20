@@ -31,12 +31,7 @@
 
         body {
             border-top: 2px solid #7b00ff;
-            transition: background 1s ease;
         }
-
-        /* =========================
-           MAIN PAGE
-        ========================= */
 
         #button {
             position: absolute;
@@ -63,9 +58,7 @@
             z-index: 1000;
         }
 
-        /* =========================
-           FALLING IMAGES
-        ========================= */
+        /* IMAGE RAIN */
 
         .falling-image {
             position: fixed;
@@ -89,9 +82,7 @@
             }
         }
 
-        /* =========================
-           DA HIDDEN BUTTON
-        ========================= */
+        /* HIDDEN BUTTON */
 
         #hiddenButton {
             display: none;
@@ -120,9 +111,7 @@
             background: #7b00ff;
         }
 
-        /* =========================
-           NUMBER PAD
-        ========================= */
+        /* NUMBER PAD */
 
         #keypad {
             display: none;
@@ -176,9 +165,7 @@
             background: #7b00ff;
         }
 
-        /* =========================
-           SECRET BUTTON
-        ========================= */
+        /* SECRET */
 
         #secretButton {
             display: none;
@@ -207,9 +194,7 @@
             background: #7b00ff;
         }
 
-        /* =========================
-           SECRET VIDEO
-        ========================= */
+        /* VIDEO */
 
         #secretVideo {
             display: none;
@@ -227,9 +212,7 @@
             background: black;
         }
 
-        /* =========================
-           WIP RIP SCREEN
-        ========================= */
+        /* WIP SCREEN */
 
         #ripScreen {
             display: none;
@@ -244,9 +227,7 @@
             overflow: hidden;
         }
 
-        /* =========================
-           STICKMAN
-        ========================= */
+        /* STICKMAN */
 
         #stickman {
             position: absolute;
@@ -410,9 +391,7 @@
             }
         }
 
-        /* =========================
-           DOT EASTER EGG
-        ========================= */
+        /* DOT */
 
         #secretDot {
             display: none;
@@ -464,9 +443,7 @@
             z-index: 9500;
         }
 
-        /* =========================
-           RAINBOW MODE
-        ========================= */
+        /* RAINBOW */
 
         body.rainbow {
             animation: rainbowBackground 3s linear infinite;
@@ -510,13 +487,9 @@
 
     <div id="wip">WIP</div>
 
-    <!-- HIDDEN PASSCODE BUTTON -->
-
     <button id="hiddenButton">
         da hidden button
     </button>
-
-    <!-- NUMBER PAD -->
 
     <div id="keypad">
 
@@ -552,13 +525,9 @@
 
     </div>
 
-    <!-- SECRET BUTTON -->
-
     <button id="secretButton">
         SECRET
     </button>
-
-    <!-- SECRET VIDEO -->
 
     <video
         id="secretVideo"
@@ -566,7 +535,7 @@
         playsinline
     ></video>
 
-    <!-- WIP RIP SCREEN -->
+    <!-- WIP -->
 
     <div id="ripScreen">
 
@@ -606,7 +575,7 @@
 
     </div>
 
-    <!-- DOT EASTER EGG -->
+    <!-- DOT -->
 
     <div id="secretDot"></div>
 
@@ -616,9 +585,7 @@
 
     <script>
 
-        /* =========================
-           ELEMENTS
-        ========================= */
+        /* ELEMENTS */
 
         const button =
             document.getElementById("button");
@@ -661,7 +628,7 @@
 
 
         /* =========================
-           PASSCODE EASTER EGG
+           PASSCODE
         ========================= */
 
         let typed = "";
@@ -696,9 +663,7 @@
         );
 
 
-        /* =========================
-           HIDDEN BUTTON
-        ========================= */
+        /* HIDDEN BUTTON */
 
         hiddenButton.addEventListener(
             "click",
@@ -715,9 +680,7 @@
         );
 
 
-        /* =========================
-           NUMBER PAD
-        ========================= */
+        /* NUMBER PAD */
 
         document
             .querySelectorAll(
@@ -738,9 +701,7 @@
             );
 
 
-        /* =========================
-           CLEAR
-        ========================= */
+        /* CLEAR */
 
         document
             .getElementById("clear")
@@ -753,9 +714,7 @@
             );
 
 
-        /* =========================
-           ENTER 2309
-        ========================= */
+        /* ENTER */
 
         document
             .getElementById("enter")
@@ -785,9 +744,7 @@
             );
 
 
-        /* =========================
-           CLICK ME IMAGE RAIN
-        ========================= */
+        /* IMAGE RAIN */
 
         let started = false;
 
@@ -832,6 +789,8 @@
         }
 
 
+        /* CLICK ME */
+
         button.addEventListener(
             "click",
             () => {
@@ -866,9 +825,7 @@
         );
 
 
-        /* =========================
-           SECRET VIDEO
-        ========================= */
+        /* SECRET VIDEO */
 
         secretButton.addEventListener(
             "click",
@@ -887,9 +844,7 @@
         );
 
 
-        /* =========================
-           WIP STICKMAN
-        ========================= */
+        /* WIP */
 
         let ripped = false;
 
@@ -935,7 +890,7 @@
 
 
         /* =========================
-           A1B2C3 DOT EASTER EGG
+           A1B2C3 DOT
         ========================= */
 
         let dotCode = "";
@@ -972,10 +927,6 @@
             }
         );
 
-
-        /* =========================
-           SPAWN DOT
-        ========================= */
 
         function spawnDot() {
 
@@ -1014,10 +965,6 @@
         }
 
 
-        /* =========================
-           RANDOM DOT MOVEMENT
-        ========================= */
-
         function moveDot() {
 
             const padding = 80;
@@ -1050,9 +997,7 @@
         }
 
 
-        /* =========================
-           CLICK THE DOT
-        ========================= */
+        /* DOT CLICK */
 
         secretDot.addEventListener(
             "click",
@@ -1081,6 +1026,42 @@
                     },
                     3000
                 );
+            }
+        );
+
+
+        /* =========================
+           USELESS YOUTUBE EASTER EGG
+        ========================= */
+
+        let youtubeCode = "";
+
+        document.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (event.key.length !== 1) {
+                    return;
+                }
+
+                youtubeCode +=
+                    event.key.toLowerCase();
+
+                if (
+                    youtubeCode.endsWith("youtube")
+                ) {
+
+                    window.location.href =
+                        "https://www.youtube.com/";
+
+                    youtubeCode = "";
+                }
+
+                if (youtubeCode.length > 7) {
+
+                    youtubeCode =
+                        youtubeCode.slice(-7);
+                }
             }
         );
 
