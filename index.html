@@ -32,6 +32,7 @@
             border-top: 2px solid #7b00ff;
         }
 
+        /* CLICK ME */
         #button {
             position: absolute;
             top: 24px;
@@ -42,11 +43,13 @@
             z-index: 1000;
         }
 
+        /* WIP */
         #wip {
             position: absolute;
             bottom: 24px;
             right: 25px;
             font-size: 20px;
+            cursor: pointer;
             user-select: none;
             z-index: 1000;
         }
@@ -104,7 +107,7 @@
             cursor: pointer;
         }
 
-        /* SECRET BUTTON */
+        /* SECRET */
         #secretButton {
             display: none;
             position: absolute;
@@ -148,7 +151,7 @@
             }
         }
 
-        /* FULLSCREEN VIDEO */
+        /* SECRET VIDEO */
         #secretVideo {
             display: none;
             position: fixed;
@@ -160,12 +163,158 @@
             z-index: 99999;
             background: black;
         }
+
+        /* WIP RIP EFFECT */
+        #ripScreen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 100000;
+            overflow: hidden;
+        }
+
+        #stickman {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 160px;
+            height: 240px;
+            transform: translate(-50%, -50%);
+        }
+
+        .stick {
+            position: absolute;
+            height: 5px;
+            background: black;
+            transform-origin: left center;
+            border-radius: 5px;
+        }
+
+        .head {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            border: 5px solid black;
+            border-radius: 50%;
+            left: 58px;
+            top: 5px;
+        }
+
+        .body {
+            width: 5px;
+            height: 85px;
+            background: black;
+            position: absolute;
+            left: 78px;
+            top: 48px;
+        }
+
+        .leftArm {
+            width: 65px;
+            left: 78px;
+            top: 75px;
+            transform: rotate(150deg);
+        }
+
+        .rightArm {
+            width: 65px;
+            left: 78px;
+            top: 75px;
+            transform: rotate(30deg);
+        }
+
+        .leftLeg {
+            width: 75px;
+            left: 78px;
+            top: 130px;
+            transform: rotate(120deg);
+        }
+
+        .rightLeg {
+            width: 75px;
+            left: 78px;
+            top: 130px;
+            transform: rotate(60deg);
+        }
+
+        .rip-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 20%;
+            font-size: 32px;
+            font-weight: bold;
+            opacity: 0;
+        }
+
+        .rip-final {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: white;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 24px;
+        }
+
+        .rip-final small {
+            margin-top: 10px;
+            color: #777;
+        }
+
+        /* ANIMATIONS */
+        #stickman.ripping {
+            animation: grabAndRip 2s forwards;
+        }
+
+        .rip-text.rippingText {
+            animation: textAppear 2s forwards;
+        }
+
+        @keyframes grabAndRip {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+            }
+
+            75% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(-8deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0.2) rotate(25deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes textAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.4);
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <div id="button">CLICK ME!</div>
+
     <div id="wip">WIP</div>
 
     <button id="hiddenButton">da hidden button</button>
@@ -202,16 +351,51 @@
 
     <video id="secretVideo" src="spin.mp4" playsinline></video>
 
+    <!-- WIP RIP SCREEN -->
+    <div id="ripScreen">
+
+        <div class="rip-text" id="ripText">
+            BRO WHAT DID YOU DO
+        </div>
+
+        <div id="stickman">
+
+            <div class="head"></div>
+            <div class="body"></div>
+
+            <div class="stick leftArm"></div>
+            <div class="stick rightArm"></div>
+
+            <div class="stick leftLeg"></div>
+            <div class="stick rightLeg"></div>
+
+        </div>
+
+        <div class="rip-final" id="ripFinal">
+            <strong>WIP</strong>
+            <small>website discontinued due to excessive WIP</small>
+        </div>
+
+    </div>
+
     <script>
         const button = document.getElementById("button");
+        const wip = document.getElementById("wip");
+
         const hiddenButton = document.getElementById("hiddenButton");
         const keypad = document.getElementById("keypad");
         const display = document.getElementById("display");
         const secretButton = document.getElementById("secretButton");
         const video = document.getElementById("secretVideo");
 
+        const ripScreen = document.getElementById("ripScreen");
+        const stickman = document.getElementById("stickman");
+        const ripText = document.getElementById("ripText");
+        const ripFinal = document.getElementById("ripFinal");
+
         let typed = "";
         let started = false;
+        let ripped = false;
 
         /* TYPE "PASSCODE" */
         document.addEventListener("keydown", (event) => {
@@ -248,7 +432,7 @@
             display.value = "";
         });
 
-        /* ENTER CODE */
+        /* ENTER 2309 */
         document.getElementById("enter").addEventListener("click", () => {
             if (display.value === "2309") {
                 keypad.style.display = "none";
@@ -282,7 +466,7 @@
             }, duration * 1000 + 500);
         }
 
-        /* ORIGINAL CLICK ME */
+        /* CLICK ME */
         button.addEventListener("click", () => {
             if (started) return;
 
@@ -299,13 +483,31 @@
             }, 700);
         });
 
-        /* SECRET → VIDEO */
+        /* SECRET → SPIN VIDEO */
         secretButton.addEventListener("click", () => {
             secretButton.style.display = "none";
 
             video.style.display = "block";
             video.currentTime = 0;
             video.play();
+        });
+
+        /* WIP → RIP THE WEBSITE */
+        wip.addEventListener("click", () => {
+            if (ripped) return;
+
+            ripped = true;
+
+            ripScreen.style.display = "block";
+
+            setTimeout(() => {
+                stickman.classList.add("ripping");
+                ripText.classList.add("rippingText");
+            }, 200);
+
+            setTimeout(() => {
+                ripFinal.style.display = "flex";
+            }, 2200);
         });
     </script>
 
