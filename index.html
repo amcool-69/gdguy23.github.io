@@ -33,9 +33,7 @@
             border-top: 2px solid #7b00ff;
         }
 
-        /* =========================
-           MAIN PAGE
-        ========================= */
+        /* MAIN BUTTON */
 
         #button {
             position: absolute;
@@ -52,6 +50,8 @@
             color: #7b00ff;
         }
 
+        /* WIP */
+
         #wip {
             position: absolute;
             bottom: 24px;
@@ -62,9 +62,7 @@
             z-index: 1000;
         }
 
-        /* =========================
-           FALLING IMAGE RAIN
-        ========================= */
+        /* FALLING IMAGES */
 
         .falling-image {
             position: fixed;
@@ -88,9 +86,7 @@
             }
         }
 
-        /* =========================
-           DA HIDDEN BUTTON
-        ========================= */
+        /* DA HIDDEN BUTTON */
 
         #hiddenButton {
             display: none;
@@ -119,9 +115,7 @@
             background: #7b00ff;
         }
 
-        /* =========================
-           NUMBER PAD
-        ========================= */
+        /* NUMBER PAD */
 
         #keypad {
             display: none;
@@ -175,9 +169,7 @@
             background: #7b00ff;
         }
 
-        /* =========================
-           SECRET BUTTON
-        ========================= */
+        /* SECRET BUTTON */
 
         #secretButton {
             display: none;
@@ -206,9 +198,7 @@
             background: #7b00ff;
         }
 
-        /* =========================
-           SECRET VIDEO
-        ========================= */
+        /* SECRET VIDEO */
 
         #secretVideo {
             display: none;
@@ -226,9 +216,7 @@
             background: black;
         }
 
-        /* =========================
-           WIP RIP SCREEN
-        ========================= */
+        /* WIP RIP SCREEN */
 
         #ripScreen {
             display: none;
@@ -236,16 +224,14 @@
             position: fixed;
             inset: 0;
 
-            background: white;
-            color: black;
+            background: black;
+            color: white;
 
             z-index: 100000;
             overflow: hidden;
         }
 
-        /* =========================
-           STICKMAN
-        ========================= */
+        /* STICKMAN */
 
         #stickman {
             position: absolute;
@@ -265,7 +251,7 @@
             width: 45px;
             height: 45px;
 
-            border: 5px solid black;
+            border: 5px solid white;
             border-radius: 50%;
 
             left: 58px;
@@ -276,7 +262,7 @@
             width: 5px;
             height: 85px;
 
-            background: black;
+            background: white;
 
             position: absolute;
 
@@ -289,7 +275,7 @@
 
             height: 5px;
 
-            background: black;
+            background: white;
 
             transform-origin: left center;
 
@@ -298,43 +284,33 @@
 
         .leftArm {
             width: 65px;
-
             left: 78px;
             top: 75px;
-
             transform: rotate(150deg);
         }
 
         .rightArm {
             width: 65px;
-
             left: 78px;
             top: 75px;
-
             transform: rotate(30deg);
         }
 
         .leftLeg {
             width: 75px;
-
             left: 78px;
             top: 130px;
-
             transform: rotate(120deg);
         }
 
         .rightLeg {
             width: 75px;
-
             left: 78px;
             top: 130px;
-
             transform: rotate(60deg);
         }
 
-        /* =========================
-           RIP TEXT
-        ========================= */
+        /* RIP TEXT */
 
         .rip-text {
             position: absolute;
@@ -351,9 +327,7 @@
             opacity: 0;
         }
 
-        /* =========================
-           FINAL SCREEN
-        ========================= */
+        /* FINAL SCREEN */
 
         .rip-final {
             display: none;
@@ -377,9 +351,7 @@
             color: #888;
         }
 
-        /* =========================
-           RIP ANIMATIONS
-        ========================= */
+        /* RIP ANIMATIONS */
 
         #stickman.ripping {
             animation: grabAndRip 2s forwards;
@@ -433,18 +405,14 @@
 
 <body>
 
-    <!-- MAIN BUTTON -->
     <div id="button">CLICK ME!</div>
 
-    <!-- WIP -->
     <div id="wip">WIP</div>
 
-    <!-- SECRET BUTTON -->
     <button id="hiddenButton">
         da hidden button
     </button>
 
-    <!-- NUMBER PAD -->
     <div id="keypad">
 
         <input
@@ -479,19 +447,18 @@
 
     </div>
 
-    <!-- SECRET -->
     <button id="secretButton">
         SECRET
     </button>
 
-    <!-- VIDEO -->
     <video
         id="secretVideo"
         src="spin.mp4"
         playsinline
     ></video>
 
-    <!-- RIP SCREEN -->
+    <!-- WIP RIP SCREEN -->
+
     <div id="ripScreen">
 
         <div
@@ -532,10 +499,6 @@
 
     <script>
 
-        /* =========================
-           ELEMENTS
-        ========================= */
-
         const button =
             document.getElementById("button");
 
@@ -569,10 +532,7 @@
         const ripFinal =
             document.getElementById("ripFinal");
 
-
-        /* =========================
-           PASSCODE
-        ========================= */
+        /* PASSCODE */
 
         let typed = "";
 
@@ -584,12 +544,9 @@
                     return;
                 }
 
-                typed +=
-                    event.key.toLowerCase();
+                typed += event.key.toLowerCase();
 
-                if (
-                    typed.endsWith("passcode")
-                ) {
+                if (typed.endsWith("passcode")) {
 
                     hiddenButton.style.display =
                         "block";
@@ -605,10 +562,7 @@
             }
         );
 
-
-        /* =========================
-           HIDDEN BUTTON
-        ========================= */
+        /* HIDDEN BUTTON */
 
         hiddenButton.addEventListener(
             "click",
@@ -624,15 +578,10 @@
             }
         );
 
-
-        /* =========================
-           NUMBER PAD
-        ========================= */
+        /* NUMBER PAD */
 
         document
-            .querySelectorAll(
-                ".key[data-num]"
-            )
+            .querySelectorAll(".key[data-num]")
             .forEach(
                 (key) => {
 
@@ -647,10 +596,7 @@
                 }
             );
 
-
-        /* =========================
-           CLEAR
-        ========================= */
+        /* CLEAR */
 
         document
             .getElementById("clear")
@@ -662,10 +608,7 @@
                 }
             );
 
-
-        /* =========================
-           ENTER 2309
-        ========================= */
+        /* ENTER 2309 */
 
         document
             .getElementById("enter")
@@ -687,17 +630,12 @@
 
                         display.value = "";
 
-                        alert(
-                            "wrong code 😭"
-                        );
+                        alert("wrong code 😭");
                     }
                 }
             );
 
-
-        /* =========================
-           IMAGE RAIN
-        ========================= */
+        /* IMAGE RAIN */
 
         let started = false;
 
@@ -713,20 +651,17 @@
 
             img.style.left =
                 Math.random() *
-                (
-                    window.innerWidth - 100
-                ) + "px";
+                (window.innerWidth - 100) +
+                "px";
 
             const size =
-                70 +
-                Math.random() * 40;
+                70 + Math.random() * 40;
 
             img.style.width =
                 size + "px";
 
             const duration =
-                7 +
-                Math.random() * 5;
+                7 + Math.random() * 5;
 
             img.style.animationDuration =
                 duration + "s";
@@ -741,10 +676,7 @@
             );
         }
 
-
-        /* =========================
-           CLICK ME
-        ========================= */
+        /* CLICK ME */
 
         button.addEventListener(
             "click",
@@ -779,10 +711,7 @@
             }
         );
 
-
-        /* =========================
-           SECRET → VIDEO
-        ========================= */
+        /* SECRET → VIDEO */
 
         secretButton.addEventListener(
             "click",
@@ -800,10 +729,7 @@
             }
         );
 
-
-        /* =========================
-           WIP → RIP
-        ========================= */
+        /* WIP → STICKMAN RIP */
 
         let ripped = false;
 
