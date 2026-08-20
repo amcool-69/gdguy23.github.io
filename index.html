@@ -66,6 +66,7 @@
             height: auto;
             pointer-events: none;
             z-index: 1;
+
             animation-name: fall;
             animation-timing-function: linear;
             animation-fill-mode: forwards;
@@ -85,18 +86,24 @@
 
         #hiddenButton {
             display: none;
+
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+
             width: 150px;
             height: 150px;
+
             border-radius: 50%;
             border: 3px solid #7b00ff;
+
             background: black;
             color: white;
+
             font-size: 20px;
             cursor: pointer;
+
             z-index: 2000;
         }
 
@@ -108,15 +115,19 @@
 
         #keypad {
             display: none;
+
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+
             width: 250px;
             padding: 15px;
+
             background: black;
             border: 2px solid #7b00ff;
             border-radius: 12px;
+
             z-index: 3000;
             text-align: center;
         }
@@ -125,9 +136,12 @@
             width: 100%;
             height: 40px;
             margin-bottom: 10px;
+
             background: black;
             color: white;
+
             border: 1px solid #7b00ff;
+
             font-size: 24px;
             text-align: center;
         }
@@ -136,10 +150,13 @@
             width: 60px;
             height: 50px;
             margin: 4px;
+
             background: black;
             color: white;
+
             border: 1px solid #7b00ff;
             border-radius: 5px;
+
             font-size: 20px;
             cursor: pointer;
         }
@@ -152,18 +169,24 @@
 
         #secretButton {
             display: none;
+
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+
             width: 150px;
             height: 150px;
+
             border-radius: 50%;
             border: 3px solid #7b00ff;
+
             background: black;
             color: white;
+
             font-size: 24px;
             cursor: pointer;
+
             z-index: 4000;
         }
 
@@ -175,12 +198,16 @@
 
         #secretVideo {
             display: none;
+
             position: fixed;
             top: 0;
             left: 0;
+
             width: 100vw;
             height: 100vh;
+
             object-fit: cover;
+
             z-index: 99999;
             background: black;
         }
@@ -189,29 +216,40 @@
 
         #ripScreen {
             display: none;
+
             position: fixed;
             inset: 0;
+
             background: black;
             color: white;
+
             z-index: 100000;
             overflow: hidden;
         }
 
+        /* STICKMAN */
+
         #stickman {
             position: absolute;
+
             left: 50%;
             top: 50%;
+
             width: 160px;
             height: 240px;
+
             transform: translate(-50%, -50%);
         }
 
         .head {
             position: absolute;
+
             width: 45px;
             height: 45px;
+
             border: 5px solid white;
             border-radius: 50%;
+
             left: 58px;
             top: 5px;
         }
@@ -219,17 +257,24 @@
         .body {
             width: 5px;
             height: 85px;
+
             background: white;
+
             position: absolute;
+
             left: 78px;
             top: 48px;
         }
 
         .stick {
             position: absolute;
+
             height: 5px;
+
             background: white;
+
             transform-origin: left center;
+
             border-radius: 5px;
         }
 
@@ -263,23 +308,33 @@
 
         .rip-text {
             position: absolute;
+
             width: 100%;
+
             text-align: center;
+
             top: 20%;
+
             font-size: 32px;
             font-weight: bold;
+
             opacity: 0;
         }
 
         .rip-final {
             display: none;
+
             position: absolute;
             inset: 0;
+
             background: black;
             color: white;
+
             align-items: center;
             justify-content: center;
+
             flex-direction: column;
+
             font-size: 24px;
         }
 
@@ -340,14 +395,22 @@
 
         #secretDot {
             display: none;
+
             position: fixed;
+
             width: 55px;
             height: 55px;
+
             border-radius: 50%;
+
             background: white;
+
             cursor: pointer;
+
             z-index: 9000;
+
             box-shadow: 0 0 15px white;
+
             transition:
                 left 0.25s ease,
                 top 0.25s ease;
@@ -355,17 +418,28 @@
 
         #dotMessage {
             display: none;
+
             position: fixed;
+
             top: 50%;
             left: 50%;
+
             transform: translate(-50%, -50%);
+
             padding: 20px 30px;
+
             background: rgba(0, 0, 0, 0.85);
+
             border: 2px solid white;
+
             border-radius: 10px;
+
             color: white;
+
             font-size: 22px;
+
             text-align: center;
+
             z-index: 9500;
         }
 
@@ -376,23 +450,33 @@
         }
 
         @keyframes rainbowBackground {
-            0% { background: #ff0000; }
-            16% { background: #ff7f00; }
-            33% { background: #ffff00; }
-            50% { background: #00ff00; }
-            66% { background: #00ffff; }
-            83% { background: #0000ff; }
-            100% { background: #ff00ff; }
-        }
+            0% {
+                background: #ff0000;
+            }
 
-        /* KABOOM */
+            16% {
+                background: #ff7f00;
+            }
 
-        #kaboomFlash {
-            position: fixed;
-            inset: 0;
-            background: white;
-            z-index: 999999;
-            pointer-events: none;
+            33% {
+                background: #ffff00;
+            }
+
+            50% {
+                background: #00ff00;
+            }
+
+            66% {
+                background: #00ffff;
+            }
+
+            83% {
+                background: #0000ff;
+            }
+
+            100% {
+                background: #ff00ff;
+            }
         }
     </style>
 </head>
@@ -451,33 +535,42 @@
         playsinline
     ></video>
 
-    <!-- WIP -->
+    <!-- WIP SCREEN -->
 
     <div id="ripScreen">
 
-        <div class="rip-text" id="ripText">
+        <div
+            class="rip-text"
+            id="ripText"
+        >
             BRO WHAT DID YOU DO
         </div>
 
         <div id="stickman">
 
             <div class="head"></div>
+
             <div class="body"></div>
+
             <div class="stick leftArm"></div>
+
             <div class="stick rightArm"></div>
+
             <div class="stick leftLeg"></div>
+
             <div class="stick rightLeg"></div>
 
         </div>
 
-        <div class="rip-final" id="ripFinal">
-
+        <div
+            class="rip-final"
+            id="ripFinal"
+        >
             <strong>WIP</strong>
 
             <small>
                 website discontinued due to excessive WIP
             </small>
-
         </div>
 
     </div>
@@ -1017,8 +1110,20 @@
                     const explosion =
                         document.createElement("div");
 
-                    explosion.id =
-                        "kaboomFlash";
+                    explosion.style.position =
+                        "fixed";
+
+                    explosion.style.inset =
+                        "0";
+
+                    explosion.style.zIndex =
+                        "999999";
+
+                    explosion.style.background =
+                        "white";
+
+                    explosion.style.pointerEvents =
+                        "none";
 
                     document.body.appendChild(
                         explosion
@@ -1026,11 +1131,17 @@
 
                     const elements =
                         document.body.querySelectorAll(
-                            "body > *:not(script):not(#kaboomFlash)"
+                            "body > *:not(script)"
                         );
 
                     elements.forEach(
                         (element) => {
+
+                            if (
+                                element === explosion
+                            ) {
+                                return;
+                            }
 
                             const x =
                                 (Math.random() - 0.5) *
@@ -1082,6 +1193,121 @@
 
                     kaboomCode =
                         kaboomCode.slice(-6);
+                }
+            }
+        );
+
+
+        /* =========================
+           CATGUY SECRET
+        ========================= */
+
+        let catGuyCode = "";
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key.length !== 1) {
+                    return;
+                }
+
+                catGuyCode +=
+                    event.key.toLowerCase();
+
+                if (
+                    catGuyCode.includes(
+                        "summonthecatguy09"
+                    )
+                ) {
+
+                    catGuyCode = "";
+
+                    /* PLAY SOUND */
+
+                    const sound =
+                        new Audio(
+                            "catguy.mp3"
+                        );
+
+                    sound.volume = 1.0;
+
+                    sound.play().catch(
+                        () => {}
+                    );
+
+
+                    /* SPAWN FIVE IMAGES */
+
+                    for (
+                        let i = 0;
+                        i < 5;
+                        i++
+                    ) {
+
+                        const cat =
+                            document.createElement(
+                                "img"
+                            );
+
+                        cat.src =
+                            "catguy.png";
+
+                        cat.style.position =
+                            "fixed";
+
+                        cat.style.width =
+                            "180px";
+
+                        cat.style.height =
+                            "auto";
+
+                        cat.style.left =
+                            Math.random() *
+                            Math.max(
+                                window.innerWidth - 180,
+                                1
+                            ) +
+                            "px";
+
+                        cat.style.top =
+                            Math.random() *
+                            Math.max(
+                                window.innerHeight - 180,
+                                1
+                            ) +
+                            "px";
+
+                        cat.style.zIndex =
+                            "99999";
+
+                        cat.style.pointerEvents =
+                            "none";
+
+                        document.body.appendChild(
+                            cat
+                        );
+
+
+                        /* REMOVE AFTER 5 SECONDS */
+
+                        setTimeout(
+                            () => {
+
+                                cat.remove();
+
+                            },
+                            5000
+                        );
+                    }
+                }
+
+                if (
+                    catGuyCode.length > 18
+                ) {
+
+                    catGuyCode =
+                        catGuyCode.slice(-18);
                 }
             }
         );
