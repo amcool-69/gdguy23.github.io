@@ -6,11 +6,11 @@
 
     <title>CLICK ME!</title>
 
-    <!-- Discord Embed / Link Preview -->
+    <!-- Discord Embed -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="CLICK ME!">
-    <meta property="og:description" content="CLICK ME!">
-    <meta property="og:url" content="https://gdguy23.github.io/">
+    <meta property="og:description" content="you probably shouldn't click anything">
+    <meta property="og:url" content="https://amcool-69.github.io/gdguy23.github.io/">
     <meta property="og:image" content="https://raw.githubusercontent.com/amcool-69/gdguy23.github.io/main/image.png">
     <meta name="theme-color" content="#7b00ff">
 
@@ -24,7 +24,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: white;
+            background: black;
+            color: white;
             font-family: Arial, sans-serif;
         }
 
@@ -32,7 +33,10 @@
             border-top: 2px solid #7b00ff;
         }
 
-        /* CLICK ME */
+        /* =========================
+           MAIN PAGE
+        ========================= */
+
         #button {
             position: absolute;
             top: 24px;
@@ -43,7 +47,11 @@
             z-index: 1000;
         }
 
-        /* WIP */
+        #button:hover,
+        #wip:hover {
+            color: #7b00ff;
+        }
+
         #wip {
             position: absolute;
             bottom: 24px;
@@ -54,81 +62,10 @@
             z-index: 1000;
         }
 
-        /* DA HIDDEN BUTTON */
-        #hiddenButton {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #7b00ff;
-            background: white;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 2000;
-        }
+        /* =========================
+           FALLING IMAGE RAIN
+        ========================= */
 
-        #hiddenButton:hover {
-            background: #f1e6ff;
-        }
-
-        /* NUMBER PAD */
-        #keypad {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 250px;
-            padding: 15px;
-            background: white;
-            border: 2px solid #7b00ff;
-            border-radius: 12px;
-            z-index: 3000;
-            text-align: center;
-        }
-
-        #display {
-            width: 100%;
-            height: 40px;
-            margin-bottom: 10px;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .key {
-            width: 60px;
-            height: 50px;
-            margin: 4px;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        /* SECRET */
-        #secretButton {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #7b00ff;
-            background: white;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 4000;
-        }
-
-        #secretButton:hover {
-            background: #f1e6ff;
-        }
-
-        /* FALLING IMAGES */
         .falling-image {
             position: fixed;
             width: 90px;
@@ -151,52 +88,186 @@
             }
         }
 
-        /* SECRET VIDEO */
+        /* =========================
+           DA HIDDEN BUTTON
+        ========================= */
+
+        #hiddenButton {
+            display: none;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+            border: 3px solid #7b00ff;
+
+            background: black;
+            color: white;
+
+            font-size: 20px;
+            cursor: pointer;
+
+            z-index: 2000;
+        }
+
+        #hiddenButton:hover {
+            background: #7b00ff;
+        }
+
+        /* =========================
+           NUMBER PAD
+        ========================= */
+
+        #keypad {
+            display: none;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 250px;
+            padding: 15px;
+
+            background: black;
+            border: 2px solid #7b00ff;
+            border-radius: 12px;
+
+            z-index: 3000;
+            text-align: center;
+        }
+
+        #display {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 10px;
+
+            background: black;
+            color: white;
+
+            border: 1px solid #7b00ff;
+
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .key {
+            width: 60px;
+            height: 50px;
+            margin: 4px;
+
+            background: black;
+            color: white;
+
+            border: 1px solid #7b00ff;
+            border-radius: 5px;
+
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .key:hover {
+            background: #7b00ff;
+        }
+
+        /* =========================
+           SECRET BUTTON
+        ========================= */
+
+        #secretButton {
+            display: none;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+            border: 3px solid #7b00ff;
+
+            background: black;
+            color: white;
+
+            font-size: 24px;
+            cursor: pointer;
+
+            z-index: 4000;
+        }
+
+        #secretButton:hover {
+            background: #7b00ff;
+        }
+
+        /* =========================
+           SECRET VIDEO
+        ========================= */
+
         #secretVideo {
             display: none;
+
             position: fixed;
             top: 0;
             left: 0;
+
             width: 100vw;
             height: 100vh;
+
             object-fit: cover;
+
             z-index: 99999;
             background: black;
         }
 
-        /* WIP RIP EFFECT */
+        /* =========================
+           WIP RIP SCREEN
+        ========================= */
+
         #ripScreen {
             display: none;
+
             position: fixed;
             inset: 0;
+
             background: white;
+            color: black;
+
             z-index: 100000;
             overflow: hidden;
         }
 
+        /* =========================
+           STICKMAN
+        ========================= */
+
         #stickman {
             position: absolute;
+
             left: 50%;
             top: 50%;
+
             width: 160px;
             height: 240px;
-            transform: translate(-50%, -50%);
-        }
 
-        .stick {
-            position: absolute;
-            height: 5px;
-            background: black;
-            transform-origin: left center;
-            border-radius: 5px;
+            transform: translate(-50%, -50%);
         }
 
         .head {
             position: absolute;
+
             width: 45px;
             height: 45px;
+
             border: 5px solid black;
             border-radius: 50%;
+
             left: 58px;
             top: 5px;
         }
@@ -204,67 +275,112 @@
         .body {
             width: 5px;
             height: 85px;
+
             background: black;
+
             position: absolute;
+
             left: 78px;
             top: 48px;
         }
 
+        .stick {
+            position: absolute;
+
+            height: 5px;
+
+            background: black;
+
+            transform-origin: left center;
+
+            border-radius: 5px;
+        }
+
         .leftArm {
             width: 65px;
+
             left: 78px;
             top: 75px;
+
             transform: rotate(150deg);
         }
 
         .rightArm {
             width: 65px;
+
             left: 78px;
             top: 75px;
+
             transform: rotate(30deg);
         }
 
         .leftLeg {
             width: 75px;
+
             left: 78px;
             top: 130px;
+
             transform: rotate(120deg);
         }
 
         .rightLeg {
             width: 75px;
+
             left: 78px;
             top: 130px;
+
             transform: rotate(60deg);
         }
 
+        /* =========================
+           RIP TEXT
+        ========================= */
+
         .rip-text {
             position: absolute;
+
             width: 100%;
+
             text-align: center;
+
             top: 20%;
+
             font-size: 32px;
             font-weight: bold;
+
             opacity: 0;
         }
 
+        /* =========================
+           FINAL SCREEN
+        ========================= */
+
         .rip-final {
             display: none;
+
             position: absolute;
             inset: 0;
-            background: white;
+
+            background: black;
+            color: white;
+
             align-items: center;
             justify-content: center;
+
             flex-direction: column;
+
             font-size: 24px;
         }
 
         .rip-final small {
             margin-top: 10px;
-            color: #777;
+            color: #888;
         }
 
-        /* ANIMATIONS */
+        /* =========================
+           RIP ANIMATIONS
+        ========================= */
+
         #stickman.ripping {
             animation: grabAndRip 2s forwards;
         }
@@ -278,12 +394,16 @@
                 transform: translate(-50%, -50%) scale(1);
             }
 
-            50% {
+            30% {
                 transform: translate(-50%, -50%) scale(1.15);
             }
 
-            75% {
+            55% {
                 transform: translate(-50%, -50%) scale(1.1) rotate(-8deg);
+            }
+
+            75% {
+                transform: translate(-50%, -50%) scale(1.2) rotate(8deg);
             }
 
             100% {
@@ -298,7 +418,7 @@
                 transform: scale(0.5);
             }
 
-            50% {
+            40% {
                 opacity: 1;
                 transform: scale(1);
             }
@@ -313,14 +433,25 @@
 
 <body>
 
+    <!-- MAIN BUTTON -->
     <div id="button">CLICK ME!</div>
 
+    <!-- WIP -->
     <div id="wip">WIP</div>
 
-    <button id="hiddenButton">da hidden button</button>
+    <!-- SECRET BUTTON -->
+    <button id="hiddenButton">
+        da hidden button
+    </button>
 
+    <!-- NUMBER PAD -->
     <div id="keypad">
-        <input id="display" type="password" readonly>
+
+        <input
+            id="display"
+            type="password"
+            readonly
+        >
 
         <div>
             <button class="key" data-num="1">1</button>
@@ -345,170 +476,377 @@
             <button class="key" data-num="0">0</button>
             <button class="key" id="enter">✓</button>
         </div>
+
     </div>
 
-    <button id="secretButton">SECRET</button>
+    <!-- SECRET -->
+    <button id="secretButton">
+        SECRET
+    </button>
 
-    <video id="secretVideo" src="spin.mp4" playsinline></video>
+    <!-- VIDEO -->
+    <video
+        id="secretVideo"
+        src="spin.mp4"
+        playsinline
+    ></video>
 
-    <!-- WIP RIP SCREEN -->
+    <!-- RIP SCREEN -->
     <div id="ripScreen">
 
-        <div class="rip-text" id="ripText">
+        <div
+            class="rip-text"
+            id="ripText"
+        >
             BRO WHAT DID YOU DO
         </div>
 
         <div id="stickman">
 
             <div class="head"></div>
+
             <div class="body"></div>
 
             <div class="stick leftArm"></div>
+
             <div class="stick rightArm"></div>
 
             <div class="stick leftLeg"></div>
+
             <div class="stick rightLeg"></div>
 
         </div>
 
-        <div class="rip-final" id="ripFinal">
+        <div
+            class="rip-final"
+            id="ripFinal"
+        >
             <strong>WIP</strong>
-            <small>website discontinued due to excessive WIP</small>
+
+            <small>
+                website discontinued due to excessive WIP
+            </small>
         </div>
 
     </div>
 
     <script>
-        const button = document.getElementById("button");
-        const wip = document.getElementById("wip");
 
-        const hiddenButton = document.getElementById("hiddenButton");
-        const keypad = document.getElementById("keypad");
-        const display = document.getElementById("display");
-        const secretButton = document.getElementById("secretButton");
-        const video = document.getElementById("secretVideo");
+        /* =========================
+           ELEMENTS
+        ========================= */
 
-        const ripScreen = document.getElementById("ripScreen");
-        const stickman = document.getElementById("stickman");
-        const ripText = document.getElementById("ripText");
-        const ripFinal = document.getElementById("ripFinal");
+        const button =
+            document.getElementById("button");
+
+        const wip =
+            document.getElementById("wip");
+
+        const hiddenButton =
+            document.getElementById("hiddenButton");
+
+        const keypad =
+            document.getElementById("keypad");
+
+        const display =
+            document.getElementById("display");
+
+        const secretButton =
+            document.getElementById("secretButton");
+
+        const video =
+            document.getElementById("secretVideo");
+
+        const ripScreen =
+            document.getElementById("ripScreen");
+
+        const stickman =
+            document.getElementById("stickman");
+
+        const ripText =
+            document.getElementById("ripText");
+
+        const ripFinal =
+            document.getElementById("ripFinal");
+
+
+        /* =========================
+           PASSCODE
+        ========================= */
 
         let typed = "";
-        let started = false;
-        let ripped = false;
 
-        /* TYPE "PASSCODE" */
-        document.addEventListener("keydown", (event) => {
-            if (event.key.length !== 1) return;
+        document.addEventListener(
+            "keydown",
+            (event) => {
 
-            typed += event.key.toLowerCase();
+                if (event.key.length !== 1) {
+                    return;
+                }
 
-            if (typed.endsWith("passcode")) {
-                hiddenButton.style.display = "block";
-                typed = "";
+                typed +=
+                    event.key.toLowerCase();
+
+                if (
+                    typed.endsWith("passcode")
+                ) {
+
+                    hiddenButton.style.display =
+                        "block";
+
+                    typed = "";
+                }
+
+                if (typed.length > 8) {
+
+                    typed =
+                        typed.slice(-8);
+                }
             }
+        );
 
-            if (typed.length > 8) {
-                typed = typed.slice(-8);
-            }
-        });
 
-        /* DA HIDDEN BUTTON */
-        hiddenButton.addEventListener("click", () => {
-            hiddenButton.style.display = "none";
-            keypad.style.display = "block";
-            display.value = "";
-        });
+        /* =========================
+           HIDDEN BUTTON
+        ========================= */
 
-        /* NUMBER PAD */
-        document.querySelectorAll(".key[data-num]").forEach(key => {
-            key.addEventListener("click", () => {
-                display.value += key.dataset.num;
-            });
-        });
+        hiddenButton.addEventListener(
+            "click",
+            () => {
 
-        /* CLEAR */
-        document.getElementById("clear").addEventListener("click", () => {
-            display.value = "";
-        });
+                hiddenButton.style.display =
+                    "none";
 
-        /* ENTER 2309 */
-        document.getElementById("enter").addEventListener("click", () => {
-            if (display.value === "2309") {
-                keypad.style.display = "none";
-                secretButton.style.display = "block";
-            } else {
+                keypad.style.display =
+                    "block";
+
                 display.value = "";
-                alert("wrong code 😭");
             }
-        });
+        );
 
-        /* IMAGE RAIN */
+
+        /* =========================
+           NUMBER PAD
+        ========================= */
+
+        document
+            .querySelectorAll(
+                ".key[data-num]"
+            )
+            .forEach(
+                (key) => {
+
+                    key.addEventListener(
+                        "click",
+                        () => {
+
+                            display.value +=
+                                key.dataset.num;
+                        }
+                    );
+                }
+            );
+
+
+        /* =========================
+           CLEAR
+        ========================= */
+
+        document
+            .getElementById("clear")
+            .addEventListener(
+                "click",
+                () => {
+
+                    display.value = "";
+                }
+            );
+
+
+        /* =========================
+           ENTER 2309
+        ========================= */
+
+        document
+            .getElementById("enter")
+            .addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        display.value === "2309"
+                    ) {
+
+                        keypad.style.display =
+                            "none";
+
+                        secretButton.style.display =
+                            "block";
+
+                    } else {
+
+                        display.value = "";
+
+                        alert(
+                            "wrong code 😭"
+                        );
+                    }
+                }
+            );
+
+
+        /* =========================
+           IMAGE RAIN
+        ========================= */
+
+        let started = false;
+
         function createImage() {
-            const img = document.createElement("img");
+
+            const img =
+                document.createElement("img");
 
             img.src = "image.png";
-            img.className = "falling-image";
+
+            img.className =
+                "falling-image";
 
             img.style.left =
-                Math.random() * (window.innerWidth - 100) + "px";
+                Math.random() *
+                (
+                    window.innerWidth - 100
+                ) + "px";
 
-            const size = 70 + Math.random() * 40;
-            img.style.width = size + "px";
+            const size =
+                70 +
+                Math.random() * 40;
 
-            const duration = 7 + Math.random() * 5;
-            img.style.animationDuration = duration + "s";
+            img.style.width =
+                size + "px";
+
+            const duration =
+                7 +
+                Math.random() * 5;
+
+            img.style.animationDuration =
+                duration + "s";
 
             document.body.appendChild(img);
 
-            setTimeout(() => {
-                img.remove();
-            }, duration * 1000 + 500);
+            setTimeout(
+                () => {
+                    img.remove();
+                },
+                duration * 1000 + 500
+            );
         }
 
-        /* CLICK ME */
-        button.addEventListener("click", () => {
-            if (started) return;
 
-            started = true;
+        /* =========================
+           CLICK ME
+        ========================= */
 
-            for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    createImage();
-                }, i * 300);
+        button.addEventListener(
+            "click",
+            () => {
+
+                if (started) {
+                    return;
+                }
+
+                started = true;
+
+                for (
+                    let i = 0;
+                    i < 10;
+                    i++
+                ) {
+
+                    setTimeout(
+                        () => {
+                            createImage();
+                        },
+                        i * 300
+                    );
+                }
+
+                setInterval(
+                    () => {
+                        createImage();
+                    },
+                    700
+                );
             }
+        );
 
-            setInterval(() => {
-                createImage();
-            }, 700);
-        });
 
-        /* SECRET → SPIN VIDEO */
-        secretButton.addEventListener("click", () => {
-            secretButton.style.display = "none";
+        /* =========================
+           SECRET → VIDEO
+        ========================= */
 
-            video.style.display = "block";
-            video.currentTime = 0;
-            video.play();
-        });
+        secretButton.addEventListener(
+            "click",
+            () => {
 
-        /* WIP → RIP THE WEBSITE */
-        wip.addEventListener("click", () => {
-            if (ripped) return;
+                secretButton.style.display =
+                    "none";
 
-            ripped = true;
+                video.style.display =
+                    "block";
 
-            ripScreen.style.display = "block";
+                video.currentTime = 0;
 
-            setTimeout(() => {
-                stickman.classList.add("ripping");
-                ripText.classList.add("rippingText");
-            }, 200);
+                video.play();
+            }
+        );
 
-            setTimeout(() => {
-                ripFinal.style.display = "flex";
-            }, 2200);
-        });
+
+        /* =========================
+           WIP → RIP
+        ========================= */
+
+        let ripped = false;
+
+        wip.addEventListener(
+            "click",
+            () => {
+
+                if (ripped) {
+                    return;
+                }
+
+                ripped = true;
+
+                ripScreen.style.display =
+                    "block";
+
+                setTimeout(
+                    () => {
+
+                        stickman.classList.add(
+                            "ripping"
+                        );
+
+                        ripText.classList.add(
+                            "rippingText"
+                        );
+
+                    },
+                    200
+                );
+
+                setTimeout(
+                    () => {
+
+                        ripFinal.style.display =
+                            "flex";
+
+                    },
+                    2200
+                );
+            }
+        );
+
     </script>
 
 </body>
