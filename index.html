@@ -66,7 +66,6 @@
             height: auto;
             pointer-events: none;
             z-index: 1;
-
             animation-name: fall;
             animation-timing-function: linear;
             animation-fill-mode: forwards;
@@ -86,24 +85,18 @@
 
         #hiddenButton {
             display: none;
-
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-
             width: 150px;
             height: 150px;
-
             border-radius: 50%;
             border: 3px solid #7b00ff;
-
             background: black;
             color: white;
-
             font-size: 20px;
             cursor: pointer;
-
             z-index: 2000;
         }
 
@@ -115,19 +108,15 @@
 
         #keypad {
             display: none;
-
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-
             width: 250px;
             padding: 15px;
-
             background: black;
             border: 2px solid #7b00ff;
             border-radius: 12px;
-
             z-index: 3000;
             text-align: center;
         }
@@ -136,12 +125,9 @@
             width: 100%;
             height: 40px;
             margin-bottom: 10px;
-
             background: black;
             color: white;
-
             border: 1px solid #7b00ff;
-
             font-size: 24px;
             text-align: center;
         }
@@ -150,13 +136,10 @@
             width: 60px;
             height: 50px;
             margin: 4px;
-
             background: black;
             color: white;
-
             border: 1px solid #7b00ff;
             border-radius: 5px;
-
             font-size: 20px;
             cursor: pointer;
         }
@@ -165,28 +148,22 @@
             background: #7b00ff;
         }
 
-        /* SECRET */
+        /* SECRET BUTTON */
 
         #secretButton {
             display: none;
-
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-
             width: 150px;
             height: 150px;
-
             border-radius: 50%;
             border: 3px solid #7b00ff;
-
             background: black;
             color: white;
-
             font-size: 24px;
             cursor: pointer;
-
             z-index: 4000;
         }
 
@@ -198,16 +175,12 @@
 
         #secretVideo {
             display: none;
-
             position: fixed;
             top: 0;
             left: 0;
-
             width: 100vw;
             height: 100vh;
-
             object-fit: cover;
-
             z-index: 99999;
             background: black;
         }
@@ -216,40 +189,29 @@
 
         #ripScreen {
             display: none;
-
             position: fixed;
             inset: 0;
-
             background: black;
             color: white;
-
             z-index: 100000;
             overflow: hidden;
         }
 
-        /* STICKMAN */
-
         #stickman {
             position: absolute;
-
             left: 50%;
             top: 50%;
-
             width: 160px;
             height: 240px;
-
             transform: translate(-50%, -50%);
         }
 
         .head {
             position: absolute;
-
             width: 45px;
             height: 45px;
-
             border: 5px solid white;
             border-radius: 50%;
-
             left: 58px;
             top: 5px;
         }
@@ -257,24 +219,17 @@
         .body {
             width: 5px;
             height: 85px;
-
             background: white;
-
             position: absolute;
-
             left: 78px;
             top: 48px;
         }
 
         .stick {
             position: absolute;
-
             height: 5px;
-
             background: white;
-
             transform-origin: left center;
-
             border-radius: 5px;
         }
 
@@ -308,33 +263,23 @@
 
         .rip-text {
             position: absolute;
-
             width: 100%;
-
             text-align: center;
-
             top: 20%;
-
             font-size: 32px;
             font-weight: bold;
-
             opacity: 0;
         }
 
         .rip-final {
             display: none;
-
             position: absolute;
             inset: 0;
-
             background: black;
             color: white;
-
             align-items: center;
             justify-content: center;
-
             flex-direction: column;
-
             font-size: 24px;
         }
 
@@ -395,22 +340,14 @@
 
         #secretDot {
             display: none;
-
             position: fixed;
-
             width: 55px;
             height: 55px;
-
             border-radius: 50%;
-
             background: white;
-
             cursor: pointer;
-
             z-index: 9000;
-
             box-shadow: 0 0 15px white;
-
             transition:
                 left 0.25s ease,
                 top 0.25s ease;
@@ -418,28 +355,17 @@
 
         #dotMessage {
             display: none;
-
             position: fixed;
-
             top: 50%;
             left: 50%;
-
             transform: translate(-50%, -50%);
-
             padding: 20px 30px;
-
             background: rgba(0, 0, 0, 0.85);
-
             border: 2px solid white;
-
             border-radius: 10px;
-
             color: white;
-
             font-size: 22px;
-
             text-align: center;
-
             z-index: 9500;
         }
 
@@ -450,33 +376,23 @@
         }
 
         @keyframes rainbowBackground {
-            0% {
-                background: #ff0000;
-            }
+            0% { background: #ff0000; }
+            16% { background: #ff7f00; }
+            33% { background: #ffff00; }
+            50% { background: #00ff00; }
+            66% { background: #00ffff; }
+            83% { background: #0000ff; }
+            100% { background: #ff00ff; }
+        }
 
-            16% {
-                background: #ff7f00;
-            }
+        /* KABOOM */
 
-            33% {
-                background: #ffff00;
-            }
-
-            50% {
-                background: #00ff00;
-            }
-
-            66% {
-                background: #00ffff;
-            }
-
-            83% {
-                background: #0000ff;
-            }
-
-            100% {
-                background: #ff00ff;
-            }
+        #kaboomFlash {
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 999999;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -539,38 +455,29 @@
 
     <div id="ripScreen">
 
-        <div
-            class="rip-text"
-            id="ripText"
-        >
+        <div class="rip-text" id="ripText">
             BRO WHAT DID YOU DO
         </div>
 
         <div id="stickman">
 
             <div class="head"></div>
-
             <div class="body"></div>
-
             <div class="stick leftArm"></div>
-
             <div class="stick rightArm"></div>
-
             <div class="stick leftLeg"></div>
-
             <div class="stick rightLeg"></div>
 
         </div>
 
-        <div
-            class="rip-final"
-            id="ripFinal"
-        >
+        <div class="rip-final" id="ripFinal">
+
             <strong>WIP</strong>
 
             <small>
                 website discontinued due to excessive WIP
             </small>
+
         </div>
 
     </div>
@@ -585,7 +492,9 @@
 
     <script>
 
-        /* ELEMENTS */
+        /* =========================
+           ELEMENTS
+        ========================= */
 
         const button =
             document.getElementById("button");
@@ -714,7 +623,7 @@
             );
 
 
-        /* ENTER */
+        /* ENTER 2309 */
 
         document
             .getElementById("enter")
@@ -744,7 +653,9 @@
             );
 
 
-        /* IMAGE RAIN */
+        /* =========================
+           IMAGE RAIN
+        ========================= */
 
         let started = false;
 
@@ -789,8 +700,6 @@
         }
 
 
-        /* CLICK ME */
-
         button.addEventListener(
             "click",
             () => {
@@ -825,7 +734,9 @@
         );
 
 
-        /* SECRET VIDEO */
+        /* =========================
+           SECRET VIDEO
+        ========================= */
 
         secretButton.addEventListener(
             "click",
@@ -844,7 +755,9 @@
         );
 
 
-        /* WIP */
+        /* =========================
+           WIP
+        ========================= */
 
         let ripped = false;
 
@@ -982,12 +895,18 @@
             const x =
                 padding +
                 Math.random() *
-                Math.max(maxX - padding, 1);
+                Math.max(
+                    maxX - padding,
+                    1
+                );
 
             const y =
                 padding +
                 Math.random() *
-                Math.max(maxY - padding, 1);
+                Math.max(
+                    maxY - padding,
+                    1
+                );
 
             secretDot.style.left =
                 x + "px";
@@ -1031,14 +950,14 @@
 
 
         /* =========================
-           USELESS YOUTUBE EASTER EGG
+           YOUTUBE
         ========================= */
 
         let youtubeCode = "";
 
         document.addEventListener(
             "keydown",
-            (event) => {
+            function(event) {
 
                 if (event.key.length !== 1) {
                     return;
@@ -1048,19 +967,121 @@
                     event.key.toLowerCase();
 
                 if (
-                    youtubeCode.endsWith("youtube")
+                    youtubeCode.includes("youtube")
                 ) {
 
-                    window.location.href =
-                        "https://www.youtube.com/";
+                    window.location.assign(
+                        "https://www.youtube.com/"
+                    );
 
                     youtubeCode = "";
+
+                    return;
                 }
 
                 if (youtubeCode.length > 7) {
 
                     youtubeCode =
                         youtubeCode.slice(-7);
+                }
+            }
+        );
+
+
+        /* =========================
+           KABOOM
+        ========================= */
+
+        let kaboomCode = "";
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key.length !== 1) {
+                    return;
+                }
+
+                kaboomCode +=
+                    event.key.toLowerCase();
+
+                if (
+                    kaboomCode.includes("kaboom")
+                ) {
+
+                    kaboomCode = "";
+
+                    document.body.style.pointerEvents =
+                        "none";
+
+                    const explosion =
+                        document.createElement("div");
+
+                    explosion.id =
+                        "kaboomFlash";
+
+                    document.body.appendChild(
+                        explosion
+                    );
+
+                    const elements =
+                        document.body.querySelectorAll(
+                            "body > *:not(script):not(#kaboomFlash)"
+                        );
+
+                    elements.forEach(
+                        (element) => {
+
+                            const x =
+                                (Math.random() - 0.5) *
+                                window.innerWidth *
+                                2;
+
+                            const y =
+                                (Math.random() - 0.5) *
+                                window.innerHeight *
+                                2;
+
+                            const rotation =
+                                (Math.random() - 0.5) *
+                                720;
+
+                            element.style.transition =
+                                "transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 1.2s";
+
+                            element.style.transform =
+                                `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+
+                            element.style.opacity =
+                                "0";
+                        }
+                    );
+
+                    setTimeout(
+                        () => {
+
+                            explosion.style.background =
+                                "black";
+
+                        },
+                        120
+                    );
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                "https://www.google.com/";
+
+                        },
+                        1400
+                    );
+                }
+
+                if (kaboomCode.length > 6) {
+
+                    kaboomCode =
+                        kaboomCode.slice(-6);
                 }
             }
         );
