@@ -1,1318 +1,1497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>CLICK ME!</title>
-
-    <!-- Discord Embed -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="CLICK ME!">
-    <meta property="og:description" content="you probably shouldn't click anything">
-    <meta property="og:url" content="https://amcool-69.github.io/gdguy23.github.io/">
-    <meta property="og:image" content="https://raw.githubusercontent.com/amcool-69/gdguy23.github.io/main/image.png">
-    <meta name="theme-color" content="#7b00ff">
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        html, body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: black;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            border-top: 2px solid #7b00ff;
-        }
-
-        #button {
-            position: absolute;
-            top: 24px;
-            left: 25px;
-            font-size: 20px;
-            cursor: pointer;
-            user-select: none;
-            z-index: 1000;
-        }
-
-        #button:hover,
-        #wip:hover {
-            color: #7b00ff;
-        }
-
-        #wip {
-            position: absolute;
-            bottom: 24px;
-            right: 25px;
-            font-size: 20px;
-            cursor: pointer;
-            user-select: none;
-            z-index: 1000;
-        }
-
-        /* IMAGE RAIN */
-
-        .falling-image {
-            position: fixed;
-            width: 90px;
-            height: auto;
-            pointer-events: none;
-            z-index: 1;
-
-            animation-name: fall;
-            animation-timing-function: linear;
-            animation-fill-mode: forwards;
-        }
-
-        @keyframes fall {
-            from {
-                transform: translateY(-120px);
-            }
-
-            to {
-                transform: translateY(calc(100vh + 150px));
-            }
-        }
-
-        /* HIDDEN BUTTON */
-
-        #hiddenButton {
-            display: none;
-
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-
-            width: 150px;
-            height: 150px;
-
-            border-radius: 50%;
-            border: 3px solid #7b00ff;
-
-            background: black;
-            color: white;
-
-            font-size: 20px;
-            cursor: pointer;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CLICK ME!</title>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="CLICK ME!">
+<meta property="og:description" content="you probably shouldn't click anything">
+<meta property="og:url" content="https://amcool-69.github.io/gdguy23.github.io/">
+<meta property="og:image" content="https://raw.githubusercontent.com/amcool-69/gdguy23.github.io/main/image.png">
+<meta name="theme-color" content="#7b00ff">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    border-top: 2px solid #7b00ff;
+}
+
+/* MAIN BUTTON */
+
+#button {
+    position: absolute;
+    top: 24px;
+    left: 25px;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1000;
+}
+
+#button:hover,
+#wip:hover {
+    color: #7b00ff;
+}
+
+/* WIP */
+
+#wip {
+    position: absolute;
+    bottom: 24px;
+    right: 25px;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1000;
+}
+
+/* IMAGE RAIN */
+
+.falling-image {
+    position: fixed;
+    width: 90px;
+    height: auto;
+    pointer-events: none;
+    z-index: 1;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-120px);
+    }
+
+    to {
+        transform: translateY(calc(100vh + 150px));
+    }
+}
+
+/* HIDDEN BUTTON */
+
+#hiddenButton {
+    display: none;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 150px;
+    height: 150px;
+
+    border-radius: 50%;
+    border: 3px solid #7b00ff;
+
+    background: black;
+    color: white;
 
-            z-index: 2000;
-        }
+    font-size: 20px;
+    cursor: pointer;
 
-        #hiddenButton:hover {
-            background: #7b00ff;
-        }
+    z-index: 2000;
+}
 
-        /* NUMBER PAD */
+#hiddenButton:hover {
+    background: #7b00ff;
+}
 
-        #keypad {
-            display: none;
+/* KEYPAD */
 
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+#keypad {
+    display: none;
 
-            width: 250px;
-            padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-            background: black;
-            border: 2px solid #7b00ff;
-            border-radius: 12px;
+    width: 250px;
+    padding: 15px;
 
-            z-index: 3000;
-            text-align: center;
-        }
+    background: black;
+    border: 2px solid #7b00ff;
+    border-radius: 12px;
 
-        #display {
-            width: 100%;
-            height: 40px;
-            margin-bottom: 10px;
+    z-index: 3000;
+    text-align: center;
+}
 
-            background: black;
-            color: white;
+#display {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
 
-            border: 1px solid #7b00ff;
+    background: black;
+    color: white;
 
-            font-size: 24px;
-            text-align: center;
-        }
+    border: 1px solid #7b00ff;
 
-        .key {
-            width: 60px;
-            height: 50px;
-            margin: 4px;
+    font-size: 24px;
+    text-align: center;
+}
 
-            background: black;
-            color: white;
+.key {
+    width: 60px;
+    height: 50px;
+    margin: 4px;
 
-            border: 1px solid #7b00ff;
-            border-radius: 5px;
+    background: black;
+    color: white;
 
-            font-size: 20px;
-            cursor: pointer;
-        }
+    border: 1px solid #7b00ff;
+    border-radius: 5px;
 
-        .key:hover {
-            background: #7b00ff;
-        }
+    font-size: 20px;
+    cursor: pointer;
+}
 
-        /* SECRET BUTTON */
+.key:hover {
+    background: #7b00ff;
+}
 
-        #secretButton {
-            display: none;
+/* SECRET BUTTON */
 
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+#secretButton {
+    display: none;
 
-            width: 150px;
-            height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-            border-radius: 50%;
-            border: 3px solid #7b00ff;
+    width: 150px;
+    height: 150px;
 
-            background: black;
-            color: white;
+    border-radius: 50%;
+    border: 3px solid #7b00ff;
 
-            font-size: 24px;
-            cursor: pointer;
+    background: black;
+    color: white;
 
-            z-index: 4000;
-        }
+    font-size: 24px;
+    cursor: pointer;
 
-        #secretButton:hover {
-            background: #7b00ff;
-        }
+    z-index: 4000;
+}
 
-        /* VIDEO */
+#secretButton:hover {
+    background: #7b00ff;
+}
 
-        #secretVideo {
-            display: none;
+/* VIDEO */
 
-            position: fixed;
-            top: 0;
-            left: 0;
+#secretVideo {
+    display: none;
 
-            width: 100vw;
-            height: 100vh;
+    position: fixed;
+    inset: 0;
 
-            object-fit: cover;
+    width: 100vw;
+    height: 100vh;
 
-            z-index: 99999;
-            background: black;
-        }
+    object-fit: cover;
 
-        /* WIP SCREEN */
+    z-index: 99999;
+    background: black;
+}
 
-        #ripScreen {
-            display: none;
+/* WIP SCREEN */
 
-            position: fixed;
-            inset: 0;
+#ripScreen {
+    display: none;
 
-            background: black;
-            color: white;
+    position: fixed;
+    inset: 0;
 
-            z-index: 100000;
-            overflow: hidden;
-        }
+    background: black;
+    color: white;
 
-        /* STICKMAN */
+    z-index: 100000;
+    overflow: hidden;
+}
 
-        #stickman {
-            position: absolute;
+#stickman {
+    position: absolute;
 
-            left: 50%;
-            top: 50%;
+    left: 50%;
+    top: 50%;
 
-            width: 160px;
-            height: 240px;
+    width: 160px;
+    height: 240px;
 
-            transform: translate(-50%, -50%);
-        }
+    transform: translate(-50%, -50%);
+}
 
-        .head {
-            position: absolute;
+.head {
+    position: absolute;
 
-            width: 45px;
-            height: 45px;
+    width: 45px;
+    height: 45px;
 
-            border: 5px solid white;
-            border-radius: 50%;
+    border: 5px solid white;
+    border-radius: 50%;
 
-            left: 58px;
-            top: 5px;
-        }
+    left: 58px;
+    top: 5px;
+}
 
-        .body {
-            width: 5px;
-            height: 85px;
+.body {
+    width: 5px;
+    height: 85px;
 
-            background: white;
+    background: white;
 
-            position: absolute;
+    position: absolute;
 
-            left: 78px;
-            top: 48px;
-        }
+    left: 78px;
+    top: 48px;
+}
 
-        .stick {
-            position: absolute;
+.stick {
+    position: absolute;
+    height: 5px;
 
-            height: 5px;
+    background: white;
 
-            background: white;
+    transform-origin: left center;
 
-            transform-origin: left center;
+    border-radius: 5px;
+}
 
-            border-radius: 5px;
-        }
+.leftArm {
+    width: 65px;
+    left: 78px;
+    top: 75px;
+    transform: rotate(150deg);
+}
 
-        .leftArm {
-            width: 65px;
-            left: 78px;
-            top: 75px;
-            transform: rotate(150deg);
-        }
+.rightArm {
+    width: 65px;
+    left: 78px;
+    top: 75px;
+    transform: rotate(30deg);
+}
 
-        .rightArm {
-            width: 65px;
-            left: 78px;
-            top: 75px;
-            transform: rotate(30deg);
-        }
+.leftLeg {
+    width: 75px;
+    left: 78px;
+    top: 130px;
+    transform: rotate(120deg);
+}
 
-        .leftLeg {
-            width: 75px;
-            left: 78px;
-            top: 130px;
-            transform: rotate(120deg);
-        }
+.rightLeg {
+    width: 75px;
+    left: 78px;
+    top: 130px;
+    transform: rotate(60deg);
+}
 
-        .rightLeg {
-            width: 75px;
-            left: 78px;
-            top: 130px;
-            transform: rotate(60deg);
-        }
+.rip-text {
+    position: absolute;
+    width: 100%;
 
-        .rip-text {
-            position: absolute;
+    text-align: center;
 
-            width: 100%;
+    top: 20%;
 
-            text-align: center;
+    font-size: 32px;
+    font-weight: bold;
 
-            top: 20%;
+    opacity: 0;
+}
 
-            font-size: 32px;
-            font-weight: bold;
+.rip-final {
+    display: none;
 
-            opacity: 0;
-        }
+    position: absolute;
+    inset: 0;
 
-        .rip-final {
-            display: none;
+    background: black;
+    color: white;
 
-            position: absolute;
-            inset: 0;
+    align-items: center;
+    justify-content: center;
 
-            background: black;
-            color: white;
+    flex-direction: column;
 
-            align-items: center;
-            justify-content: center;
+    font-size: 24px;
+}
 
-            flex-direction: column;
+.rip-final small {
+    margin-top: 10px;
+    color: #888;
+}
 
-            font-size: 24px;
-        }
+#stickman.ripping {
+    animation: grabAndRip 2s forwards;
+}
 
-        .rip-final small {
-            margin-top: 10px;
-            color: #888;
-        }
+.rip-text.rippingText {
+    animation: textAppear 2s forwards;
+}
 
-        #stickman.ripping {
-            animation: grabAndRip 2s forwards;
-        }
+@keyframes grabAndRip {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
 
-        .rip-text.rippingText {
-            animation: textAppear 2s forwards;
-        }
+    30% {
+        transform: translate(-50%, -50%) scale(1.15);
+    }
 
-        @keyframes grabAndRip {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-            }
+    55% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(-8deg);
+    }
 
-            30% {
-                transform: translate(-50%, -50%) scale(1.15);
-            }
+    75% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(8deg);
+    }
 
-            55% {
-                transform: translate(-50%, -50%) scale(1.1) rotate(-8deg);
-            }
+    100% {
+        transform: translate(-50%, -50%) scale(0.2) rotate(25deg);
+        opacity: 0;
+    }
+}
 
-            75% {
-                transform: translate(-50%, -50%) scale(1.2) rotate(8deg);
-            }
+@keyframes textAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
 
-            100% {
-                transform: translate(-50%, -50%) scale(0.2) rotate(25deg);
-                opacity: 0;
-            }
-        }
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
 
-        @keyframes textAppear {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
+    100% {
+        opacity: 0;
+        transform: scale(1.4);
+    }
+}
 
-            40% {
-                opacity: 1;
-                transform: scale(1);
-            }
+/* DOT */
 
-            100% {
-                opacity: 0;
-                transform: scale(1.4);
-            }
-        }
+#secretDot {
+    display: none;
 
-        /* DOT */
+    position: fixed;
 
-        #secretDot {
-            display: none;
+    width: 55px;
+    height: 55px;
 
-            position: fixed;
+    border-radius: 50%;
 
-            width: 55px;
-            height: 55px;
+    background: white;
 
-            border-radius: 50%;
+    cursor: pointer;
 
-            background: white;
+    z-index: 9000;
 
-            cursor: pointer;
+    box-shadow: 0 0 15px white;
 
-            z-index: 9000;
+    transition:
+        left 0.25s ease,
+        top 0.25s ease;
+}
 
-            box-shadow: 0 0 15px white;
+#dotMessage {
+    display: none;
 
-            transition:
-                left 0.25s ease,
-                top 0.25s ease;
-        }
+    position: fixed;
 
-        #dotMessage {
-            display: none;
+    top: 50%;
+    left: 50%;
 
-            position: fixed;
+    transform: translate(-50%, -50%);
 
-            top: 50%;
-            left: 50%;
+    padding: 20px 30px;
 
-            transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
 
-            padding: 20px 30px;
+    border: 2px solid white;
+    border-radius: 10px;
 
-            background: rgba(0, 0, 0, 0.85);
+    color: white;
 
-            border: 2px solid white;
+    font-size: 22px;
+    text-align: center;
 
-            border-radius: 10px;
+    z-index: 9500;
+}
 
-            color: white;
+/* RAINBOW */
 
-            font-size: 22px;
+body.rainbow {
+    animation: rainbowBackground 3s linear infinite;
+}
 
-            text-align: center;
+@keyframes rainbowBackground {
+    0% {
+        background: #ff0000;
+    }
 
-            z-index: 9500;
-        }
+    16% {
+        background: #ff7f00;
+    }
 
-        /* RAINBOW */
+    33% {
+        background: #ffff00;
+    }
 
-        body.rainbow {
-            animation: rainbowBackground 3s linear infinite;
-        }
+    50% {
+        background: #00ff00;
+    }
 
-        @keyframes rainbowBackground {
-            0% {
-                background: #ff0000;
-            }
+    66% {
+        background: #00ffff;
+    }
 
-            16% {
-                background: #ff7f00;
-            }
+    83% {
+        background: #0000ff;
+    }
 
-            33% {
-                background: #ffff00;
-            }
+    100% {
+        background: #ff00ff;
+    }
+}
 
-            50% {
-                background: #00ff00;
-            }
+/* ANGRY IMAGES */
 
-            66% {
-                background: #00ffff;
-            }
+.angry-image {
+    user-select: none;
+    -webkit-user-drag: none;
+}
 
-            83% {
-                background: #0000ff;
-            }
+/* KABOOM */
 
-            100% {
-                background: #ff00ff;
-            }
-        }
-    </style>
+#kaboomFlash {
+    position: fixed;
+    inset: 0;
+
+    background: white;
+
+    z-index: 999999;
+
+    pointer-events: none;
+}
+</style>
 </head>
 
 <body>
 
-    <div id="button">CLICK ME!</div>
+<div id="button">CLICK ME!</div>
 
-    <div id="wip">WIP</div>
+<div id="wip">WIP</div>
 
-    <button id="hiddenButton">
-        da hidden button
-    </button>
+<button id="hiddenButton">
+    da hidden button
+</button>
 
-    <div id="keypad">
+<div id="keypad">
 
-        <input
-            id="display"
-            type="password"
-            readonly
-        >
+    <input
+        id="display"
+        type="password"
+        readonly
+    >
 
-        <div>
-            <button class="key" data-num="1">1</button>
-            <button class="key" data-num="2">2</button>
-            <button class="key" data-num="3">3</button>
-        </div>
+    <div>
+        <button class="key" data-num="1">1</button>
+        <button class="key" data-num="2">2</button>
+        <button class="key" data-num="3">3</button>
+    </div>
 
-        <div>
-            <button class="key" data-num="4">4</button>
-            <button class="key" data-num="5">5</button>
-            <button class="key" data-num="6">6</button>
-        </div>
+    <div>
+        <button class="key" data-num="4">4</button>
+        <button class="key" data-num="5">5</button>
+        <button class="key" data-num="6">6</button>
+    </div>
 
-        <div>
-            <button class="key" data-num="7">7</button>
-            <button class="key" data-num="8">8</button>
-            <button class="key" data-num="9">9</button>
-        </div>
+    <div>
+        <button class="key" data-num="7">7</button>
+        <button class="key" data-num="8">8</button>
+        <button class="key" data-num="9">9</button>
+    </div>
 
-        <div>
-            <button class="key" id="clear">C</button>
-            <button class="key" data-num="0">0</button>
-            <button class="key" id="enter">✓</button>
-        </div>
+    <div>
+        <button class="key" id="clear">C</button>
+        <button class="key" data-num="0">0</button>
+        <button class="key" id="enter">✓</button>
+    </div>
+
+</div>
+
+<button id="secretButton">
+    SECRET
+</button>
+
+<video
+    id="secretVideo"
+    src="spin.mp4"
+    playsinline
+></video>
+
+<!-- WIP -->
+
+<div id="ripScreen">
+
+    <div
+        class="rip-text"
+        id="ripText"
+    >
+        BRO WHAT DID YOU DO
+    </div>
+
+    <div id="stickman">
+
+        <div class="head"></div>
+        <div class="body"></div>
+
+        <div class="stick leftArm"></div>
+        <div class="stick rightArm"></div>
+
+        <div class="stick leftLeg"></div>
+        <div class="stick rightLeg"></div>
 
     </div>
 
-    <button id="secretButton">
-        SECRET
-    </button>
+    <div
+        class="rip-final"
+        id="ripFinal"
+    >
+        <strong>WIP</strong>
 
-    <video
-        id="secretVideo"
-        src="spin.mp4"
-        playsinline
-    ></video>
-
-    <!-- WIP SCREEN -->
-
-    <div id="ripScreen">
-
-        <div
-            class="rip-text"
-            id="ripText"
-        >
-            BRO WHAT DID YOU DO
-        </div>
-
-        <div id="stickman">
-
-            <div class="head"></div>
-
-            <div class="body"></div>
-
-            <div class="stick leftArm"></div>
-
-            <div class="stick rightArm"></div>
-
-            <div class="stick leftLeg"></div>
-
-            <div class="stick rightLeg"></div>
-
-        </div>
-
-        <div
-            class="rip-final"
-            id="ripFinal"
-        >
-            <strong>WIP</strong>
-
-            <small>
-                website discontinued due to excessive WIP
-            </small>
-        </div>
-
+        <small>
+            website discontinued due to excessive WIP
+        </small>
     </div>
 
-    <!-- DOT -->
+</div>
 
-    <div id="secretDot"></div>
+<!-- DOT -->
 
-    <div id="dotMessage">
-        congratulations, you clicked the dot.
-    </div>
+<div id="secretDot"></div>
 
-    <script>
+<div id="dotMessage">
+    congratulations, you clicked the dot.
+</div>
 
-        /* =========================
-           ELEMENTS
-        ========================= */
+<script>
 
-        const button =
-            document.getElementById("button");
+/* =========================
+   ELEMENTS
+========================= */
 
-        const wip =
-            document.getElementById("wip");
+const button =
+    document.getElementById("button");
 
-        const hiddenButton =
-            document.getElementById("hiddenButton");
+const wip =
+    document.getElementById("wip");
 
-        const keypad =
-            document.getElementById("keypad");
+const hiddenButton =
+    document.getElementById("hiddenButton");
 
-        const display =
-            document.getElementById("display");
+const keypad =
+    document.getElementById("keypad");
 
-        const secretButton =
-            document.getElementById("secretButton");
+const display =
+    document.getElementById("display");
 
-        const video =
-            document.getElementById("secretVideo");
+const secretButton =
+    document.getElementById("secretButton");
 
-        const ripScreen =
-            document.getElementById("ripScreen");
+const video =
+    document.getElementById("secretVideo");
 
-        const stickman =
-            document.getElementById("stickman");
+const ripScreen =
+    document.getElementById("ripScreen");
 
-        const ripText =
-            document.getElementById("ripText");
+const stickman =
+    document.getElementById("stickman");
 
-        const ripFinal =
-            document.getElementById("ripFinal");
+const ripText =
+    document.getElementById("ripText");
 
-        const secretDot =
-            document.getElementById("secretDot");
+const ripFinal =
+    document.getElementById("ripFinal");
 
-        const dotMessage =
-            document.getElementById("dotMessage");
+const secretDot =
+    document.getElementById("secretDot");
 
-
-        /* =========================
-           PASSCODE
-        ========================= */
-
-        let typed = "";
-
-        document.addEventListener(
-            "keydown",
-            (event) => {
-
-                if (event.key.length !== 1) {
-                    return;
-                }
-
-                typed +=
-                    event.key.toLowerCase();
-
-                if (
-                    typed.endsWith("passcode")
-                ) {
-
-                    hiddenButton.style.display =
-                        "block";
-
-                    typed = "";
-                }
-
-                if (typed.length > 8) {
-
-                    typed =
-                        typed.slice(-8);
-                }
-            }
-        );
+const dotMessage =
+    document.getElementById("dotMessage");
 
 
-        /* HIDDEN BUTTON */
+/* =========================
+   PASSCODE
+========================= */
 
-        hiddenButton.addEventListener(
-            "click",
-            () => {
+let typed = "";
 
-                hiddenButton.style.display =
-                    "none";
+document.addEventListener("keydown", function(event) {
 
-                keypad.style.display =
-                    "block";
+    if (event.key.length !== 1) {
+        return;
+    }
 
-                display.value = "";
-            }
-        );
+    typed += event.key.toLowerCase();
 
+    if (typed.endsWith("passcode")) {
 
-        /* NUMBER PAD */
+        hiddenButton.style.display =
+            "block";
 
-        document
-            .querySelectorAll(
-                ".key[data-num]"
-            )
-            .forEach(
-                (key) => {
+        typed = "";
+    }
 
-                    key.addEventListener(
-                        "click",
-                        () => {
-
-                            display.value +=
-                                key.dataset.num;
-                        }
-                    );
-                }
-            );
+    if (typed.length > 8) {
+        typed = typed.slice(-8);
+    }
+});
 
 
-        /* CLEAR */
+/* HIDDEN BUTTON */
 
-        document
-            .getElementById("clear")
-            .addEventListener(
-                "click",
-                () => {
+hiddenButton.addEventListener("click", function() {
 
-                    display.value = "";
-                }
-            );
+    hiddenButton.style.display =
+        "none";
 
+    keypad.style.display =
+        "block";
 
-        /* ENTER 2309 */
-
-        document
-            .getElementById("enter")
-            .addEventListener(
-                "click",
-                () => {
-
-                    if (
-                        display.value === "2309"
-                    ) {
-
-                        keypad.style.display =
-                            "none";
-
-                        secretButton.style.display =
-                            "block";
-
-                    } else {
-
-                        display.value = "";
-
-                        alert(
-                            "wrong code 😭"
-                        );
-                    }
-                }
-            );
+    display.value = "";
+});
 
 
-        /* =========================
-           IMAGE RAIN
-        ========================= */
+/* KEYPAD */
 
-        let started = false;
+document
+.querySelectorAll(".key[data-num]")
+.forEach(function(key) {
 
-        function createImage() {
+    key.addEventListener("click", function() {
 
-            const img =
+        display.value +=
+            key.dataset.num;
+    });
+});
+
+
+/* CLEAR */
+
+document
+.getElementById("clear")
+.addEventListener("click", function() {
+
+    display.value = "";
+});
+
+
+/* ENTER */
+
+document
+.getElementById("enter")
+.addEventListener("click", function() {
+
+    if (display.value === "2309") {
+
+        keypad.style.display =
+            "none";
+
+        secretButton.style.display =
+            "block";
+
+    } else {
+
+        display.value = "";
+
+        alert("wrong code 😭");
+    }
+});
+
+
+/* =========================
+   IMAGE RAIN
+========================= */
+
+let started = false;
+
+function createImage() {
+
+    const img =
+        document.createElement("img");
+
+    img.src = "image.png";
+
+    img.className =
+        "falling-image";
+
+    img.style.left =
+        Math.random() *
+        Math.max(window.innerWidth - 100, 1) +
+        "px";
+
+    const size =
+        70 + Math.random() * 40;
+
+    img.style.width =
+        size + "px";
+
+    const duration =
+        7 + Math.random() * 5;
+
+    img.style.animationDuration =
+        duration + "s";
+
+    document.body.appendChild(img);
+
+    setTimeout(function() {
+
+        img.remove();
+
+    }, duration * 1000 + 500);
+}
+
+
+/* =========================
+   SECRET STATE
+========================= */
+
+let noCount = 0;
+let noCode = "";
+
+let angryMode = false;
+let cursorGone = false;
+
+
+/* =========================
+   NORMAL CLICK ME
+========================= */
+
+button.addEventListener("click", function() {
+
+    /* NO SECRET TAKES PRIORITY */
+
+    if (noCount === 1) {
+
+        if (angryMode) {
+            return;
+        }
+
+        angryMode = true;
+
+        for (let i = 0; i < 5; i++) {
+
+            const angry =
                 document.createElement("img");
 
-            img.src =
-                "image.png";
+            angry.src = "angry.png";
 
-            img.className =
-                "falling-image";
+            angry.className =
+                "angry-image";
 
-            img.style.left =
+            angry.style.position =
+                "fixed";
+
+            angry.style.width =
+                "120px";
+
+            angry.style.height =
+                "auto";
+
+            angry.style.left =
                 Math.random() *
-                (window.innerWidth - 100) +
+                Math.max(window.innerWidth - 120, 1) +
                 "px";
 
-            const size =
-                70 +
-                Math.random() * 40;
+            angry.style.top =
+                Math.random() *
+                Math.max(window.innerHeight - 120, 1) +
+                "px";
 
-            img.style.width =
-                size + "px";
+            angry.style.zIndex =
+                "99990";
 
-            const duration =
-                7 +
-                Math.random() * 5;
-
-            img.style.animationDuration =
-                duration + "s";
-
-            document.body.appendChild(img);
-
-            setTimeout(
-                () => {
-                    img.remove();
-                },
-                duration * 1000 + 500
-            );
-        }
-
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                if (started) {
-                    return;
-                }
-
-                started = true;
-
-                for (
-                    let i = 0;
-                    i < 10;
-                    i++
-                ) {
-
-                    setTimeout(
-                        () => {
-                            createImage();
-                        },
-                        i * 300
-                    );
-                }
-
-                setInterval(
-                    () => {
-                        createImage();
-                    },
-                    700
-                );
-            }
-        );
-
-
-        /* =========================
-           SECRET VIDEO
-        ========================= */
-
-        secretButton.addEventListener(
-            "click",
-            () => {
-
-                secretButton.style.display =
-                    "none";
-
-                video.style.display =
-                    "block";
-
-                video.currentTime = 0;
-
-                video.play();
-            }
-        );
-
-
-        /* =========================
-           WIP
-        ========================= */
-
-        let ripped = false;
-
-        wip.addEventListener(
-            "click",
-            () => {
-
-                if (ripped) {
-                    return;
-                }
-
-                ripped = true;
-
-                ripScreen.style.display =
-                    "block";
-
-                setTimeout(
-                    () => {
-
-                        stickman.classList.add(
-                            "ripping"
-                        );
-
-                        ripText.classList.add(
-                            "rippingText"
-                        );
-
-                    },
-                    200
-                );
-
-                setTimeout(
-                    () => {
-
-                        ripFinal.style.display =
-                            "flex";
-
-                    },
-                    2200
-                );
-            }
-        );
-
-
-        /* =========================
-           A1B2C3 DOT
-        ========================= */
-
-        let dotCode = "";
-
-        let dotTimer = null;
-
-        let dotMoving = null;
-
-        document.addEventListener(
-            "keydown",
-            (event) => {
-
-                if (event.key.length !== 1) {
-                    return;
-                }
-
-                dotCode +=
-                    event.key.toLowerCase();
-
-                if (
-                    dotCode.endsWith("a1b2c3")
-                ) {
-
-                    spawnDot();
-
-                    dotCode = "";
-                }
-
-                if (dotCode.length > 6) {
-
-                    dotCode =
-                        dotCode.slice(-6);
-                }
-            }
-        );
-
-
-        function spawnDot() {
-
-            clearTimeout(dotTimer);
-
-            clearInterval(dotMoving);
-
-            dotMessage.style.display =
+            angry.style.pointerEvents =
                 "none";
 
-            secretDot.style.display =
-                "block";
+            document.body.appendChild(
+                angry
+            );
 
-            moveDot();
-
-            dotMoving =
-                setInterval(
-                    moveDot,
-                    1000
-                );
-
-            dotTimer =
-                setTimeout(
-                    () => {
-
-                        secretDot.style.display =
-                            "none";
-
-                        clearInterval(
-                            dotMoving
-                        );
-
-                    },
-                    5000
-                );
+            chaseAngry(angry);
         }
 
+        return;
+    }
 
-        function moveDot() {
 
-            const padding = 80;
+    /* SECOND NO SECRET */
 
-            const maxX =
-                window.innerWidth -
-                secretDot.offsetWidth -
-                padding;
+    if (noCount === 2) {
 
-            const maxY =
-                window.innerHeight -
-                secretDot.offsetHeight -
-                padding;
+        const creepy =
+            document.createElement("img");
 
-            const x =
-                padding +
-                Math.random() *
-                Math.max(
-                    maxX - padding,
-                    1
-                );
+        creepy.src =
+            "creepy.png";
 
-            const y =
-                padding +
-                Math.random() *
-                Math.max(
-                    maxY - padding,
-                    1
-                );
+        creepy.style.position =
+            "fixed";
 
-            secretDot.style.left =
+        creepy.style.left =
+            "50%";
+
+        creepy.style.top =
+            "50%";
+
+        creepy.style.transform =
+            "translate(-50%, -50%)";
+
+        creepy.style.width =
+            "min(500px, 80vw)";
+
+        creepy.style.maxHeight =
+            "80vh";
+
+        creepy.style.objectFit =
+            "contain";
+
+        creepy.style.zIndex =
+            "999999";
+
+        creepy.style.pointerEvents =
+            "none";
+
+        document.body.appendChild(
+            creepy
+        );
+
+
+        /* SCREAM */
+
+        const scream =
+            new Audio("scream.mp3");
+
+        scream.volume = 1.0;
+
+        scream.play().catch(function() {});
+
+
+        /* FLASH */
+
+        document.body.style.background =
+            "white";
+
+        setTimeout(function() {
+
+            document.body.style.background =
+                "black";
+
+        }, 80);
+
+
+        setTimeout(function() {
+
+            creepy.remove();
+
+        }, 4000);
+
+        return;
+    }
+
+
+    /* NORMAL IMAGE RAIN */
+
+    if (started) {
+        return;
+    }
+
+    started = true;
+
+    for (let i = 0; i < 10; i++) {
+
+        setTimeout(function() {
+
+            createImage();
+
+        }, i * 300);
+    }
+
+    setInterval(function() {
+
+        createImage();
+
+    }, 700);
+});
+
+
+/* =========================
+   NO SECRET
+========================= */
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key.length !== 1) {
+        return;
+    }
+
+    noCode +=
+        event.key.toLowerCase();
+
+    if (noCode.endsWith("no")) {
+
+        noCount++;
+
+        noCode = "";
+
+        if (noCount === 1) {
+
+            button.textContent =
+                "Click Me?";
+
+        }
+
+        else if (noCount === 2) {
+
+            button.textContent =
+                "DON'T CLICK ME";
+
+        }
+    }
+
+    if (noCode.length > 2) {
+        noCode =
+            noCode.slice(-2);
+    }
+});
+
+
+/* =========================
+   ANGRY CHASE
+========================= */
+
+let mouseX =
+    window.innerWidth / 2;
+
+let mouseY =
+    window.innerHeight / 2;
+
+
+document.addEventListener("mousemove", function(event) {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+});
+
+
+function chaseAngry(element) {
+
+    let x =
+        parseFloat(element.style.left);
+
+    let y =
+        parseFloat(element.style.top);
+
+    function move() {
+
+        if (!element.isConnected) {
+            return;
+        }
+
+        const rect =
+            element.getBoundingClientRect();
+
+        const centerX =
+            rect.left +
+            rect.width / 2;
+
+        const centerY =
+            rect.top +
+            rect.height / 2;
+
+        const dx =
+            mouseX - centerX;
+
+        const dy =
+            mouseY - centerY;
+
+        const distance =
+            Math.sqrt(dx * dx + dy * dy);
+
+        if (distance > 2) {
+
+            x +=
+                (dx / distance) * 2.5;
+
+            y +=
+                (dy / distance) * 2.5;
+
+            element.style.left =
                 x + "px";
 
-            secretDot.style.top =
+            element.style.top =
                 y + "px";
         }
 
 
-        /* DOT CLICK */
+        /* TOUCH */
 
-        secretDot.addEventListener(
-            "click",
-            () => {
+        if (
+            distance < 65 &&
+            !cursorGone
+        ) {
 
-                clearTimeout(dotTimer);
+            cursorGone = true;
 
-                clearInterval(dotMoving);
+            document.body.style.cursor =
+                "none";
 
-                secretDot.style.display =
+            document.documentElement.style.cursor =
+                "none";
+
+            document
+            .querySelectorAll("*")
+            .forEach(function(el) {
+
+                el.style.cursor =
                     "none";
+            });
+        }
 
-                dotMessage.style.display =
-                    "block";
+        requestAnimationFrame(move);
+    }
 
-                document.body.classList.add(
-                    "rainbow"
-                );
+    move();
+}
 
-                setTimeout(
-                    () => {
 
-                        dotMessage.style.display =
-                            "none";
+/* =========================
+   SECRET VIDEO
+========================= */
 
-                    },
-                    3000
-                );
-            }
+secretButton.addEventListener("click", function() {
+
+    secretButton.style.display =
+        "none";
+
+    video.style.display =
+        "block";
+
+    video.currentTime = 0;
+
+    video.play().catch(function() {});
+});
+
+
+/* =========================
+   WIP
+========================= */
+
+let ripped = false;
+
+wip.addEventListener("click", function() {
+
+    if (ripped) {
+        return;
+    }
+
+    ripped = true;
+
+    ripScreen.style.display =
+        "block";
+
+    setTimeout(function() {
+
+        stickman.classList.add(
+            "ripping"
         );
 
-
-        /* =========================
-           YOUTUBE
-        ========================= */
-
-        let youtubeCode = "";
-
-        document.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (event.key.length !== 1) {
-                    return;
-                }
-
-                youtubeCode +=
-                    event.key.toLowerCase();
-
-                if (
-                    youtubeCode.includes("youtube")
-                ) {
-
-                    window.location.assign(
-                        "https://www.youtube.com/"
-                    );
-
-                    youtubeCode = "";
-
-                    return;
-                }
-
-                if (youtubeCode.length > 7) {
-
-                    youtubeCode =
-                        youtubeCode.slice(-7);
-                }
-            }
+        ripText.classList.add(
+            "rippingText"
         );
 
+    }, 200);
 
-        /* =========================
-           KABOOM
-        ========================= */
+    setTimeout(function() {
 
-        let kaboomCode = "";
+        ripFinal.style.display =
+            "flex";
 
-        document.addEventListener(
-            "keydown",
-            function(event) {
+    }, 2200);
+});
 
-                if (event.key.length !== 1) {
-                    return;
-                }
 
-                kaboomCode +=
-                    event.key.toLowerCase();
+/* =========================
+   A1B2C3 DOT
+========================= */
 
-                if (
-                    kaboomCode.includes("kaboom")
-                ) {
+let dotCode = "";
 
-                    kaboomCode = "";
+let dotTimer = null;
+let dotMoving = null;
 
-                    document.body.style.pointerEvents =
-                        "none";
 
-                    const explosion =
-                        document.createElement("div");
+document.addEventListener("keydown", function(event) {
 
-                    explosion.style.position =
-                        "fixed";
+    if (event.key.length !== 1) {
+        return;
+    }
 
-                    explosion.style.inset =
-                        "0";
+    dotCode +=
+        event.key.toLowerCase();
 
-                    explosion.style.zIndex =
-                        "999999";
+    if (
+        dotCode.endsWith("a1b2c3")
+    ) {
 
-                    explosion.style.background =
-                        "white";
+        spawnDot();
 
-                    explosion.style.pointerEvents =
-                        "none";
+        dotCode = "";
+    }
 
-                    document.body.appendChild(
-                        explosion
-                    );
+    if (dotCode.length > 6) {
+        dotCode =
+            dotCode.slice(-6);
+    }
+});
 
-                    const elements =
-                        document.body.querySelectorAll(
-                            "body > *:not(script)"
-                        );
 
-                    elements.forEach(
-                        (element) => {
+function spawnDot() {
 
-                            if (
-                                element === explosion
-                            ) {
-                                return;
-                            }
+    clearTimeout(dotTimer);
+    clearInterval(dotMoving);
 
-                            const x =
-                                (Math.random() - 0.5) *
-                                window.innerWidth *
-                                2;
+    dotMessage.style.display =
+        "none";
 
-                            const y =
-                                (Math.random() - 0.5) *
-                                window.innerHeight *
-                                2;
+    secretDot.style.display =
+        "block";
 
-                            const rotation =
-                                (Math.random() - 0.5) *
-                                720;
+    moveDot();
 
-                            element.style.transition =
-                                "transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 1.2s";
-
-                            element.style.transform =
-                                `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
-
-                            element.style.opacity =
-                                "0";
-                        }
-                    );
-
-                    setTimeout(
-                        () => {
-
-                            explosion.style.background =
-                                "black";
-
-                        },
-                        120
-                    );
-
-                    setTimeout(
-                        () => {
-
-                            window.location.href =
-                                "https://www.google.com/";
-
-                        },
-                        1400
-                    );
-                }
-
-                if (kaboomCode.length > 6) {
-
-                    kaboomCode =
-                        kaboomCode.slice(-6);
-                }
-            }
+    dotMoving =
+        setInterval(
+            moveDot,
+            1000
         );
 
+    dotTimer =
+        setTimeout(function() {
 
-        /* =========================
-           CATGUY SECRET
-        ========================= */
+            secretDot.style.display =
+                "none";
 
-        let catGuyCode = "";
+            clearInterval(dotMoving);
 
-        document.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (event.key.length !== 1) {
-                    return;
-                }
-
-                catGuyCode +=
-                    event.key.toLowerCase();
-
-                if (
-                    catGuyCode.includes(
-                        "summonthecatguy09"
-                    )
-                ) {
-
-                    catGuyCode = "";
-
-                    /* PLAY SOUND */
-
-                    const sound =
-                        new Audio(
-                            "catguy.mp3"
-                        );
-
-                    sound.volume = 1.0;
-
-                    sound.play().catch(
-                        () => {}
-                    );
+        }, 5000);
+}
 
 
-                    /* SPAWN FIVE IMAGES */
+function moveDot() {
 
-                    for (
-                        let i = 0;
-                        i < 5;
-                        i++
-                    ) {
+    const padding = 80;
 
-                        const cat =
-                            document.createElement(
-                                "img"
-                            );
+    const maxX =
+        window.innerWidth -
+        secretDot.offsetWidth -
+        padding;
 
-                        cat.src =
-                            "catguy.png";
+    const maxY =
+        window.innerHeight -
+        secretDot.offsetHeight -
+        padding;
 
-                        cat.style.position =
-                            "fixed";
-
-                        cat.style.width =
-                            "180px";
-
-                        cat.style.height =
-                            "auto";
-
-                        cat.style.left =
-                            Math.random() *
-                            Math.max(
-                                window.innerWidth - 180,
-                                1
-                            ) +
-                            "px";
-
-                        cat.style.top =
-                            Math.random() *
-                            Math.max(
-                                window.innerHeight - 180,
-                                1
-                            ) +
-                            "px";
-
-                        cat.style.zIndex =
-                            "99999";
-
-                        cat.style.pointerEvents =
-                            "none";
-
-                        document.body.appendChild(
-                            cat
-                        );
-
-
-                        /* REMOVE AFTER 5 SECONDS */
-
-                        setTimeout(
-                            () => {
-
-                                cat.remove();
-
-                            },
-                            5000
-                        );
-                    }
-                }
-
-                if (
-                    catGuyCode.length > 18
-                ) {
-
-                    catGuyCode =
-                        catGuyCode.slice(-18);
-                }
-            }
+    const x =
+        padding +
+        Math.random() *
+        Math.max(
+            maxX - padding,
+            1
         );
 
-    </script>
+    const y =
+        padding +
+        Math.random() *
+        Math.max(
+            maxY - padding,
+            1
+        );
+
+    secretDot.style.left =
+        x + "px";
+
+    secretDot.style.top =
+        y + "px";
+}
+
+
+/* DOT CLICK */
+
+secretDot.addEventListener("click", function() {
+
+    clearTimeout(dotTimer);
+    clearInterval(dotMoving);
+
+    secretDot.style.display =
+        "none";
+
+    dotMessage.style.display =
+        "block";
+
+    document.body.classList.add(
+        "rainbow"
+    );
+
+    setTimeout(function() {
+
+        dotMessage.style.display =
+            "none";
+
+    }, 3000);
+});
+
+
+/* =========================
+   YOUTUBE
+========================= */
+
+let youtubeCode = "";
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key.length !== 1) {
+        return;
+    }
+
+    youtubeCode +=
+        event.key.toLowerCase();
+
+    if (
+        youtubeCode.includes("youtube")
+    ) {
+
+        window.location.assign(
+            "https://www.youtube.com/"
+        );
+
+        youtubeCode = "";
+
+        return;
+    }
+
+    if (youtubeCode.length > 7) {
+
+        youtubeCode =
+            youtubeCode.slice(-7);
+    }
+});
+
+
+/* =========================
+   KABOOM
+========================= */
+
+let kaboomCode = "";
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key.length !== 1) {
+        return;
+    }
+
+    kaboomCode +=
+        event.key.toLowerCase();
+
+    if (
+        kaboomCode.includes("kaboom")
+    ) {
+
+        kaboomCode = "";
+
+        document.body.style.pointerEvents =
+            "none";
+
+        const explosion =
+            document.createElement("div");
+
+        explosion.id =
+            "kaboomFlash";
+
+        document.body.appendChild(
+            explosion
+        );
+
+        const elements =
+            document.body.querySelectorAll(
+                "body > *:not(script):not(#kaboomFlash)"
+            );
+
+        elements.forEach(function(element) {
+
+            const x =
+                (Math.random() - 0.5) *
+                window.innerWidth *
+                2;
+
+            const y =
+                (Math.random() - 0.5) *
+                window.innerHeight *
+                2;
+
+            const rotation =
+                (Math.random() - 0.5) *
+                720;
+
+            element.style.transition =
+                "transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 1.2s";
+
+            element.style.transform =
+                `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+
+            element.style.opacity =
+                "0";
+        });
+
+        setTimeout(function() {
+
+            explosion.style.background =
+                "black";
+
+        }, 120);
+
+        setTimeout(function() {
+
+            window.location.href =
+                "https://www.google.com/";
+
+        }, 1400);
+    }
+
+    if (kaboomCode.length > 6) {
+
+        kaboomCode =
+            kaboomCode.slice(-6);
+    }
+});
+
+
+/* =========================
+   CATGUY SECRET
+========================= */
+
+let catGuyCode = "";
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key.length !== 1) {
+        return;
+    }
+
+    catGuyCode +=
+        event.key.toLowerCase();
+
+    if (
+        catGuyCode.includes(
+            "summonthecatguy09"
+        )
+    ) {
+
+        catGuyCode = "";
+
+
+        /* SOUND */
+
+        const sound =
+            new Audio("catguy.mp3");
+
+        sound.volume = 1.0;
+
+        sound.play().catch(function() {});
+
+
+        /* FIVE CATGUYS */
+
+        for (let i = 0; i < 5; i++) {
+
+            const cat =
+                document.createElement("img");
+
+            cat.src =
+                "catguy.png";
+
+            cat.style.position =
+                "fixed";
+
+            cat.style.width =
+                "180px";
+
+            cat.style.height =
+                "auto";
+
+            cat.style.left =
+                Math.random() *
+                Math.max(
+                    window.innerWidth - 180,
+                    1
+                ) +
+                "px";
+
+            cat.style.top =
+                Math.random() *
+                Math.max(
+                    window.innerHeight - 180,
+                    1
+                ) +
+                "px";
+
+            cat.style.zIndex =
+                "99999";
+
+            cat.style.pointerEvents =
+                "none";
+
+            document.body.appendChild(
+                cat
+            );
+
+            setTimeout(function() {
+
+                cat.remove();
+
+            }, 5000);
+        }
+    }
+
+    if (catGuyCode.length > 18) {
+
+        catGuyCode =
+            catGuyCode.slice(-18);
+    }
+});
+
+</script>
 
 </body>
 </html>
