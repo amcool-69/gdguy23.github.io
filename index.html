@@ -1,3 +1,6 @@
+# Updated `index.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -496,6 +499,112 @@ body.rainbow {
 
     pointer-events: none;
 }
+
+/* YOUTUBE SHORTS EASTER EGG */
+
+#shortsFeed {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: black;
+
+    z-index: 999998;
+
+    overflow: hidden;
+}
+
+#shortsVideo {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: min(56.25vh, 100vw);
+    height: min(100vh, 177.78vw);
+
+    border: none;
+
+    background: black;
+}
+
+#shortsClose {
+    position: absolute;
+
+    top: 20px;
+    right: 25px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+
+    font-size: 28px;
+    line-height: 45px;
+
+    cursor: pointer;
+
+    z-index: 1000000;
+}
+
+#shortsClose:hover {
+    background: #7b00ff;
+}
+
+#shortsNext {
+    position: absolute;
+
+    right: 25px;
+    bottom: 80px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    z-index: 1000000;
+}
+
+#shortsNext:hover {
+    background: #7b00ff;
+}
+
+#shortsHint {
+    position: absolute;
+
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    color: white;
+
+    font-size: 13px;
+
+    opacity: 0.65;
+
+    z-index: 1000000;
+
+    pointer-events: none;
+}
 </style>
 </head>
 
@@ -598,6 +707,31 @@ body.rainbow {
     congratulations, you clicked the dot.
 </div>
 
+<!-- YOUTUBE SHORTS FEED -->
+
+<div id="shortsFeed">
+
+    <button id="shortsClose">
+        ×
+    </button>
+
+    <iframe
+        id="shortsVideo"
+        src=""
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+
+    <button id="shortsNext">
+        ↓
+    </button>
+
+    <div id="shortsHint">
+        scroll or press ↓ for another Short
+    </div>
+
+</div>
+
 <script>
 
 /* =========================
@@ -642,6 +776,18 @@ const secretDot =
 
 const dotMessage =
     document.getElementById("dotMessage");
+
+const shortsFeed =
+    document.getElementById("shortsFeed");
+
+const shortsVideo =
+    document.getElementById("shortsVideo");
+
+const shortsClose =
+    document.getElementById("shortsClose");
+
+const shortsNext =
+    document.getElementById("shortsNext");
 
 
 /* =========================
@@ -793,8 +939,6 @@ let cursorGone = false;
 
 button.addEventListener("click", function() {
 
-    /* NO SECRET TAKES PRIORITY */
-
     if (noCount === 1) {
 
         if (angryMode) {
@@ -849,8 +993,6 @@ button.addEventListener("click", function() {
     }
 
 
-    /* SECOND NO SECRET */
-
     if (noCount === 2) {
 
         const creepy =
@@ -891,8 +1033,6 @@ button.addEventListener("click", function() {
         );
 
 
-        /* SCREAM */
-
         const scream =
             new Audio("scream.mp3");
 
@@ -900,8 +1040,6 @@ button.addEventListener("click", function() {
 
         scream.play().catch(function() {});
 
-
-        /* FLASH */
 
         document.body.style.background =
             "white";
@@ -923,8 +1061,6 @@ button.addEventListener("click", function() {
         return;
     }
 
-
-    /* NORMAL IMAGE RAIN */
 
     if (started) {
         return;
@@ -1057,8 +1193,6 @@ function chaseAngry(element) {
                 y + "px";
         }
 
-
-        /* TOUCH */
 
         if (
             distance < 65 &&
@@ -1276,7 +1410,7 @@ secretDot.addEventListener("click", function() {
 
 
 /* =========================
-   YOUTUBE
+   YOUTUBE REDIRECT
 ========================= */
 
 let youtubeCode = "";
@@ -1423,8 +1557,6 @@ document.addEventListener("keydown", function(event) {
         catGuyCode = "";
 
 
-        /* SOUND */
-
         const sound =
             new Audio("catguy.mp3");
 
@@ -1432,8 +1564,6 @@ document.addEventListener("keydown", function(event) {
 
         sound.play().catch(function() {});
 
-
-        /* FIVE CATGUYS */
 
         for (let i = 0; i < 5; i++) {
 
@@ -1493,7 +1623,232 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+
+/* =========================
+   TIKTOK SECRET
+   YOUTUBE SHORTS FEED
+========================= */
+
+
+/*
+    ADD YOUTUBE SHORT IDS HERE.
+
+    Example:
+
+    A Short URL:
+
+    https://www.youtube.com/shorts/AbCdEf123
+
+    becomes:
+
+    "AbCdEf123"
+
+    Put as many as you want in this list.
+*/
+
+const shortIds = [
+
+    "SHORT_ID_1",
+    "SHORT_ID_2",
+    "SHORT_ID_3",
+    "SHORT_ID_4",
+    "SHORT_ID_5"
+
+];
+
+
+let currentShort =
+    -1;
+
+
+/* OPEN FEED */
+
+function openShortsFeed() {
+
+    shortsFeed.style.display =
+        "block";
+
+    document.body.style.overflow =
+        "hidden";
+
+    playRandomShort();
+}
+
+
+/* PLAY RANDOM SHORT */
+
+function playRandomShort() {
+
+    if (
+        shortIds.length === 0
+    ) {
+        return;
+    }
+
+    let next;
+
+    do {
+
+        next =
+            Math.floor(
+                Math.random() *
+                shortIds.length
+            );
+
+    } while (
+        shortIds.length > 1 &&
+        next === currentShort
+    );
+
+    currentShort =
+        next;
+
+    const id =
+        shortIds[currentShort];
+
+    shortsVideo.src =
+        "https://www.youtube.com/embed/" +
+        id +
+        "?autoplay=1&rel=0";
+}
+
+
+/* CLOSE FEED */
+
+shortsClose.addEventListener(
+    "click",
+    function() {
+
+        shortsFeed.style.display =
+            "none";
+
+        shortsVideo.src =
+            "";
+
+        document.body.style.overflow =
+            "";
+
+    }
+);
+
+
+/* NEXT BUTTON */
+
+shortsNext.addEventListener(
+    "click",
+    function() {
+
+        playRandomShort();
+
+    }
+);
+
+
+/* MOUSE WHEEL */
+
+shortsFeed.addEventListener(
+    "wheel",
+    function(event) {
+
+        if (
+            event.deltaY > 0
+        ) {
+
+            playRandomShort();
+
+        }
+
+    }
+);
+
+
+/* ARROW DOWN */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            shortsFeed.style.display !==
+            "block"
+        ) {
+            return;
+        }
+
+        if (
+            event.key === "ArrowDown" ||
+            event.key === " "
+        ) {
+
+            event.preventDefault();
+
+            playRandomShort();
+
+        }
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            shortsClose.click();
+
+        }
+
+    }
+);
+
+
+/* TIKTOK KEYWORD */
+
+let tiktokCode = "";
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key.length !== 1
+        ) {
+            return;
+        }
+
+        tiktokCode +=
+            event.key.toLowerCase();
+
+
+        if (
+            tiktokCode.endsWith(
+                "tiktok"
+            )
+        ) {
+
+            tiktokCode = "";
+
+            openShortsFeed();
+
+            return;
+
+        }
+
+
+        if (
+            tiktokCode.length > 6
+        ) {
+
+            tiktokCode =
+                tiktokCode.slice(-6);
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
 </html>
+```
+
+**One thing you need to change:** replace the five `SHORT_ID_...` placeholders with actual YouTube Shorts IDs. For example, if a Short is `youtube.com/shorts/ABC123`, use `"ABC123"`.
+
+Also, I left your existing `youtube` secret alone, so **`youtube` still redirects to YouTube**, while **`tiktok` opens the Shorts Easter egg**.
