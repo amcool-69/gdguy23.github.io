@@ -2105,7 +2105,299 @@ function defeatBoss() {
     document.body.style.cursor = "default";
 }
 
-</script>
+/* =========================
+   ACHIEVEMENT SYSTEM
+========================= */
+
+const achievements = {
+    start: {
+        img: "start.png",
+        name: "Start!"
+    },
+
+    pass: {
+        img: "pass.png",
+        name: "Secret Access"
+    },
+
+    dot: {
+        img: "dot.png",
+        name: "You Found The Dot"
+    },
+
+    wip: {
+        img: "wip.png",
+        name: "WIP?"
+    },
+
+    summon: {
+        img: "summon.png",
+        name: "Summoned"
+    },
+
+    youtube: {
+        img: "youtube.png",
+        name: "YouTube"
+    },
+
+    bosswin: {
+        img: "bosswin.png",
+        name: "Boss Destroyed"
+    },
+
+    bosslose: {
+        img: "bosslose.png",
+        name: "Skill Issue"
+    },
+
+    no: {
+        img: "no.png",
+        name: "Don't"
+    },
+
+    lock: {
+        img: "lock.png",
+        name: "Locked Out"
+    }
+};
+
+
+function unlockAchievement(id) {
+
+    const unlocked =
+        JSON.parse(
+            localStorage.getItem("achievements")
+        ) || {};
+
+    if (unlocked[id]) {
+        return;
+    }
+
+    unlocked[id] = true;
+
+    localStorage.setItem(
+        "achievements",
+        JSON.stringify(unlocked)
+    );
+
+
+    const popup =
+        document.createElement("img");
+
+    popup.src =
+        achievements[id].img;
+
+    popup.style.position = "fixed";
+    popup.style.top = "20px";
+    popup.style.right = "20px";
+    popup.style.width = "300px";
+    popup.style.zIndex = "999999";
+    popup.style.animation =
+        "achievementSlide 5s forwards";
+
+    document.body.appendChild(popup);
+
+
+    setTimeout(() => {
+        popup.remove();
+    }, 5000);
+}
+
+
+/* achievement animation */
+
+const achievementStyle =
+document.createElement("style");
+
+achievementStyle.textContent = `
+@keyframes achievementSlide {
+    0% {
+        transform: translateX(400px);
+    }
+
+    15% {
+        transform: translateX(0);
+    }
+
+    80% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(400px);
+    }
+}
+`;
+
+document.head.appendChild(achievementStyle);
+
+
+/* =========================
+   BADGE MENU
+========================= */
+
+let badgeCode = "";
+
+document.addEventListener(
+"keydown",
+function(event) {
+
+    if(event.key.length !== 1)
+        return;
+
+    badgeCode += event.key.toLowerCase();
+
+
+    if(badgeCode.endsWith("badgemenu")) {
+
+        badgeCode = "";
+
+        showBadges();
+    }
+
+
+    if(badgeCode.length > 9) {
+        badgeCode =
+        badgeCode.slice(-9);
+    }
+
+});
+
+
+function showBadges() {
+
+    const unlocked =
+    JSON.parse(
+        localStorage.getItem("achievements")
+    ) || {};
+
+
+    const menu =
+    document.createElement("div");
+
+
+    menu.style.position="fixed";
+    menu.style.inset="0";
+    menu.style.background="rgba(0,0,0,.9)";
+    menu.style.zIndex="999998";
+    menu.style.display="flex";
+    menu.style.flexWrap="wrap";
+    menu.style.alignContent="center";
+    menu.style.justifyContent="center";
+    menu.style.gap="20px";
+
+
+    Object.keys(achievements)
+    .forEach(id=>{
+
+        const img =
+        document.createElement("img");
+
+        if(unlocked[id]) {
+
+            img.src =
+            achievements[id].img;
+
+        } else {
+
+            img.src =
+            "lock.png";
+
+        }
+
+        img.style.width="180px";
+
+        menu.appendChild(img);
+
+    });
+
+
+    menu.onclick=function(){
+        menu.remove();
+    };
+
+
+    document.body.appendChild(menu);
+
+}
+
+
+/* =========================
+   CONNECT ACHIEVEMENTS
+========================= */
+
+
+/* CLICK ME */
+
+button.addEventListener(
+"click",
+function(){
+
+    unlockAchievement("start");
+
+});
+
+
+/* PASSCODE */
+
+hiddenButton.addEventListener(
+"click",
+function(){
+
+    unlockAchievement("pass");
+
+});
+
+
+/* DOT */
+
+secretDot.addEventListener(
+"click",
+function(){
+
+    unlockAchievement("dot");
+
+});
+
+
+/* WIP */
+
+wip.addEventListener(
+"click",
+function(){
+
+    unlockAchievement("wip");
+
+});
+
+
+/* YOUTUBE */
+
+window.addEventListener(
+"beforeunload",
+function(){
+
+    if(location.href.includes("youtube")) {
+        unlockAchievement("youtube");
+    }
+
+});
+
+
+/* BOSS RESULTS */
+
+function achievementBossWin(){
+
+    unlockAchievement("bosswin");
+
+}
+
+
+function achievementBossLose(){
+
+    unlockAchievement("bosslose");
+
+} </script>
 
 </body>
 </html>
