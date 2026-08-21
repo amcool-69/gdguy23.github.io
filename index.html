@@ -35,8 +35,6 @@ body {
     border-top: 2px solid #7b00ff;
 }
 
-/* MAIN BUTTON */
-
 #button {
     position: absolute;
     top: 24px;
@@ -52,8 +50,6 @@ body {
     color: #7b00ff;
 }
 
-/* WIP */
-
 #wip {
     position: absolute;
     bottom: 24px;
@@ -63,8 +59,6 @@ body {
     user-select: none;
     z-index: 1000;
 }
-
-/* IMAGE RAIN */
 
 .falling-image {
     position: fixed;
@@ -87,28 +81,20 @@ body {
     }
 }
 
-/* HIDDEN BUTTON */
-
 #hiddenButton {
     display: none;
-
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     width: 150px;
     height: 150px;
-
     border-radius: 50%;
     border: 3px solid #7b00ff;
-
     background: black;
     color: white;
-
     font-size: 20px;
     cursor: pointer;
-
     z-index: 2000;
 }
 
@@ -116,23 +102,17 @@ body {
     background: #7b00ff;
 }
 
-/* KEYPAD */
-
 #keypad {
     display: none;
-
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     width: 250px;
     padding: 15px;
-
     background: black;
     border: 2px solid #7b00ff;
     border-radius: 12px;
-
     z-index: 3000;
     text-align: center;
 }
@@ -141,12 +121,9 @@ body {
     width: 100%;
     height: 40px;
     margin-bottom: 10px;
-
     background: black;
     color: white;
-
     border: 1px solid #7b00ff;
-
     font-size: 24px;
     text-align: center;
 }
@@ -155,13 +132,10 @@ body {
     width: 60px;
     height: 50px;
     margin: 4px;
-
     background: black;
     color: white;
-
     border: 1px solid #7b00ff;
     border-radius: 5px;
-
     font-size: 20px;
     cursor: pointer;
 }
@@ -170,28 +144,20 @@ body {
     background: #7b00ff;
 }
 
-/* SECRET BUTTON */
-
 #secretButton {
     display: none;
-
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     width: 150px;
     height: 150px;
-
     border-radius: 50%;
     border: 3px solid #7b00ff;
-
     background: black;
     color: white;
-
     font-size: 24px;
     cursor: pointer;
-
     z-index: 4000;
 }
 
@@ -199,59 +165,42 @@ body {
     background: #7b00ff;
 }
 
-/* VIDEO */
-
 #secretVideo {
     display: none;
-
     position: fixed;
     inset: 0;
-
     width: 100vw;
     height: 100vh;
-
     object-fit: cover;
-
     z-index: 99999;
     background: black;
 }
 
-/* WIP SCREEN */
-
 #ripScreen {
     display: none;
-
     position: fixed;
     inset: 0;
-
     background: black;
     color: white;
-
     z-index: 100000;
     overflow: hidden;
 }
 
 #stickman {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 160px;
     height: 240px;
-
     transform: translate(-50%, -50%);
 }
 
 .head {
     position: absolute;
-
     width: 45px;
     height: 45px;
-
     border: 5px solid white;
     border-radius: 50%;
-
     left: 58px;
     top: 5px;
 }
@@ -259,11 +208,8 @@ body {
 .body {
     width: 5px;
     height: 85px;
-
     background: white;
-
     position: absolute;
-
     left: 78px;
     top: 48px;
 }
@@ -271,11 +217,8 @@ body {
 .stick {
     position: absolute;
     height: 5px;
-
     background: white;
-
     transform-origin: left center;
-
     border-radius: 5px;
 }
 
@@ -310,31 +253,22 @@ body {
 .rip-text {
     position: absolute;
     width: 100%;
-
     text-align: center;
-
     top: 20%;
-
     font-size: 32px;
     font-weight: bold;
-
     opacity: 0;
 }
 
 .rip-final {
     display: none;
-
     position: absolute;
     inset: 0;
-
     background: black;
     color: white;
-
     align-items: center;
     justify-content: center;
-
     flex-direction: column;
-
     font-size: 24px;
 }
 
@@ -391,26 +325,16 @@ body {
     }
 }
 
-/* DOT */
-
 #secretDot {
     display: none;
-
     position: fixed;
-
     width: 55px;
     height: 55px;
-
     border-radius: 50%;
-
     background: white;
-
     cursor: pointer;
-
     z-index: 9000;
-
     box-shadow: 0 0 15px white;
-
     transition:
         left 0.25s ease,
         top 0.25s ease;
@@ -418,30 +342,19 @@ body {
 
 #dotMessage {
     display: none;
-
     position: fixed;
-
     top: 50%;
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     padding: 20px 30px;
-
     background: rgba(0, 0, 0, 0.85);
-
     border: 2px solid white;
     border-radius: 10px;
-
     color: white;
-
     font-size: 22px;
     text-align: center;
-
     z-index: 9500;
 }
-
-/* RAINBOW */
 
 body.rainbow {
     animation: rainbowBackground 3s linear infinite;
@@ -477,23 +390,16 @@ body.rainbow {
     }
 }
 
-/* ANGRY IMAGES */
-
 .angry-image {
     user-select: none;
     -webkit-user-drag: none;
 }
 
-/* KABOOM */
-
 #kaboomFlash {
     position: fixed;
     inset: 0;
-
     background: white;
-
     z-index: 999999;
-
     pointer-events: none;
 }
 
@@ -503,58 +409,40 @@ body.rainbow {
 
 #bossFight {
     display: none;
-
     position: fixed;
     inset: 0;
-
     background: black;
-
     z-index: 50000;
-
     cursor: crosshair;
 }
 
 #boss {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 190px;
     height: auto;
-
     transform: translate(-50%, -50%);
-
     user-select: none;
     pointer-events: none;
-
     z-index: 50010;
 }
 
 #bossAura {
     position: absolute;
-
     left: 50%;
     top: 50%;
-
     width: 230px;
     height: 230px;
-
     transform: translate(-50%, -50%);
-
     border-radius: 50%;
-
     background: rgba(255, 230, 0, 0.25);
-
     box-shadow:
         0 0 20px yellow,
         0 0 50px yellow,
         0 0 90px rgba(255, 220, 0, 0.8);
-
     opacity: 0;
-
     pointer-events: none;
-
     z-index: 50005;
 }
 
@@ -579,25 +467,16 @@ body.rainbow {
     }
 }
 
-/* BOSS BEAM */
-
 .boss-beam {
     position: absolute;
-
     height: 10px;
-
     background: white;
-
     box-shadow:
         0 0 8px white,
         0 0 20px white;
-
     transform-origin: 0 50%;
-
     pointer-events: none;
-
     z-index: 50002;
-
     opacity: 0;
 }
 
@@ -617,129 +496,78 @@ body.rainbow {
     }
 }
 
-/* PLAYER BEAM */
-
 .player-beam {
     position: absolute;
-
     height: 7px;
-
     background: white;
-
     box-shadow:
         0 0 6px white,
         0 0 15px white;
-
     transform-origin: 0 50%;
-
     pointer-events: none;
-
     z-index: 50020;
 }
 
-@keyframes playerShoot {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-/* BOSS UI */
-
 #bossHealth {
     position: absolute;
-
     top: 25px;
     left: 50%;
-
     transform: translateX(-50%);
-
     width: 300px;
     height: 22px;
-
     border: 2px solid white;
-
     background: black;
-
     z-index: 50030;
 }
 
 #bossHealthFill {
     width: 100%;
     height: 100%;
-
     background: white;
-
     transition: width 0.15s linear;
 }
 
 #bossText {
     position: absolute;
-
     top: 55px;
     left: 50%;
-
     transform: translateX(-50%);
-
     font-size: 18px;
-
     z-index: 50030;
-
     user-select: none;
 }
-
-/* LOSER */
 
 #loserScreen {
     display: none;
-
     position: fixed;
     inset: 0;
-
     background: black;
     color: white;
-
     z-index: 999999;
-
     align-items: center;
     justify-content: center;
-
     font-size: 80px;
     font-weight: bold;
-
     user-select: none;
 }
 
-/* WIN */
-
 #winScreen {
     display: none;
-
     position: fixed;
     inset: 0;
-
     background: black;
     color: white;
-
     z-index: 999999;
-
     align-items: center;
     justify-content: center;
-
     flex-direction: column;
-
     text-align: center;
-
     font-size: 28px;
 }
 
 #winScreen img {
     width: 180px;
     height: auto;
-
     margin-bottom: 20px;
 }
 </style>
@@ -748,20 +576,12 @@ body.rainbow {
 <body>
 
 <div id="button">CLICK ME!</div>
-
 <div id="wip">WIP</div>
 
-<button id="hiddenButton">
-    da hidden button
-</button>
+<button id="hiddenButton">da hidden button</button>
 
 <div id="keypad">
-
-    <input
-        id="display"
-        type="password"
-        readonly
-    >
+    <input id="display" type="password" readonly>
 
     <div>
         <button class="key" data-num="1">1</button>
@@ -786,65 +606,38 @@ body.rainbow {
         <button class="key" data-num="0">0</button>
         <button class="key" id="enter">✓</button>
     </div>
-
 </div>
 
-<button id="secretButton">
-    SECRET
-</button>
+<button id="secretButton">SECRET</button>
 
-<video
-    id="secretVideo"
-    src="spin.mp4"
-    playsinline
-></video>
-
-<!-- WIP -->
+<video id="secretVideo" src="spin.mp4" playsinline></video>
 
 <div id="ripScreen">
 
-    <div
-        class="rip-text"
-        id="ripText"
-    >
+    <div class="rip-text" id="ripText">
         BRO WHAT DID YOU DO
     </div>
 
     <div id="stickman">
-
         <div class="head"></div>
         <div class="body"></div>
-
         <div class="stick leftArm"></div>
         <div class="stick rightArm"></div>
-
         <div class="stick leftLeg"></div>
         <div class="stick rightLeg"></div>
-
     </div>
 
-    <div
-        class="rip-final"
-        id="ripFinal"
-    >
+    <div class="rip-final" id="ripFinal">
         <strong>WIP</strong>
-
-        <small>
-            website discontinued due to excessive WIP
-        </small>
+        <small>website discontinued due to excessive WIP</small>
     </div>
-
 </div>
-
-<!-- DOT -->
 
 <div id="secretDot"></div>
 
 <div id="dotMessage">
     congratulations, you clicked the dot.
 </div>
-
-<!-- BOSS FIGHT -->
 
 <div id="bossFight">
 
@@ -858,28 +651,17 @@ body.rainbow {
 
     <div id="bossAura"></div>
 
-    <img
-        id="boss"
-        src="neutral.png"
-        alt="Boss"
-    >
+    <img id="boss" src="neutral.png" alt="Boss">
 
 </div>
-
-<!-- LOSER -->
 
 <div id="loserScreen">
     LOSER!!
 </div>
 
-<!-- WIN -->
-
 <div id="winScreen">
 
-    <img
-        src="trophy.png"
-        alt="Trophy"
-    >
+    <img src="trophy.png" alt="Trophy">
 
     <div>
         yay heres your trophy
@@ -893,62 +675,26 @@ body.rainbow {
    ELEMENTS
 ========================= */
 
-const button =
-    document.getElementById("button");
+const button = document.getElementById("button");
+const wip = document.getElementById("wip");
+const hiddenButton = document.getElementById("hiddenButton");
+const keypad = document.getElementById("keypad");
+const display = document.getElementById("display");
+const secretButton = document.getElementById("secretButton");
+const video = document.getElementById("secretVideo");
+const ripScreen = document.getElementById("ripScreen");
+const stickman = document.getElementById("stickman");
+const ripText = document.getElementById("ripText");
+const ripFinal = document.getElementById("ripFinal");
+const secretDot = document.getElementById("secretDot");
+const dotMessage = document.getElementById("dotMessage");
 
-const wip =
-    document.getElementById("wip");
-
-const hiddenButton =
-    document.getElementById("hiddenButton");
-
-const keypad =
-    document.getElementById("keypad");
-
-const display =
-    document.getElementById("display");
-
-const secretButton =
-    document.getElementById("secretButton");
-
-const video =
-    document.getElementById("secretVideo");
-
-const ripScreen =
-    document.getElementById("ripScreen");
-
-const stickman =
-    document.getElementById("stickman");
-
-const ripText =
-    document.getElementById("ripText");
-
-const ripFinal =
-    document.getElementById("ripFinal");
-
-const secretDot =
-    document.getElementById("secretDot");
-
-const dotMessage =
-    document.getElementById("dotMessage");
-
-const bossFight =
-    document.getElementById("bossFight");
-
-const boss =
-    document.getElementById("boss");
-
-const bossAura =
-    document.getElementById("bossAura");
-
-const bossHealthFill =
-    document.getElementById("bossHealthFill");
-
-const loserScreen =
-    document.getElementById("loserScreen");
-
-const winScreen =
-    document.getElementById("winScreen");
+const bossFight = document.getElementById("bossFight");
+const boss = document.getElementById("boss");
+const bossAura = document.getElementById("bossAura");
+const bossHealthFill = document.getElementById("bossHealthFill");
+const loserScreen = document.getElementById("loserScreen");
+const winScreen = document.getElementById("winScreen");
 
 
 /* =========================
@@ -967,9 +713,7 @@ document.addEventListener("keydown", function(event) {
 
     if (typed.endsWith("passcode")) {
 
-        hiddenButton.style.display =
-            "block";
-
+        hiddenButton.style.display = "block";
         typed = "";
     }
 
@@ -979,21 +723,13 @@ document.addEventListener("keydown", function(event) {
 });
 
 
-/* HIDDEN BUTTON */
-
 hiddenButton.addEventListener("click", function() {
 
-    hiddenButton.style.display =
-        "none";
-
-    keypad.style.display =
-        "block";
-
+    hiddenButton.style.display = "none";
+    keypad.style.display = "block";
     display.value = "";
 });
 
-
-/* KEYPAD */
 
 document
 .querySelectorAll(".key[data-num]")
@@ -1001,13 +737,10 @@ document
 
     key.addEventListener("click", function() {
 
-        display.value +=
-            key.dataset.num;
+        display.value += key.dataset.num;
     });
 });
 
-
-/* CLEAR */
 
 document
 .getElementById("clear")
@@ -1017,24 +750,18 @@ document
 });
 
 
-/* ENTER */
-
 document
 .getElementById("enter")
 .addEventListener("click", function() {
 
     if (display.value === "2309") {
 
-        keypad.style.display =
-            "none";
-
-        secretButton.style.display =
-            "block";
+        keypad.style.display = "none";
+        secretButton.style.display = "block";
 
     } else {
 
         display.value = "";
-
         alert("wrong code 😭");
     }
 });
@@ -1048,13 +775,10 @@ let started = false;
 
 function createImage() {
 
-    const img =
-        document.createElement("img");
+    const img = document.createElement("img");
 
     img.src = "image.png";
-
-    img.className =
-        "falling-image";
+    img.className = "falling-image";
 
     img.style.left =
         Math.random() *
@@ -1114,18 +838,11 @@ button.addEventListener("click", function() {
                 document.createElement("img");
 
             angry.src = "angry.png";
+            angry.className = "angry-image";
 
-            angry.className =
-                "angry-image";
-
-            angry.style.position =
-                "fixed";
-
-            angry.style.width =
-                "120px";
-
-            angry.style.height =
-                "auto";
+            angry.style.position = "fixed";
+            angry.style.width = "120px";
+            angry.style.height = "auto";
 
             angry.style.left =
                 Math.random() *
@@ -1137,15 +854,10 @@ button.addEventListener("click", function() {
                 Math.max(window.innerHeight - 120, 1) +
                 "px";
 
-            angry.style.zIndex =
-                "99990";
+            angry.style.zIndex = "99990";
+            angry.style.pointerEvents = "none";
 
-            angry.style.pointerEvents =
-                "none";
-
-            document.body.appendChild(
-                angry
-            );
+            document.body.appendChild(angry);
 
             chaseAngry(angry);
         }
@@ -1159,61 +871,34 @@ button.addEventListener("click", function() {
         const creepy =
             document.createElement("img");
 
-        creepy.src =
-            "creepy.png";
+        creepy.src = "creepy.png";
 
-        creepy.style.position =
-            "fixed";
+        creepy.style.position = "fixed";
+        creepy.style.left = "50%";
+        creepy.style.top = "50%";
+        creepy.style.transform = "translate(-50%, -50%)";
+        creepy.style.width = "min(500px, 80vw)";
+        creepy.style.maxHeight = "80vh";
+        creepy.style.objectFit = "contain";
+        creepy.style.zIndex = "999999";
+        creepy.style.pointerEvents = "none";
 
-        creepy.style.left =
-            "50%";
-
-        creepy.style.top =
-            "50%";
-
-        creepy.style.transform =
-            "translate(-50%, -50%)";
-
-        creepy.style.width =
-            "min(500px, 80vw)";
-
-        creepy.style.maxHeight =
-            "80vh";
-
-        creepy.style.objectFit =
-            "contain";
-
-        creepy.style.zIndex =
-            "999999";
-
-        creepy.style.pointerEvents =
-            "none";
-
-        document.body.appendChild(
-            creepy
-        );
+        document.body.appendChild(creepy);
 
         const scream =
             new Audio("scream.mp3");
 
         scream.volume = 1.0;
-
         scream.play().catch(function() {});
 
-        document.body.style.background =
-            "white";
+        document.body.style.background = "white";
 
         setTimeout(function() {
-
-            document.body.style.background =
-                "black";
-
+            document.body.style.background = "black";
         }, 80);
 
         setTimeout(function() {
-
             creepy.remove();
-
         }, 4000);
 
         return;
@@ -1229,16 +914,12 @@ button.addEventListener("click", function() {
     for (let i = 0; i < 10; i++) {
 
         setTimeout(function() {
-
             createImage();
-
         }, i * 300);
     }
 
     setInterval(function() {
-
         createImage();
-
     }, 700);
 });
 
@@ -1253,33 +934,24 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    noCode +=
-        event.key.toLowerCase();
+    noCode += event.key.toLowerCase();
 
     if (noCode.endsWith("no")) {
 
         noCount++;
-
         noCode = "";
 
         if (noCount === 1) {
-
-            button.textContent =
-                "Click Me?";
-
+            button.textContent = "Click Me?";
         }
 
         else if (noCount === 2) {
-
-            button.textContent =
-                "DON'T CLICK ME";
-
+            button.textContent = "DON'T CLICK ME";
         }
     }
 
     if (noCode.length > 2) {
-        noCode =
-            noCode.slice(-2);
+        noCode = noCode.slice(-2);
     }
 });
 
@@ -1343,11 +1015,8 @@ function chaseAngry(element) {
             y +=
                 (dy / distance) * 2.5;
 
-            element.style.left =
-                x + "px";
-
-            element.style.top =
-                y + "px";
+            element.style.left = x + "px";
+            element.style.top = y + "px";
         }
 
         if (
@@ -1357,18 +1026,13 @@ function chaseAngry(element) {
 
             cursorGone = true;
 
-            document.body.style.cursor =
-                "none";
-
-            document.documentElement.style.cursor =
-                "none";
+            document.body.style.cursor = "none";
+            document.documentElement.style.cursor = "none";
 
             document
             .querySelectorAll("*")
             .forEach(function(el) {
-
-                el.style.cursor =
-                    "none";
+                el.style.cursor = "none";
             });
         }
 
@@ -1385,11 +1049,8 @@ function chaseAngry(element) {
 
 secretButton.addEventListener("click", function() {
 
-    secretButton.style.display =
-        "none";
-
-    video.style.display =
-        "block";
+    secretButton.style.display = "none";
+    video.style.display = "block";
 
     video.currentTime = 0;
 
@@ -1411,25 +1072,18 @@ wip.addEventListener("click", function() {
 
     ripped = true;
 
-    ripScreen.style.display =
-        "block";
+    ripScreen.style.display = "block";
 
     setTimeout(function() {
 
-        stickman.classList.add(
-            "ripping"
-        );
-
-        ripText.classList.add(
-            "rippingText"
-        );
+        stickman.classList.add("ripping");
+        ripText.classList.add("rippingText");
 
     }, 200);
 
     setTimeout(function() {
 
-        ripFinal.style.display =
-            "flex";
+        ripFinal.style.display = "flex";
 
     }, 2200);
 });
@@ -1450,21 +1104,16 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    dotCode +=
-        event.key.toLowerCase();
+    dotCode += event.key.toLowerCase();
 
-    if (
-        dotCode.endsWith("a1b2c3")
-    ) {
+    if (dotCode.endsWith("a1b2c3")) {
 
         spawnDot();
-
         dotCode = "";
     }
 
     if (dotCode.length > 6) {
-        dotCode =
-            dotCode.slice(-6);
+        dotCode = dotCode.slice(-6);
     }
 });
 
@@ -1474,26 +1123,18 @@ function spawnDot() {
     clearTimeout(dotTimer);
     clearInterval(dotMoving);
 
-    dotMessage.style.display =
-        "none";
-
-    secretDot.style.display =
-        "block";
+    dotMessage.style.display = "none";
+    secretDot.style.display = "block";
 
     moveDot();
 
     dotMoving =
-        setInterval(
-            moveDot,
-            1000
-        );
+        setInterval(moveDot, 1000);
 
     dotTimer =
         setTimeout(function() {
 
-            secretDot.style.display =
-                "none";
-
+            secretDot.style.display = "none";
             clearInterval(dotMoving);
 
         }, 5000);
@@ -1517,49 +1158,30 @@ function moveDot() {
     const x =
         padding +
         Math.random() *
-        Math.max(
-            maxX - padding,
-            1
-        );
+        Math.max(maxX - padding, 1);
 
     const y =
         padding +
         Math.random() *
-        Math.max(
-            maxY - padding,
-            1
-        );
+        Math.max(maxY - padding, 1);
 
-    secretDot.style.left =
-        x + "px";
-
-    secretDot.style.top =
-        y + "px";
+    secretDot.style.left = x + "px";
+    secretDot.style.top = y + "px";
 }
 
-
-/* DOT CLICK */
 
 secretDot.addEventListener("click", function() {
 
     clearTimeout(dotTimer);
     clearInterval(dotMoving);
 
-    secretDot.style.display =
-        "none";
+    secretDot.style.display = "none";
+    dotMessage.style.display = "block";
 
-    dotMessage.style.display =
-        "block";
-
-    document.body.classList.add(
-        "rainbow"
-    );
+    document.body.classList.add("rainbow");
 
     setTimeout(function() {
-
-        dotMessage.style.display =
-            "none";
-
+        dotMessage.style.display = "none";
     }, 3000);
 });
 
@@ -1576,26 +1198,20 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    youtubeCode +=
-        event.key.toLowerCase();
+    youtubeCode += event.key.toLowerCase();
 
-    if (
-        youtubeCode.includes("youtube")
-    ) {
+    if (youtubeCode.includes("youtube")) {
 
         window.location.assign(
             "https://www.youtube.com/"
         );
 
         youtubeCode = "";
-
         return;
     }
 
     if (youtubeCode.length > 7) {
-
-        youtubeCode =
-            youtubeCode.slice(-7);
+        youtubeCode = youtubeCode.slice(-7);
     }
 });
 
@@ -1612,27 +1228,20 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    kaboomCode +=
-        event.key.toLowerCase();
+    kaboomCode += event.key.toLowerCase();
 
-    if (
-        kaboomCode.includes("kaboom")
-    ) {
+    if (kaboomCode.includes("kaboom")) {
 
         kaboomCode = "";
 
-        document.body.style.pointerEvents =
-            "none";
+        document.body.style.pointerEvents = "none";
 
         const explosion =
             document.createElement("div");
 
-        explosion.id =
-            "kaboomFlash";
+        explosion.id = "kaboomFlash";
 
-        document.body.appendChild(
-            explosion
-        );
+        document.body.appendChild(explosion);
 
         const elements =
             document.body.querySelectorAll(
@@ -1661,29 +1270,21 @@ document.addEventListener("keydown", function(event) {
             element.style.transform =
                 `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
 
-            element.style.opacity =
-                "0";
+            element.style.opacity = "0";
         });
 
         setTimeout(function() {
-
-            explosion.style.background =
-                "black";
-
+            explosion.style.background = "black";
         }, 120);
 
         setTimeout(function() {
-
             window.location.href =
                 "https://www.google.com/";
-
         }, 1400);
     }
 
     if (kaboomCode.length > 6) {
-
-        kaboomCode =
-            kaboomCode.slice(-6);
+        kaboomCode = kaboomCode.slice(-6);
     }
 });
 
@@ -1700,8 +1301,7 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    catGuyCode +=
-        event.key.toLowerCase();
+    catGuyCode += event.key.toLowerCase();
 
     if (
         catGuyCode.includes(
@@ -1715,7 +1315,6 @@ document.addEventListener("keydown", function(event) {
             new Audio("catguy.mp3");
 
         sound.volume = 1.0;
-
         sound.play().catch(function() {});
 
         for (let i = 0; i < 5; i++) {
@@ -1723,17 +1322,11 @@ document.addEventListener("keydown", function(event) {
             const cat =
                 document.createElement("img");
 
-            cat.src =
-                "catguy.png";
+            cat.src = "catguy.png";
 
-            cat.style.position =
-                "fixed";
-
-            cat.style.width =
-                "180px";
-
-            cat.style.height =
-                "auto";
+            cat.style.position = "fixed";
+            cat.style.width = "180px";
+            cat.style.height = "auto";
 
             cat.style.left =
                 Math.random() *
@@ -1751,28 +1344,19 @@ document.addEventListener("keydown", function(event) {
                 ) +
                 "px";
 
-            cat.style.zIndex =
-                "99999";
+            cat.style.zIndex = "99999";
+            cat.style.pointerEvents = "none";
 
-            cat.style.pointerEvents =
-                "none";
-
-            document.body.appendChild(
-                cat
-            );
+            document.body.appendChild(cat);
 
             setTimeout(function() {
-
                 cat.remove();
-
             }, 5000);
         }
     }
 
     if (catGuyCode.length > 18) {
-
-        catGuyCode =
-            catGuyCode.slice(-18);
+        catGuyCode = catGuyCode.slice(-18);
     }
 });
 
@@ -1800,6 +1384,13 @@ let bossMouseY =
     window.innerHeight / 2;
 
 
+/* PLAYER SHOT COOLDOWN */
+
+let playerShotReady = true;
+
+const PLAYER_SHOT_COOLDOWN = 500;
+
+
 /* START BOSS */
 
 document.addEventListener("keydown", function(event) {
@@ -1812,12 +1403,9 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    bossCode +=
-        event.key.toLowerCase();
+    bossCode += event.key.toLowerCase();
 
-    if (
-        bossCode.endsWith("bossfight")
-    ) {
+    if (bossCode.endsWith("bossfight")) {
 
         bossCode = "";
 
@@ -1825,9 +1413,7 @@ document.addEventListener("keydown", function(event) {
     }
 
     if (bossCode.length > 9) {
-
-        bossCode =
-            bossCode.slice(-9);
+        bossCode = bossCode.slice(-9);
     }
 });
 
@@ -1839,23 +1425,18 @@ function startBossFight() {
 
     bossHP = 5;
 
-    bossHealthFill.style.width =
-        "100%";
+    playerShotReady = true;
 
-    loserScreen.style.display =
-        "none";
+    bossHealthFill.style.width = "100%";
 
-    winScreen.style.display =
-        "none";
+    loserScreen.style.display = "none";
+    winScreen.style.display = "none";
 
-    bossFight.style.display =
-        "block";
+    bossFight.style.display = "block";
 
-    boss.src =
-        "neutral.png";
+    boss.src = "neutral.png";
 
-    document.body.style.cursor =
-        "crosshair";
+    document.body.style.cursor = "crosshair";
 
     chooseBossShot();
 }
@@ -1867,11 +1448,8 @@ bossFight.addEventListener(
     "mousemove",
     function(event) {
 
-        bossMouseX =
-            event.clientX;
-
-        bossMouseY =
-            event.clientY;
+        bossMouseX = event.clientX;
+        bossMouseY = event.clientY;
     }
 );
 
@@ -1889,31 +1467,18 @@ function chooseBossShot() {
         return;
     }
 
-    /*
-        The boss chooses the angle NOW.
-
-        Once chosen, this angle stays
-        completely locked during the
-        entire power-up animation.
-    */
-
     bossAngle =
         Math.random() *
         Math.PI *
         2;
 
-    boss.src =
-        "neutral.png";
+    boss.src = "neutral.png";
 
-    bossAura.classList.remove(
-        "powering"
-    );
+    bossAura.classList.remove("powering");
 
     void bossAura.offsetWidth;
 
-    bossAura.classList.add(
-        "powering"
-    );
+    bossAura.classList.add("powering");
 
     bossPowerTimeout =
         setTimeout(function() {
@@ -1937,8 +1502,7 @@ function fireBossBeam() {
         return;
     }
 
-    boss.src =
-        "shoot.png";
+    boss.src = "shoot.png";
 
     const bossRect =
         boss.getBoundingClientRect();
@@ -1977,29 +1541,12 @@ function fireBossBeam() {
     beam.style.transform =
         `rotate(${bossAngle}rad)`;
 
-    bossFight.appendChild(
-        beam
-    );
-
-
-    /*
-        The image stays white for
-        essentially one frame before
-        returning to neutral.
-    */
+    bossFight.appendChild(beam);
 
     setTimeout(function() {
-
-        boss.src =
-            "neutral.png";
-
+        boss.src = "neutral.png";
     }, 16);
 
-
-    /*
-        Check whether the mouse is
-        sitting on the beam.
-    */
 
     if (
         pointHitsBeam(
@@ -2012,16 +1559,9 @@ function fireBossBeam() {
     ) {
 
         loseBossFight();
-
         return;
     }
 
-
-    /*
-        Keep checking during the
-        beam's short visible lifetime
-        so moving onto it still kills.
-    */
 
     const collisionCheck =
         setInterval(function() {
@@ -2032,10 +1572,7 @@ function fireBossBeam() {
                 !beam.isConnected
             ) {
 
-                clearInterval(
-                    collisionCheck
-                );
-
+                clearInterval(collisionCheck);
                 return;
             }
 
@@ -2049,10 +1586,7 @@ function fireBossBeam() {
                 )
             ) {
 
-                clearInterval(
-                    collisionCheck
-                );
-
+                clearInterval(collisionCheck);
                 loseBossFight();
             }
 
@@ -2061,19 +1595,11 @@ function fireBossBeam() {
 
     setTimeout(function() {
 
-        clearInterval(
-            collisionCheck
-        );
-
+        clearInterval(collisionCheck);
         beam.remove();
 
     }, 180);
 
-
-    /*
-        Wait before choosing another
-        completely random angle.
-    */
 
     bossShotTimeout =
         setTimeout(function() {
@@ -2112,12 +1638,6 @@ function pointHitsBeam(
         vx * dx +
         vy * dy;
 
-    /*
-        Only the part of the beam
-        going forward from the boss
-        can hurt the player.
-    */
-
     if (projection < 0) {
         return false;
     }
@@ -2135,12 +1655,6 @@ function pointHitsBeam(
             Math.pow(px - closestX, 2) +
             Math.pow(py - closestY, 2)
         );
-
-    /*
-        The cursor is treated as a
-        small target rather than a
-        single mathematical point.
-    */
 
     return distance < 13;
 }
@@ -2160,6 +1674,23 @@ bossFight.addEventListener(
         ) {
             return;
         }
+
+        /* COOLDOWN CHECK */
+
+        if (!playerShotReady) {
+            return;
+        }
+
+        /* START COOLDOWN */
+
+        playerShotReady = false;
+
+        setTimeout(function() {
+
+            playerShotReady = true;
+
+        }, PLAYER_SHOT_COOLDOWN);
+
 
         const bossRect =
             boss.getBoundingClientRect();
@@ -2207,24 +1738,12 @@ bossFight.addEventListener(
         beam.style.transform =
             `rotate(${angle}rad)`;
 
-        bossFight.appendChild(
-            beam
-        );
-
-
-        /*
-            The player's beam always
-            travels from the cursor to
-            the boss, so clicking fires
-            in whatever direction you
-            clicked.
-        */
+        bossFight.appendChild(beam);
 
         bossHP--;
 
         bossHealthFill.style.width =
             (bossHP / 5 * 100) + "%";
-
 
         setTimeout(function() {
 
@@ -2232,11 +1751,8 @@ bossFight.addEventListener(
 
         }, 120);
 
-
         if (bossHP <= 0) {
-
             defeatBoss();
-
         }
     }
 );
@@ -2257,22 +1773,14 @@ function loseBossFight() {
 
     bossActive = false;
 
-    clearTimeout(
-        bossShotTimeout
-    );
+    clearTimeout(bossShotTimeout);
+    clearTimeout(bossPowerTimeout);
 
-    clearTimeout(
-        bossPowerTimeout
-    );
+    bossFight.style.display = "none";
 
-    bossFight.style.display =
-        "none";
+    loserScreen.style.display = "flex";
 
-    loserScreen.style.display =
-        "flex";
-
-    document.body.style.cursor =
-        "default";
+    document.body.style.cursor = "default";
 }
 
 
@@ -2292,25 +1800,16 @@ function defeatBoss() {
     bossDead = true;
     bossActive = false;
 
-    clearTimeout(
-        bossShotTimeout
-    );
+    clearTimeout(bossShotTimeout);
+    clearTimeout(bossPowerTimeout);
 
-    clearTimeout(
-        bossPowerTimeout
-    );
+    bossHealthFill.style.width = "0%";
 
-    bossHealthFill.style.width =
-        "0%";
+    bossFight.style.display = "none";
 
-    bossFight.style.display =
-        "none";
+    winScreen.style.display = "flex";
 
-    winScreen.style.display =
-        "flex";
-
-    document.body.style.cursor =
-        "default";
+    document.body.style.cursor = "default";
 }
 
 </script>
