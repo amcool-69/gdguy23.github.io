@@ -144,6 +144,54 @@ body {
     background: #7b00ff;
 }
 
+/* =========================
+   KEYPAD LOCK
+========================= */
+
+#keypad.locked {
+    border-color: red;
+}
+
+#lockScreen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 230px;
+}
+
+#lockEmojis {
+    font-size: 42px;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+    animation: lockShake 0.8s infinite;
+}
+
+#lockTitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff3333;
+    margin-bottom: 8px;
+}
+
+#lockCountdown {
+    font-size: 18px;
+}
+
+@keyframes lockShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
 #secretButton {
     display: none;
     position: absolute;
@@ -581,31 +629,51 @@ body.rainbow {
 <button id="hiddenButton">da hidden button</button>
 
 <div id="keypad">
-    <input id="display" type="password" readonly>
 
-    <div>
-        <button class="key" data-num="1">1</button>
-        <button class="key" data-num="2">2</button>
-        <button class="key" data-num="3">3</button>
+    <div id="normalKeypad">
+
+        <input id="display" type="password" readonly>
+
+        <div>
+            <button class="key" data-num="1">1</button>
+            <button class="key" data-num="2">2</button>
+            <button class="key" data-num="3">3</button>
+        </div>
+
+        <div>
+            <button class="key" data-num="4">4</button>
+            <button class="key" data-num="5">5</button>
+            <button class="key" data-num="6">6</button>
+        </div>
+
+        <div>
+            <button class="key" data-num="7">7</button>
+            <button class="key" data-num="8">8</button>
+            <button class="key" data-num="9">9</button>
+        </div>
+
+        <div>
+            <button class="key" id="clear">C</button>
+            <button class="key" data-num="0">0</button>
+            <button class="key" id="enter">✓</button>
+        </div>
+
     </div>
 
-    <div>
-        <button class="key" data-num="4">4</button>
-        <button class="key" data-num="5">5</button>
-        <button class="key" data-num="6">6</button>
+    <div id="lockScreen">
+
+        <div id="lockEmojis">🔒 🔒 🔒</div>
+
+        <div id="lockTitle">
+            LOCKED OUT
+        </div>
+
+        <div id="lockCountdown">
+            Try again in 1:00
+        </div>
+
     </div>
 
-    <div>
-        <button class="key" data-num="7">7</button>
-        <button class="key" data-num="8">8</button>
-        <button class="key" data-num="9">9</button>
-    </div>
-
-    <div>
-        <button class="key" id="clear">C</button>
-        <button class="key" data-num="0">0</button>
-        <button class="key" id="enter">✓</button>
-    </div>
 </div>
 
 <button id="secretButton">SECRET</button>
@@ -696,6 +764,10 @@ const bossHealthFill = document.getElementById("bossHealthFill");
 const loserScreen = document.getElementById("loserScreen");
 const winScreen = document.getElementById("winScreen");
 
+const normalKeypad = document.getElementById("normalKeypad");
+const lockScreen = document.getElementById("lockScreen");
+const lockCountdown = document.getElementById("lockCountdown");
+
 
 /* =========================
    PASSCODE
@@ -723,11 +795,185 @@ document.addEventListener("keydown", function(event) {
 });
 
 
-hiddenButton.addEventListener("click", function() {
+/* =========================
+   PASSCODE LOCK SYSTEM
+========================= */
+
+/*
+    5 incorrect codes = lockout.
+
+    Lockout times:
+    1st lock  = 1 minute
+    2nd lock  = 5 minutes
+    3rd lock  = 10 minutes
+    4th lock  = 1 hour
+    5th+ lock = 1 hour
+*/
+
+const LOCK_TIMES = [
+    60 * 1000,
+    5 * 60 * 1000,
+    10 * 60 * 1000,
+    60 * 60 * 1000
+];
+
+let wrongAttempts =
+    Number(localStorage.getItem("secretSiteWrongAttempts")) || 0;
+
+let lockLevel =
+    Number(localStorage.getItem("secretSiteLockLevel")) || 0;
+
+let keypadLockedUntil =
+    Number(localStorage.getItem("secretSiteLockedUntil")) || 0;
+
+let lockInterval = null;
+
+
+function getLockDuration() {
+
+    return LOCK_TIMES[
+        Math.min(lockLevel, LOCK_TIMES.length - 1)
+    ];
+}
+
+
+function formatTime(milliseconds) {
+
+    const totalSeconds =
+        Math.max(
+            0,
+            Math.ceil(milliseconds / 1000)
+        );
+
+    const hours =
+        Math.floor(totalSeconds / 3600);
+
+    const minutes =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+    const seconds =
+        totalSeconds % 60;
+
+    if (hours > 0) {
+
+        return (
+            hours +
+            ":" +
+            String(minutes).padStart(2, "0") +
+            ":" +
+            String(seconds).padStart(2, "0")
+        );
+    }
+
+    return (
+        minutes +
+        ":" +
+        String(seconds).padStart(2, "0")
+    );
+}
+
+
+function saveLockState() {
+
+    localStorage.setItem(
+        "secretSiteWrongAttempts",
+        wrongAttempts
+    );
+
+    localStorage.setItem(
+        "secretSiteLockLevel",
+        lockLevel
+    );
+
+    localStorage.setItem(
+        "secretSiteLockedUntil",
+        keypadLockedUntil
+    );
+}
+
+
+function isKeypadLocked() {
+
+    return Date.now() < keypadLockedUntil;
+}
+
+
+function updateLockScreen() {
+
+    if (!isKeypadLocked()) {
+
+        keypad.classList.remove("locked");
+
+        normalKeypad.style.display = "block";
+        lockScreen.style.display = "none";
+
+        clearInterval(lockInterval);
+        lockInterval = null;
+
+        keypadLockedUntil = 0;
+
+        saveLockState();
+
+        return;
+    }
+
+    keypad.classList.add("locked");
+
+    normalKeypad.style.display = "none";
+    lockScreen.style.display = "flex";
+
+    const remaining =
+        keypadLockedUntil - Date.now();
+
+    lockCountdown.textContent =
+        "Try again in " +
+        formatTime(remaining);
+}
+
+
+function startKeypadLock() {
+
+    const duration =
+        getLockDuration();
+
+    keypadLockedUntil =
+        Date.now() + duration;
+
+    wrongAttempts = 0;
+
+    lockLevel++;
+
+    saveLockState();
+
+    updateLockScreen();
+
+    clearInterval(lockInterval);
+
+    lockInterval =
+        setInterval(function() {
+
+            updateLockScreen();
+
+        }, 250);
+}
+
+
+function openKeypad() {
 
     hiddenButton.style.display = "none";
     keypad.style.display = "block";
     display.value = "";
+
+    updateLockScreen();
+}
+
+
+hiddenButton.addEventListener("click", function() {
+
+    openKeypad();
+
 });
 
 
@@ -736,6 +982,10 @@ document
 .forEach(function(key) {
 
     key.addEventListener("click", function() {
+
+        if (isKeypadLocked()) {
+            return;
+        }
 
         display.value += key.dataset.num;
     });
@@ -746,6 +996,10 @@ document
 .getElementById("clear")
 .addEventListener("click", function() {
 
+    if (isKeypadLocked()) {
+        return;
+    }
+
     display.value = "";
 });
 
@@ -754,17 +1008,56 @@ document
 .getElementById("enter")
 .addEventListener("click", function() {
 
+    if (isKeypadLocked()) {
+        updateLockScreen();
+        return;
+    }
+
     if (display.value === "2309") {
 
         keypad.style.display = "none";
+
         secretButton.style.display = "block";
+
+        /* Successful code resets the wrong-attempt counter. */
+        wrongAttempts = 0;
+
+        saveLockState();
 
     } else {
 
+        wrongAttempts++;
+
         display.value = "";
-        alert("wrong code 😭");
+
+        saveLockState();
+
+        if (wrongAttempts >= 5) {
+
+            startKeypadLock();
+
+        } else {
+
+            alert(
+                "wrong code 😭\n\n" +
+                "Incorrect attempts: " +
+                wrongAttempts +
+                "/5"
+            );
+        }
     }
 });
+
+
+/* Restore an active lock if the page was refreshed. */
+
+if (isKeypadLocked()) {
+
+    keypad.style.display = "block";
+
+    updateLockScreen();
+
+}
 
 
 /* =========================
