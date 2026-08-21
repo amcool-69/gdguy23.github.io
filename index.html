@@ -2353,6 +2353,8 @@ function(){
 
 /* DOT */
 
+const oldDotClick = secretDot.onclick;
+
 secretDot.addEventListener(
 "click",
 function(){
@@ -2373,17 +2375,41 @@ function(){
 });
 
 
-/* YOUTUBE */
+/* NO SECRET */
 
-window.addEventListener(
-"beforeunload",
-function(){
+document.addEventListener(
+"keydown",
+function(event){
 
-    if(location.href.includes("youtube")) {
-        unlockAchievement("youtube");
+    if(event.key.toLowerCase() === "o" || event.key.toLowerCase() === "n"){
+
+        if(noCount === 2){
+
+            unlockAchievement("no");
+
+        }
+
     }
 
 });
+
+
+/* YOUTUBE */
+
+function youtubeAchievement(){
+
+    unlockAchievement("youtube");
+
+}
+
+
+/* CATGUY */
+
+function summonAchievement(){
+
+    unlockAchievement("summon");
+
+}
 
 
 /* BOSS RESULTS */
@@ -2399,7 +2425,13 @@ function achievementBossLose(){
 
     unlockAchievement("bosslose");
 
-} </script>
+}
 
-</body>
-</html>
+
+/* LOCK */
+
+function achievementLock(){
+
+    unlockAchievement("lock");
+
+}
