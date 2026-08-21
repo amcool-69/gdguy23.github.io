@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,7 @@
 <meta name="theme-color" content="#7b00ff">
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -352,6 +354,7 @@ body {
 }
 
 @keyframes grabAndRip {
+
     0% {
         transform: translate(-50%, -50%) scale(1);
     }
@@ -375,6 +378,7 @@ body {
 }
 
 @keyframes textAppear {
+
     0% {
         opacity: 0;
         transform: scale(0.5);
@@ -448,6 +452,7 @@ body.rainbow {
 }
 
 @keyframes rainbowBackground {
+
     0% {
         background: #ff0000;
     }
@@ -496,6 +501,222 @@ body.rainbow {
 
     pointer-events: none;
 }
+
+
+/* ========================================
+   BOSS FIGHT
+======================================== */
+
+#bossFight {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: black;
+
+    z-index: 200000;
+
+    overflow: hidden;
+
+    cursor: crosshair;
+}
+
+/* BOSS */
+
+#boss {
+    position: absolute;
+
+    width: 180px;
+    height: auto;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    user-select: none;
+    pointer-events: none;
+
+    z-index: 200010;
+}
+
+/* CHARGING AURA */
+
+#boss.charging {
+    filter:
+        drop-shadow(0 0 10px yellow)
+        drop-shadow(0 0 25px yellow)
+        drop-shadow(0 0 45px yellow);
+
+    animation: bossCharge 0.75s infinite alternate;
+}
+
+@keyframes bossCharge {
+
+    from {
+        filter:
+            drop-shadow(0 0 8px yellow)
+            drop-shadow(0 0 18px yellow);
+    }
+
+    to {
+        filter:
+            drop-shadow(0 0 20px yellow)
+            drop-shadow(0 0 50px yellow);
+    }
+}
+
+/* SHOOT FLASH */
+
+#boss.shooting {
+    filter:
+        brightness(0)
+        invert(1);
+
+    transition: filter 0.001s;
+}
+
+/* BOSS BEAM */
+
+.boss-beam {
+    position: absolute;
+
+    height: 10px;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 20px white;
+
+    transform-origin: left center;
+
+    z-index: 200005;
+
+    pointer-events: none;
+}
+
+/* PLAYER BEAM */
+
+.player-beam {
+    position: fixed;
+
+    height: 6px;
+
+    background: white;
+
+    box-shadow:
+        0 0 8px white,
+        0 0 18px white;
+
+    transform-origin: left center;
+
+    z-index: 200020;
+
+    pointer-events: none;
+}
+
+/* BOSS HUD */
+
+#bossTitle {
+    position: absolute;
+
+    top: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 28px;
+    font-weight: bold;
+
+    z-index: 200030;
+}
+
+#bossHealthBack {
+    position: absolute;
+
+    top: 60px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(500px, 70vw);
+    height: 22px;
+
+    border: 2px solid white;
+
+    z-index: 200030;
+}
+
+#bossHealth {
+    width: 100%;
+    height: 100%;
+
+    background: white;
+
+    transition: width 0.15s linear;
+}
+
+#bossHint {
+    position: absolute;
+
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 15px;
+
+    opacity: 0.7;
+
+    z-index: 200030;
+}
+
+/* LOSER */
+
+#bossLoser,
+#bossWinner {
+    display: none;
+
+    position: absolute;
+
+    inset: 0;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    background: black;
+
+    z-index: 200100;
+
+    text-align: center;
+}
+
+#bossLoser {
+    color: white;
+}
+
+#bossLoser strong,
+#bossWinner strong {
+    font-size: 64px;
+}
+
+#bossWinner p {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+#trophy {
+    width: 180px;
+    max-width: 60vw;
+    height: auto;
+
+    margin-top: 20px;
+}
+
 </style>
 </head>
 
@@ -553,6 +774,7 @@ body.rainbow {
     playsinline
 ></video>
 
+
 <!-- WIP -->
 
 <div id="ripScreen">
@@ -590,6 +812,7 @@ body.rainbow {
 
 </div>
 
+
 <!-- DOT -->
 
 <div id="secretDot"></div>
@@ -597,6 +820,53 @@ body.rainbow {
 <div id="dotMessage">
     congratulations, you clicked the dot.
 </div>
+
+
+<!-- BOSS FIGHT -->
+
+<div id="bossFight">
+
+    <div id="bossTitle">
+        BOSS FIGHT
+    </div>
+
+    <div id="bossHealthBack">
+        <div id="bossHealth"></div>
+    </div>
+
+    <img
+        id="boss"
+        src="neutral.png"
+        draggable="false"
+        alt=""
+    >
+
+    <div id="bossHint">
+        Dodge the beam and click the boss to attack!
+    </div>
+
+    <div id="bossLoser">
+        <strong>LOSER!!</strong>
+    </div>
+
+    <div id="bossWinner">
+
+        <strong>YOU WIN!!</strong>
+
+        <img
+            id="trophy"
+            src="trophy.png"
+            alt="Trophy"
+        >
+
+        <p>
+            yay heres your trophy
+        </p>
+
+    </div>
+
+</div>
+
 
 <script>
 
@@ -793,8 +1063,6 @@ let cursorGone = false;
 
 button.addEventListener("click", function() {
 
-    /* NO SECRET TAKES PRIORITY */
-
     if (noCount === 1) {
 
         if (angryMode) {
@@ -849,8 +1117,6 @@ button.addEventListener("click", function() {
     }
 
 
-    /* SECOND NO SECRET */
-
     if (noCount === 2) {
 
         const creepy =
@@ -891,8 +1157,6 @@ button.addEventListener("click", function() {
         );
 
 
-        /* SCREAM */
-
         const scream =
             new Audio("scream.mp3");
 
@@ -900,8 +1164,6 @@ button.addEventListener("click", function() {
 
         scream.play().catch(function() {});
 
-
-        /* FLASH */
 
         document.body.style.background =
             "white";
@@ -923,8 +1185,6 @@ button.addEventListener("click", function() {
         return;
     }
 
-
-    /* NORMAL IMAGE RAIN */
 
     if (started) {
         return;
@@ -1057,8 +1317,6 @@ function chaseAngry(element) {
                 y + "px";
         }
 
-
-        /* TOUCH */
 
         if (
             distance < 65 &&
@@ -1275,11 +1533,37 @@ secretDot.addEventListener("click", function() {
 });
 
 
-/* =========================
-   YOUTUBE
-========================= */
+/* =================================================
+   BOSS FIGHT
+================================================= */
 
-let youtubeCode = "";
+const bossFight =
+    document.getElementById("bossFight");
+
+const boss =
+    document.getElementById("boss");
+
+const bossHealth =
+    document.getElementById("bossHealth");
+
+const bossLoser =
+    document.getElementById("bossLoser");
+
+const bossWinner =
+    document.getElementById("bossWinner");
+
+
+let bossActive = false;
+let bossDead = false;
+let bossHealthValue = 100;
+
+let bossShotTimer = null;
+let bossBeamTimer = null;
+
+
+/* BOSS KEYWORD */
+
+let bossCode = "";
 
 document.addEventListener("keydown", function(event) {
 
@@ -1287,213 +1571,460 @@ document.addEventListener("keydown", function(event) {
         return;
     }
 
-    youtubeCode +=
+    bossCode +=
         event.key.toLowerCase();
 
     if (
-        youtubeCode.includes("youtube")
+        bossCode.endsWith("bossfight")
     ) {
 
-        window.location.assign(
-            "https://www.youtube.com/"
-        );
+        bossCode = "";
 
-        youtubeCode = "";
+        startBossFight();
 
         return;
     }
 
-    if (youtubeCode.length > 7) {
-
-        youtubeCode =
-            youtubeCode.slice(-7);
+    if (bossCode.length > 9) {
+        bossCode =
+            bossCode.slice(-9);
     }
 });
 
 
-/* =========================
-   KABOOM
-========================= */
+/* START BOSS */
 
-let kaboomCode = "";
+function startBossFight() {
 
-document.addEventListener("keydown", function(event) {
-
-    if (event.key.length !== 1) {
+    if (bossActive) {
         return;
     }
 
-    kaboomCode +=
-        event.key.toLowerCase();
+    bossActive = true;
+    bossDead = false;
+    bossHealthValue = 100;
 
-    if (
-        kaboomCode.includes("kaboom")
-    ) {
+    bossHealth.style.width =
+        "100%";
 
-        kaboomCode = "";
+    bossLoser.style.display =
+        "none";
 
-        document.body.style.pointerEvents =
-            "none";
+    bossWinner.style.display =
+        "none";
 
-        const explosion =
-            document.createElement("div");
+    bossFight.style.display =
+        "block";
 
-        explosion.id =
-            "kaboomFlash";
+    boss.src =
+        "neutral.png";
 
-        document.body.appendChild(
-            explosion
+    scheduleBossShot();
+}
+
+
+/* BOSS SHOOTING */
+
+function scheduleBossShot() {
+
+    if (!bossActive || bossDead) {
+        return;
+    }
+
+    const delay =
+        1000 + Math.random() * 1800;
+
+    bossShotTimer =
+        setTimeout(function() {
+
+            bossShoot();
+
+        }, delay);
+}
+
+
+/*
+    The boss chooses the beam's Y position
+    BEFORE charging.
+
+    Once charging starts, that position
+    cannot change.
+*/
+
+function bossShoot() {
+
+    if (!bossActive || bossDead) {
+        return;
+    }
+
+    const bossRect =
+        boss.getBoundingClientRect();
+
+    const bossCenterX =
+        bossRect.left +
+        bossRect.width / 2;
+
+    const bossCenterY =
+        bossRect.top +
+        bossRect.height / 2;
+
+    const targetY =
+        40 +
+        Math.random() *
+        Math.max(
+            window.innerHeight - 80,
+            1
         );
 
-        const elements =
-            document.body.querySelectorAll(
-                "body > *:not(script):not(#kaboomFlash)"
-            );
 
-        elements.forEach(function(element) {
+    boss.src =
+        "shoot.png";
 
-            const x =
-                (Math.random() - 0.5) *
-                window.innerWidth *
-                2;
+    boss.classList.add(
+        "charging"
+    );
 
-            const y =
-                (Math.random() - 0.5) *
-                window.innerHeight *
-                2;
 
-            const rotation =
-                (Math.random() - 0.5) *
-                720;
+    /*
+        Keep the chosen targetY locked.
+    */
 
-            element.style.transition =
-                "transform 1.2s cubic-bezier(.2,.8,.2,1), opacity 1.2s";
-
-            element.style.transform =
-                `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
-
-            element.style.opacity =
-                "0";
-        });
-
+    bossBeamTimer =
         setTimeout(function() {
 
-            explosion.style.background =
-                "black";
-
-        }, 120);
-
-        setTimeout(function() {
-
-            window.location.href =
-                "https://www.google.com/";
-
-        }, 1400);
-    }
-
-    if (kaboomCode.length > 6) {
-
-        kaboomCode =
-            kaboomCode.slice(-6);
-    }
-});
-
-
-/* =========================
-   CATGUY SECRET
-========================= */
-
-let catGuyCode = "";
-
-document.addEventListener("keydown", function(event) {
-
-    if (event.key.length !== 1) {
-        return;
-    }
-
-    catGuyCode +=
-        event.key.toLowerCase();
-
-    if (
-        catGuyCode.includes(
-            "summonthecatguy09"
-        )
-    ) {
-
-        catGuyCode = "";
-
-
-        /* SOUND */
-
-        const sound =
-            new Audio("catguy.mp3");
-
-        sound.volume = 1.0;
-
-        sound.play().catch(function() {});
-
-
-        /* FIVE CATGUYS */
-
-        for (let i = 0; i < 5; i++) {
-
-            const cat =
-                document.createElement("img");
-
-            cat.src =
-                "catguy.png";
-
-            cat.style.position =
-                "fixed";
-
-            cat.style.width =
-                "180px";
-
-            cat.style.height =
-                "auto";
-
-            cat.style.left =
-                Math.random() *
-                Math.max(
-                    window.innerWidth - 180,
-                    1
-                ) +
-                "px";
-
-            cat.style.top =
-                Math.random() *
-                Math.max(
-                    window.innerHeight - 180,
-                    1
-                ) +
-                "px";
-
-            cat.style.zIndex =
-                "99999";
-
-            cat.style.pointerEvents =
-                "none";
-
-            document.body.appendChild(
-                cat
+            boss.classList.remove(
+                "charging"
             );
+
+            boss.classList.add(
+                "shooting"
+            );
+
+            createBossBeam(
+                bossCenterX,
+                bossCenterY,
+                targetY
+            );
+
 
             setTimeout(function() {
 
-                cat.remove();
+                boss.classList.remove(
+                    "shooting"
+                );
 
-            }, 5000);
+                boss.src =
+                    "neutral.png";
+
+            }, 1);
+
+
+        }, 750);
+
+
+    setTimeout(function() {
+
+        scheduleBossShot();
+
+    }, 1000);
+}
+
+
+/* CREATE BOSS BEAM */
+
+function createBossBeam(
+    startX,
+    startY,
+    targetY
+) {
+
+    if (!bossActive || bossDead) {
+        return;
+    }
+
+    const beam =
+        document.createElement("div");
+
+    beam.className =
+        "boss-beam";
+
+    /*
+        Beam travels horizontally
+        from the boss toward the right side.
+    */
+
+    beam.style.left =
+        startX + "px";
+
+    beam.style.top =
+        (targetY - 5) + "px";
+
+    beam.style.width =
+        Math.max(
+            window.innerWidth - startX,
+            1
+        ) + "px";
+
+    document
+    .getElementById("bossFight")
+    .appendChild(beam);
+
+
+    /*
+        Collision is checked while the
+        beam is active.
+    */
+
+    const collisionStart =
+        performance.now();
+
+    function checkCollision() {
+
+        if (
+            !bossActive ||
+            bossDead ||
+            !beam.isConnected
+        ) {
+            return;
+        }
+
+        const elapsed =
+            performance.now() -
+            collisionStart;
+
+        const mouseDistance =
+            Math.abs(
+                mouseY -
+                targetY
+            );
+
+
+        /*
+            The beam lasts about 180ms.
+            The mouse must be away from
+            the beam's Y position.
+        */
+
+        if (
+            elapsed < 180 &&
+            mouseDistance < 12
+        ) {
+
+            loseBossFight();
+
+            return;
+        }
+
+
+        if (elapsed < 180) {
+
+            requestAnimationFrame(
+                checkCollision
+            );
+
+        } else {
+
+            beam.remove();
         }
     }
 
-    if (catGuyCode.length > 18) {
+    requestAnimationFrame(
+        checkCollision
+    );
+}
 
-        catGuyCode =
-            catGuyCode.slice(-18);
+
+/* PLAYER SHOOT */
+
+bossFight.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            !bossActive ||
+            bossDead
+        ) {
+            return;
+        }
+
+        /*
+            Clicking anywhere shoots a
+            horizontal white beam toward
+            the boss.
+        */
+
+        const bossRect =
+            boss.getBoundingClientRect();
+
+        const bossCenterX =
+            bossRect.left +
+            bossRect.width / 2;
+
+        const bossCenterY =
+            bossRect.top +
+            bossRect.height / 2;
+
+        const dx =
+            bossCenterX -
+            event.clientX;
+
+        const dy =
+            bossCenterY -
+            event.clientY;
+
+        const distance =
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+        const angle =
+            Math.atan2(
+                dy,
+                dx
+            );
+
+        const beam =
+            document.createElement("div");
+
+        beam.className =
+            "player-beam";
+
+        beam.style.left =
+            event.clientX + "px";
+
+        beam.style.top =
+            (event.clientY - 3) + "px";
+
+        beam.style.width =
+            distance + "px";
+
+        beam.style.transform =
+            "rotate(" +
+            angle +
+            "rad)";
+
+        bossFight.appendChild(
+            beam
+        );
+
+
+        /*
+            The player's beam damages
+            the boss if it reaches it.
+        */
+
+        if (
+            Math.abs(
+                event.clientX -
+                bossCenterX
+            ) < 220 &&
+            Math.abs(
+                event.clientY -
+                bossCenterY
+            ) < 220
+        ) {
+
+            damageBoss();
+
+        }
+
+
+        setTimeout(function() {
+
+            beam.remove();
+
+        }, 100);
     }
-});
+);
+
+
+/* DAMAGE BOSS */
+
+function damageBoss() {
+
+    if (
+        !bossActive ||
+        bossDead
+    ) {
+        return;
+    }
+
+    bossHealthValue -= 10;
+
+    bossHealthValue =
+        Math.max(
+            bossHealthValue,
+            0
+        );
+
+    bossHealth.style.width =
+        bossHealthValue + "%";
+
+
+    if (
+        bossHealthValue <= 0
+    ) {
+
+        winBossFight();
+
+    }
+}
+
+
+/* LOSE */
+
+function loseBossFight() {
+
+    if (
+        bossDead
+    ) {
+        return;
+    }
+
+    bossDead = true;
+    bossActive = false;
+
+    clearTimeout(
+        bossShotTimer
+    );
+
+    clearTimeout(
+        bossBeamTimer
+    );
+
+    bossLoser.style.display =
+        "flex";
+}
+
+
+/* WIN */
+
+function winBossFight() {
+
+    if (
+        bossDead
+    ) {
+        return;
+    }
+
+    bossDead = true;
+    bossActive = false;
+
+    clearTimeout(
+        bossShotTimer
+    );
+
+    clearTimeout(
+        bossBeamTimer
+    );
+
+    bossWinner.style.display =
+        "flex";
+}
 
 </script>
 
 </body>
 </html>
+```
