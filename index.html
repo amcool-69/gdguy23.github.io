@@ -2105,6 +2105,90 @@ function defeatBoss() {
     document.body.style.cursor = "default";
 }
 
+/* =========================
+   WEHATEDAMIR SECRET
+========================= */
+
+let damirCode = "";
+let damirSecret = false;
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key.length !== 1) {
+        return;
+    }
+
+    damirCode += event.key.toLowerCase();
+
+    if (damirCode.endsWith("wehatedamir")) {
+
+        damirCode = "";
+        damirSecret = true;
+
+        button.textContent = "Click me..?";
+
+        return;
+    }
+
+    if (damirCode.length > 11) {
+        damirCode = damirCode.slice(-11);
+    }
+});
+
+
+function spawnDamir() {
+
+    const img = document.createElement("img");
+
+    img.src = "damir.png";
+    img.className = "falling-image";
+
+    img.style.width =
+        (70 + Math.random() * 50) + "px";
+
+    img.style.left =
+        Math.random() *
+        Math.max(window.innerWidth - 120, 1) +
+        "px";
+
+    img.style.top = "-150px";
+
+    img.style.animationDuration =
+        (1 + Math.random() * 1.5) + "s";
+
+    img.style.zIndex = "99990";
+
+    document.body.appendChild(img);
+
+    setTimeout(function() {
+        img.remove();
+    }, 3000);
+}
+
+
+/* Add this inside your existing CLICK ME handler */
+
+button.addEventListener("click", function() {
+
+    if (!damirSecret) {
+        return;
+    }
+
+    const sound = new Audio("damir.mp3");
+
+    sound.volume = 1.0;
+    sound.play().catch(function() {});
+
+    for (let i = 0; i < 20; i++) {
+
+        setTimeout(function() {
+            spawnDamir();
+        }, i * 70);
+
+    }
+
+});
+
 </script>
 
 </body>
