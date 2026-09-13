@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Secret Site">
 <meta property="og:description" content="you probably shouldn't click anything">
-<meta property="og:url" content="https://amcool-69.github.io/gdguy23.github.io/">
+<meta property="og:url" content="https://gdguy23.github.io">
 <meta property="og:image" content="https://raw.githubusercontent.com/amcool-69/gdguy23.github.io/main/image.png">
 <meta name="theme-color" content="#7b00ff">
 
@@ -143,10 +143,6 @@ body {
 .key:hover {
     background: #7b00ff;
 }
-
-/* =========================
-   KEYPAD LOCK
-========================= */
 
 #keypad.locked {
     border-color: red;
@@ -451,10 +447,6 @@ body.rainbow {
     pointer-events: none;
 }
 
-/* =========================
-   BOSS FIGHT
-========================= */
-
 #bossFight {
     display: none;
     position: fixed;
@@ -618,6 +610,83 @@ body.rainbow {
     height: auto;
     margin-bottom: 20px;
 }
+
+/* REAL FILE PICKER PREVIEW */
+
+#realFilePicker {
+    display: none;
+}
+
+#filePreviewScreen {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200000;
+    background: rgba(0, 0, 0, 0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+#filePreviewBox {
+    width: min(900px, 95vw);
+    max-height: 90vh;
+    overflow: auto;
+    background: #151515;
+    border: 2px solid #7b00ff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+}
+
+#filePreviewBox h2 {
+    overflow-wrap: anywhere;
+}
+
+#filePreviewContent {
+    margin-top: 20px;
+}
+
+#filePreviewContent img,
+#filePreviewContent video {
+    max-width: 100%;
+    max-height: 65vh;
+}
+
+#filePreviewContent audio {
+    width: 100%;
+}
+
+#filePreviewContent iframe {
+    width: 100%;
+    height: 60vh;
+    border: 0;
+    background: white;
+}
+
+#filePreviewContent pre {
+    max-height: 60vh;
+    overflow: auto;
+    padding: 15px;
+    text-align: left;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    background: black;
+    color: white;
+}
+
+#closeFilePreview {
+    padding: 8px 15px;
+    border: 1px solid #7b00ff;
+    border-radius: 6px;
+    background: black;
+    color: white;
+    cursor: pointer;
+}
+
+#closeFilePreview:hover {
+    background: #7b00ff;
+}
 </style>
 </head>
 
@@ -737,8 +806,18 @@ body.rainbow {
 
 </div>
 
-<script>
+<!-- This opens the real Windows/macOS file picker when triggered by JavaScript. -->
+<input id="realFilePicker" type="file" multiple>
 
+<div id="filePreviewScreen">
+    <div id="filePreviewBox">
+        <button id="closeFilePreview">Close</button>
+        <h2 id="filePreviewTitle">File preview</h2>
+        <div id="filePreviewContent"></div>
+    </div>
+</div>
+
+<script>
 /* =========================
    ELEMENTS
 ========================= */
@@ -768,6 +847,173 @@ const normalKeypad = document.getElementById("normalKeypad");
 const lockScreen = document.getElementById("lockScreen");
 const lockCountdown = document.getElementById("lockCountdown");
 
+/* =========================
+   REAL FILE PICKER
+========================= */
+
+const realFilePicker = document.getElementById("realFilePicker");
+const filePreviewScreen = document.getElementById("filePreviewScreen");
+const filePreviewTitle = document.getElementById("filePreviewTitle");
+const filePreviewContent = document.getElementById("filePreviewContent");
+const closeFilePreview = document.getElementById("closeFilePreview");
+
+let currentFileUrl = null;
+
+document.addEventListener("keydown", function(event) {
+    const activeElement = document.activeElement;
+
+    const typingInField =
+        activeElement &&
+        (
+            activeElement.tagName === "INPUT" ||
+            activeElement.tagName === "TEXTAREA" ||
+            activeElement.isContentEditable
+        );
+
+    if (
+        event.key.toLowerCase() === "f" &&
+        !typingInField &&
+        !event.ctrlKey &&
+        !event.altKey &&
+        !event.metaKey
+    ) {
+        event.preventDefault();
+        realFilePicker.click();
+    }
+
+    if (event.key === "Escape") {
+        filePreviewScreen.style.display = "none";
+    }
+});
+
+closeFilePreview.addEventListener("click", function() {
+    filePreviewScreen.style.display = "none";
+
+    if (currentFileUrl) {
+        URL.revokeObjectURL(currentFileUrl);
+        currentFileUrl = null;
+    }
+
+    filePreviewContent.innerHTML = "";
+});
+
+realFilePicker.addEventListener("change", function() {
+    const files = Array.from(realFilePicker.files);
+
+    if (files.length === 0) {
+        return;
+    }
+
+    openSelectedFile(files[0]);
+});
+
+function openSelectedFile(file) {
+    if (currentFileUrl) {
+        URL.revokeObjectURL(currentFileUrl);
+    }
+
+    currentFileUrl = URL.createObjectURL(file);
+
+    filePreviewTitle.textContent = file.name;
+    filePreviewContent.innerHTML = "";
+    filePreviewScreen.style.display = "flex";
+
+    const fileName = file.name.toLowerCase();
+    const fileType = file.type || "";
+
+    if (
+        fileType.startsWith("audio/") ||
+        fileName.endsWith(".mp3") ||
+        fileName.endsWith(".wav") ||
+        fileName.endsWith(".ogg") ||
+        fileName.endsWith(".flac") ||
+        fileName.endsWith(".m4a")
+    ) {
+        const audio = document.createElement("audio");
+
+        audio.src = currentFileUrl;
+        audio.controls = true;
+        audio.autoplay = true;
+
+        filePreviewContent.appendChild(audio);
+        return;
+    }
+
+    if (
+        fileType.startsWith("video/") ||
+        fileName.endsWith(".mp4") ||
+        fileName.endsWith(".webm") ||
+        fileName.endsWith(".mov")
+    ) {
+        const videoPlayer = document.createElement("video");
+
+        videoPlayer.src = currentFileUrl;
+        videoPlayer.controls = true;
+        videoPlayer.autoplay = true;
+        videoPlayer.playsInline = true;
+
+        filePreviewContent.appendChild(videoPlayer);
+        return;
+    }
+
+    if (fileType.startsWith("image/")) {
+        const image = document.createElement("img");
+
+        image.src = currentFileUrl;
+        image.alt = file.name;
+
+        filePreviewContent.appendChild(image);
+        return;
+    }
+
+    if (
+        fileType === "text/html" ||
+        fileName.endsWith(".html") ||
+        fileName.endsWith(".htm")
+    ) {
+        const frame = document.createElement("iframe");
+
+        frame.src = currentFileUrl;
+        frame.title = file.name;
+
+        filePreviewContent.appendChild(frame);
+        return;
+    }
+
+    if (
+        fileType.startsWith("text/") ||
+        fileName.endsWith(".js") ||
+        fileName.endsWith(".css") ||
+        fileName.endsWith(".json") ||
+        fileName.endsWith(".md") ||
+        fileName.endsWith(".txt")
+    ) {
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const pre = document.createElement("pre");
+            pre.textContent = reader.result;
+            filePreviewContent.appendChild(pre);
+        };
+
+        reader.readAsText(file);
+        return;
+    }
+
+    const message = document.createElement("p");
+    message.textContent =
+        "This file type cannot be previewed directly by the browser.";
+
+    const openLink = document.createElement("a");
+    openLink.href = currentFileUrl;
+    openLink.target = "_blank";
+    openLink.rel = "noopener";
+    openLink.textContent = "Open file in a new tab";
+    openLink.style.color = "#b66aff";
+
+    filePreviewContent.appendChild(message);
+    filePreviewContent.appendChild(openLink);
+}
 
 /* =========================
    PASSCODE
@@ -776,7 +1022,6 @@ const lockCountdown = document.getElementById("lockCountdown");
 let typed = "";
 
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
@@ -784,7 +1029,6 @@ document.addEventListener("keydown", function(event) {
     typed += event.key.toLowerCase();
 
     if (typed.endsWith("passcode")) {
-
         hiddenButton.style.display = "block";
         typed = "";
     }
@@ -794,21 +1038,9 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 /* =========================
    PASSCODE LOCK SYSTEM
 ========================= */
-
-/*
-    5 incorrect codes = lockout.
-
-    Lockout times:
-    1st lock  = 1 minute
-    2nd lock  = 5 minutes
-    3rd lock  = 10 minutes
-    4th lock  = 1 hour
-    5th+ lock = 1 hour
-*/
 
 const LOCK_TIMES = [
     60 * 1000,
@@ -828,36 +1060,26 @@ let keypadLockedUntil =
 
 let lockInterval = null;
 
-
 function getLockDuration() {
-
     return LOCK_TIMES[
         Math.min(lockLevel, LOCK_TIMES.length - 1)
     ];
 }
 
-
 function formatTime(milliseconds) {
-
     const totalSeconds =
-        Math.max(
-            0,
-            Math.ceil(milliseconds / 1000)
-        );
+        Math.max(0, Math.ceil(milliseconds / 1000));
 
     const hours =
         Math.floor(totalSeconds / 3600);
 
     const minutes =
-        Math.floor(
-            (totalSeconds % 3600) / 60
-        );
+        Math.floor((totalSeconds % 3600) / 60);
 
     const seconds =
         totalSeconds % 60;
 
     if (hours > 0) {
-
         return (
             hours +
             ":" +
@@ -874,9 +1096,7 @@ function formatTime(milliseconds) {
     );
 }
 
-
 function saveLockState() {
-
     localStorage.setItem(
         "secretSiteWrongAttempts",
         wrongAttempts
@@ -893,17 +1113,12 @@ function saveLockState() {
     );
 }
 
-
 function isKeypadLocked() {
-
     return Date.now() < keypadLockedUntil;
 }
 
-
 function updateLockScreen() {
-
     if (!isKeypadLocked()) {
-
         keypad.classList.remove("locked");
 
         normalKeypad.style.display = "block";
@@ -928,40 +1143,27 @@ function updateLockScreen() {
         keypadLockedUntil - Date.now();
 
     lockCountdown.textContent =
-        "Try again in " +
-        formatTime(remaining);
+        "Try again in " + formatTime(remaining);
 }
 
-
 function startKeypadLock() {
+    const duration = getLockDuration();
 
-    const duration =
-        getLockDuration();
-
-    keypadLockedUntil =
-        Date.now() + duration;
-
+    keypadLockedUntil = Date.now() + duration;
     wrongAttempts = 0;
-
     lockLevel++;
 
     saveLockState();
-
     updateLockScreen();
 
     clearInterval(lockInterval);
 
-    lockInterval =
-        setInterval(function() {
-
-            updateLockScreen();
-
-        }, 250);
+    lockInterval = setInterval(function() {
+        updateLockScreen();
+    }, 250);
 }
 
-
 function openKeypad() {
-
     hiddenButton.style.display = "none";
     keypad.style.display = "block";
     display.value = "";
@@ -969,20 +1171,14 @@ function openKeypad() {
     updateLockScreen();
 }
 
-
 hiddenButton.addEventListener("click", function() {
-
     openKeypad();
-
 });
-
 
 document
 .querySelectorAll(".key[data-num]")
 .forEach(function(key) {
-
     key.addEventListener("click", function() {
-
         if (isKeypadLocked()) {
             return;
         }
@@ -991,11 +1187,9 @@ document
     });
 });
 
-
 document
 .getElementById("clear")
 .addEventListener("click", function() {
-
     if (isKeypadLocked()) {
         return;
     }
@@ -1003,41 +1197,29 @@ document
     display.value = "";
 });
 
-
 document
 .getElementById("enter")
 .addEventListener("click", function() {
-
     if (isKeypadLocked()) {
         updateLockScreen();
         return;
     }
 
     if (display.value === "2309") {
-
         keypad.style.display = "none";
-
         secretButton.style.display = "block";
 
-        /* Successful code resets the wrong-attempt counter. */
         wrongAttempts = 0;
-
         saveLockState();
-
     } else {
-
         wrongAttempts++;
-
         display.value = "";
 
         saveLockState();
 
         if (wrongAttempts >= 5) {
-
             startKeypadLock();
-
         } else {
-
             alert(
                 "wrong code 😭\n\n" +
                 "Incorrect attempts: " +
@@ -1048,17 +1230,10 @@ document
     }
 });
 
-
-/* Restore an active lock if the page was refreshed. */
-
 if (isKeypadLocked()) {
-
     keypad.style.display = "block";
-
     updateLockScreen();
-
 }
-
 
 /* =========================
    IMAGE RAIN
@@ -1067,7 +1242,6 @@ if (isKeypadLocked()) {
 let started = false;
 
 function createImage() {
-
     const img = document.createElement("img");
 
     img.src = "image.png";
@@ -1078,27 +1252,18 @@ function createImage() {
         Math.max(window.innerWidth - 100, 1) +
         "px";
 
-    const size =
-        70 + Math.random() * 40;
+    const size = 70 + Math.random() * 40;
+    img.style.width = size + "px";
 
-    img.style.width =
-        size + "px";
-
-    const duration =
-        7 + Math.random() * 5;
-
-    img.style.animationDuration =
-        duration + "s";
+    const duration = 7 + Math.random() * 5;
+    img.style.animationDuration = duration + "s";
 
     document.body.appendChild(img);
 
     setTimeout(function() {
-
         img.remove();
-
     }, duration * 1000 + 500);
 }
-
 
 /* =========================
    SECRET STATE
@@ -1110,15 +1275,12 @@ let noCode = "";
 let angryMode = false;
 let cursorGone = false;
 
-
 /* =========================
    NORMAL CLICK ME
 ========================= */
 
 button.addEventListener("click", function() {
-
     if (noCount === 1) {
-
         if (angryMode) {
             return;
         }
@@ -1126,9 +1288,7 @@ button.addEventListener("click", function() {
         angryMode = true;
 
         for (let i = 0; i < 5; i++) {
-
-            const angry =
-                document.createElement("img");
+            const angry = document.createElement("img");
 
             angry.src = "angry.png";
             angry.className = "angry-image";
@@ -1158,11 +1318,8 @@ button.addEventListener("click", function() {
         return;
     }
 
-
     if (noCount === 2) {
-
-        const creepy =
-            document.createElement("img");
+        const creepy = document.createElement("img");
 
         creepy.src = "creepy.png";
 
@@ -1178,8 +1335,7 @@ button.addEventListener("click", function() {
 
         document.body.appendChild(creepy);
 
-        const scream =
-            new Audio("scream.mp3");
+        const scream = new Audio("scream.mp3");
 
         scream.volume = 1.0;
         scream.play().catch(function() {});
@@ -1197,7 +1353,6 @@ button.addEventListener("click", function() {
         return;
     }
 
-
     if (started) {
         return;
     }
@@ -1205,7 +1360,6 @@ button.addEventListener("click", function() {
     started = true;
 
     for (let i = 0; i < 10; i++) {
-
         setTimeout(function() {
             createImage();
         }, i * 300);
@@ -1216,13 +1370,11 @@ button.addEventListener("click", function() {
     }, 700);
 });
 
-
 /* =========================
    NO SECRET
 ========================= */
 
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
@@ -1230,15 +1382,12 @@ document.addEventListener("keydown", function(event) {
     noCode += event.key.toLowerCase();
 
     if (noCode.endsWith("no")) {
-
         noCount++;
         noCode = "";
 
         if (noCount === 1) {
             button.textContent = "Click Me?";
-        }
-
-        else if (noCount === 2) {
+        } else if (noCount === 2) {
             button.textContent = "DON'T CLICK ME";
         }
     }
@@ -1248,75 +1397,46 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 /* =========================
    ANGRY CHASE
 ========================= */
 
-let mouseX =
-    window.innerWidth / 2;
-
-let mouseY =
-    window.innerHeight / 2;
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
 
 document.addEventListener("mousemove", function(event) {
-
     mouseX = event.clientX;
     mouseY = event.clientY;
 });
 
-
 function chaseAngry(element) {
-
-    let x =
-        parseFloat(element.style.left);
-
-    let y =
-        parseFloat(element.style.top);
+    let x = parseFloat(element.style.left);
+    let y = parseFloat(element.style.top);
 
     function move() {
-
         if (!element.isConnected) {
             return;
         }
 
-        const rect =
-            element.getBoundingClientRect();
+        const rect = element.getBoundingClientRect();
 
-        const centerX =
-            rect.left +
-            rect.width / 2;
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
 
-        const centerY =
-            rect.top +
-            rect.height / 2;
+        const dx = mouseX - centerX;
+        const dy = mouseY - centerY;
 
-        const dx =
-            mouseX - centerX;
-
-        const dy =
-            mouseY - centerY;
-
-        const distance =
-            Math.sqrt(dx * dx + dy * dy);
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance > 2) {
-
-            x +=
-                (dx / distance) * 2.5;
-
-            y +=
-                (dy / distance) * 2.5;
+            x += (dx / distance) * 2.5;
+            y += (dy / distance) * 2.5;
 
             element.style.left = x + "px";
             element.style.top = y + "px";
         }
 
-        if (
-            distance < 65 &&
-            !cursorGone
-        ) {
-
+        if (distance < 65 && !cursorGone) {
             cursorGone = true;
 
             document.body.style.cursor = "none";
@@ -1335,21 +1455,17 @@ function chaseAngry(element) {
     move();
 }
 
-
 /* =========================
    SECRET VIDEO
 ========================= */
 
 secretButton.addEventListener("click", function() {
-
     secretButton.style.display = "none";
     video.style.display = "block";
 
     video.currentTime = 0;
-
     video.play().catch(function() {});
 });
-
 
 /* =========================
    WIP
@@ -1358,41 +1474,32 @@ secretButton.addEventListener("click", function() {
 let ripped = false;
 
 wip.addEventListener("click", function() {
-
     if (ripped) {
         return;
     }
 
     ripped = true;
-
     ripScreen.style.display = "block";
 
     setTimeout(function() {
-
         stickman.classList.add("ripping");
         ripText.classList.add("rippingText");
-
     }, 200);
 
     setTimeout(function() {
-
         ripFinal.style.display = "flex";
-
     }, 2200);
 });
-
 
 /* =========================
    A1B2C3 DOT
 ========================= */
 
 let dotCode = "";
-
 let dotTimer = null;
 let dotMoving = null;
 
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
@@ -1400,7 +1507,6 @@ document.addEventListener("keydown", function(event) {
     dotCode += event.key.toLowerCase();
 
     if (dotCode.endsWith("a1b2c3")) {
-
         spawnDot();
         dotCode = "";
     }
@@ -1410,9 +1516,7 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 function spawnDot() {
-
     clearTimeout(dotTimer);
     clearInterval(dotMoving);
 
@@ -1421,21 +1525,15 @@ function spawnDot() {
 
     moveDot();
 
-    dotMoving =
-        setInterval(moveDot, 1000);
+    dotMoving = setInterval(moveDot, 1000);
 
-    dotTimer =
-        setTimeout(function() {
-
-            secretDot.style.display = "none";
-            clearInterval(dotMoving);
-
-        }, 5000);
+    dotTimer = setTimeout(function() {
+        secretDot.style.display = "none";
+        clearInterval(dotMoving);
+    }, 5000);
 }
 
-
 function moveDot() {
-
     const padding = 80;
 
     const maxX =
@@ -1462,9 +1560,7 @@ function moveDot() {
     secretDot.style.top = y + "px";
 }
 
-
 secretDot.addEventListener("click", function() {
-
     clearTimeout(dotTimer);
     clearInterval(dotMoving);
 
@@ -1478,7 +1574,6 @@ secretDot.addEventListener("click", function() {
     }, 3000);
 });
 
-
 /* =========================
    YOUTUBE
 ========================= */
@@ -1486,7 +1581,6 @@ secretDot.addEventListener("click", function() {
 let youtubeCode = "";
 
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
@@ -1494,11 +1588,7 @@ document.addEventListener("keydown", function(event) {
     youtubeCode += event.key.toLowerCase();
 
     if (youtubeCode.includes("youtube")) {
-
-        window.location.assign(
-            "https://www.youtube.com/"
-        );
-
+        window.location.assign("https://www.youtube.com/");
         youtubeCode = "";
         return;
     }
@@ -1508,7 +1598,6 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 /* =========================
    KABOOM
 ========================= */
@@ -1516,7 +1605,6 @@ document.addEventListener("keydown", function(event) {
 let kaboomCode = "";
 
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
@@ -1524,14 +1612,11 @@ document.addEventListener("keydown", function(event) {
     kaboomCode += event.key.toLowerCase();
 
     if (kaboomCode.includes("kaboom")) {
-
         kaboomCode = "";
 
         document.body.style.pointerEvents = "none";
 
-        const explosion =
-            document.createElement("div");
-
+        const explosion = document.createElement("div");
         explosion.id = "kaboomFlash";
 
         document.body.appendChild(explosion);
@@ -1542,7 +1627,6 @@ document.addEventListener("keydown", function(event) {
             );
 
         elements.forEach(function(element) {
-
             const x =
                 (Math.random() - 0.5) *
                 window.innerWidth *
@@ -1571,8 +1655,7 @@ document.addEventListener("keydown", function(event) {
         }, 120);
 
         setTimeout(function() {
-            window.location.href =
-                "https://www.google.com/";
+            window.location.href = "https://www.google.com/";
         }, 1400);
     }
 
@@ -1581,7 +1664,6 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 /* =========================
    CATGUY SECRET
 ========================= */
@@ -1589,31 +1671,22 @@ document.addEventListener("keydown", function(event) {
 let catGuyCode = "";
 
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
 
     catGuyCode += event.key.toLowerCase();
 
-    if (
-        catGuyCode.includes(
-            "summonthecatguy09"
-        )
-    ) {
-
+    if (catGuyCode.includes("summonthecatguy09")) {
         catGuyCode = "";
 
-        const sound =
-            new Audio("catguy.mp3");
+        const sound = new Audio("catguy.mp3");
 
         sound.volume = 1.0;
         sound.play().catch(function() {});
 
         for (let i = 0; i < 5; i++) {
-
-            const cat =
-                document.createElement("img");
+            const cat = document.createElement("img");
 
             cat.src = "catguy.png";
 
@@ -1623,18 +1696,12 @@ document.addEventListener("keydown", function(event) {
 
             cat.style.left =
                 Math.random() *
-                Math.max(
-                    window.innerWidth - 180,
-                    1
-                ) +
+                Math.max(window.innerWidth - 180, 1) +
                 "px";
 
             cat.style.top =
                 Math.random() *
-                Math.max(
-                    window.innerHeight - 180,
-                    1
-                ) +
+                Math.max(window.innerHeight - 180, 1) +
                 "px";
 
             cat.style.zIndex = "99999";
@@ -1653,7 +1720,6 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 /* =========================
    BOSS FIGHT
 ========================= */
@@ -1664,30 +1730,19 @@ let bossActive = false;
 let bossDead = false;
 
 let bossHP = 5;
-
 let bossAngle = 0;
 
 let bossShotTimeout = null;
 let bossPowerTimeout = null;
 
-let bossMouseX =
-    window.innerWidth / 2;
-
-let bossMouseY =
-    window.innerHeight / 2;
-
-
-/* PLAYER SHOT COOLDOWN */
+let bossMouseX = window.innerWidth / 2;
+let bossMouseY = window.innerHeight / 2;
 
 let playerShotReady = true;
 
 const PLAYER_SHOT_COOLDOWN = 500;
 
-
-/* START BOSS */
-
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
@@ -1699,9 +1754,7 @@ document.addEventListener("keydown", function(event) {
     bossCode += event.key.toLowerCase();
 
     if (bossCode.endsWith("bossfight")) {
-
         bossCode = "";
-
         startBossFight();
     }
 
@@ -1710,14 +1763,10 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 function startBossFight() {
-
     bossActive = true;
     bossDead = false;
-
     bossHP = 5;
-
     playerShotReady = true;
 
     bossHealthFill.style.width = "100%";
@@ -1726,7 +1775,6 @@ function startBossFight() {
     winScreen.style.display = "none";
 
     bossFight.style.display = "block";
-
     boss.src = "neutral.png";
 
     document.body.style.cursor = "crosshair";
@@ -1734,112 +1782,60 @@ function startBossFight() {
     chooseBossShot();
 }
 
-
-/* TRACK MOUSE */
-
-bossFight.addEventListener(
-    "mousemove",
-    function(event) {
-
-        bossMouseX = event.clientX;
-        bossMouseY = event.clientY;
-    }
-);
-
-
-/* =========================
-   CHOOSE BOSS SHOT
-========================= */
+bossFight.addEventListener("mousemove", function(event) {
+    bossMouseX = event.clientX;
+    bossMouseY = event.clientY;
+});
 
 function chooseBossShot() {
-
-    if (
-        !bossActive ||
-        bossDead
-    ) {
+    if (!bossActive || bossDead) {
         return;
     }
 
-    bossAngle =
-        Math.random() *
-        Math.PI *
-        2;
+    bossAngle = Math.random() * Math.PI * 2;
 
     boss.src = "neutral.png";
 
     bossAura.classList.remove("powering");
-
     void bossAura.offsetWidth;
-
     bossAura.classList.add("powering");
 
-    bossPowerTimeout =
-        setTimeout(function() {
-
-            fireBossBeam();
-
-        }, 1100);
+    bossPowerTimeout = setTimeout(function() {
+        fireBossBeam();
+    }, 1100);
 }
 
-
-/* =========================
-   FIRE BOSS BEAM
-========================= */
-
 function fireBossBeam() {
-
-    if (
-        !bossActive ||
-        bossDead
-    ) {
+    if (!bossActive || bossDead) {
         return;
     }
 
     boss.src = "shoot.png";
 
-    const bossRect =
-        boss.getBoundingClientRect();
+    const bossRect = boss.getBoundingClientRect();
 
-    const startX =
-        bossRect.left +
-        bossRect.width / 2;
-
-    const startY =
-        bossRect.top +
-        bossRect.height / 2;
+    const startX = bossRect.left + bossRect.width / 2;
+    const startY = bossRect.top + bossRect.height / 2;
 
     const length =
         Math.sqrt(
-            window.innerWidth *
-            window.innerWidth +
-            window.innerHeight *
-            window.innerHeight
+            window.innerWidth * window.innerWidth +
+            window.innerHeight * window.innerHeight
         ) * 2;
 
-    const beam =
-        document.createElement("div");
+    const beam = document.createElement("div");
 
-    beam.className =
-        "boss-beam fire";
-
-    beam.style.left =
-        startX + "px";
-
-    beam.style.top =
-        startY + "px";
-
-    beam.style.width =
-        length + "px";
-
-    beam.style.transform =
-        `rotate(${bossAngle}rad)`;
+    beam.className = "boss-beam fire";
+    beam.style.left = startX + "px";
+    beam.style.top = startY + "px";
+    beam.style.width = length + "px";
+    beam.style.transform = `rotate(${bossAngle}rad)`;
 
     bossFight.appendChild(beam);
 
     setTimeout(function() {
         boss.src = "neutral.png";
     }, 16);
-
 
     if (
         pointHitsBeam(
@@ -1850,98 +1846,55 @@ function fireBossBeam() {
             bossAngle
         )
     ) {
-
         loseBossFight();
         return;
     }
 
+    const collisionCheck = setInterval(function() {
+        if (!bossActive || bossDead || !beam.isConnected) {
+            clearInterval(collisionCheck);
+            return;
+        }
 
-    const collisionCheck =
-        setInterval(function() {
-
-            if (
-                !bossActive ||
-                bossDead ||
-                !beam.isConnected
-            ) {
-
-                clearInterval(collisionCheck);
-                return;
-            }
-
-            if (
-                pointHitsBeam(
-                    bossMouseX,
-                    bossMouseY,
-                    startX,
-                    startY,
-                    bossAngle
-                )
-            ) {
-
-                clearInterval(collisionCheck);
-                loseBossFight();
-            }
-
-        }, 10);
-
+        if (
+            pointHitsBeam(
+                bossMouseX,
+                bossMouseY,
+                startX,
+                startY,
+                bossAngle
+            )
+        ) {
+            clearInterval(collisionCheck);
+            loseBossFight();
+        }
+    }, 10);
 
     setTimeout(function() {
-
         clearInterval(collisionCheck);
         beam.remove();
-
     }, 180);
 
-
-    bossShotTimeout =
-        setTimeout(function() {
-
-            chooseBossShot();
-
-        }, 900);
+    bossShotTimeout = setTimeout(function() {
+        chooseBossShot();
+    }, 900);
 }
 
+function pointHitsBeam(px, py, x1, y1, angle) {
+    const dx = Math.cos(angle);
+    const dy = Math.sin(angle);
 
-/* =========================
-   BEAM COLLISION
-========================= */
+    const vx = px - x1;
+    const vy = py - y1;
 
-function pointHitsBeam(
-    px,
-    py,
-    x1,
-    y1,
-    angle
-) {
-
-    const dx =
-        Math.cos(angle);
-
-    const dy =
-        Math.sin(angle);
-
-    const vx =
-        px - x1;
-
-    const vy =
-        py - y1;
-
-    const projection =
-        vx * dx +
-        vy * dy;
+    const projection = vx * dx + vy * dy;
 
     if (projection < 0) {
         return false;
     }
 
-    const closestX =
-        x1 +
-        dx * projection;
-
-    const closestY =
-        y1 +
-        dy * projection;
+    const closestX = x1 + dx * projection;
+    const closestY = y1 + dy * projection;
 
     const distance =
         Math.sqrt(
@@ -1952,115 +1905,58 @@ function pointHitsBeam(
     return distance < 13;
 }
 
-
-/* =========================
-   PLAYER SHOOT
-========================= */
-
-bossFight.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            !bossActive ||
-            bossDead
-        ) {
-            return;
-        }
-
-        /* COOLDOWN CHECK */
-
-        if (!playerShotReady) {
-            return;
-        }
-
-        /* START COOLDOWN */
-
-        playerShotReady = false;
-
-        setTimeout(function() {
-
-            playerShotReady = true;
-
-        }, PLAYER_SHOT_COOLDOWN);
-
-
-        const bossRect =
-            boss.getBoundingClientRect();
-
-        const bossX =
-            bossRect.left +
-            bossRect.width / 2;
-
-        const bossY =
-            bossRect.top +
-            bossRect.height / 2;
-
-        const dx =
-            bossX -
-            event.clientX;
-
-        const dy =
-            bossY -
-            event.clientY;
-
-        const distance =
-            Math.sqrt(
-                dx * dx +
-                dy * dy
-            );
-
-        const angle =
-            Math.atan2(dy, dx);
-
-        const beam =
-            document.createElement("div");
-
-        beam.className =
-            "player-beam";
-
-        beam.style.left =
-            event.clientX + "px";
-
-        beam.style.top =
-            event.clientY + "px";
-
-        beam.style.width =
-            distance + "px";
-
-        beam.style.transform =
-            `rotate(${angle}rad)`;
-
-        bossFight.appendChild(beam);
-
-        bossHP--;
-
-        bossHealthFill.style.width =
-            (bossHP / 5 * 100) + "%";
-
-        setTimeout(function() {
-
-            beam.remove();
-
-        }, 120);
-
-        if (bossHP <= 0) {
-            defeatBoss();
-        }
+bossFight.addEventListener("click", function(event) {
+    if (!bossActive || bossDead) {
+        return;
     }
-);
 
+    if (!playerShotReady) {
+        return;
+    }
 
-/* =========================
-   LOSE
-========================= */
+    playerShotReady = false;
+
+    setTimeout(function() {
+        playerShotReady = true;
+    }, PLAYER_SHOT_COOLDOWN);
+
+    const bossRect = boss.getBoundingClientRect();
+
+    const bossX = bossRect.left + bossRect.width / 2;
+    const bossY = bossRect.top + bossRect.height / 2;
+
+    const dx = bossX - event.clientX;
+    const dy = bossY - event.clientY;
+
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const angle = Math.atan2(dy, dx);
+
+    const beam = document.createElement("div");
+
+    beam.className = "player-beam";
+    beam.style.left = event.clientX + "px";
+    beam.style.top = event.clientY + "px";
+    beam.style.width = distance + "px";
+    beam.style.transform = `rotate(${angle}rad)`;
+
+    bossFight.appendChild(beam);
+
+    bossHP--;
+
+    bossHealthFill.style.width =
+        (bossHP / 5 * 100) + "%";
+
+    setTimeout(function() {
+        beam.remove();
+    }, 120);
+
+    if (bossHP <= 0) {
+        defeatBoss();
+    }
+});
 
 function loseBossFight() {
-
-    if (
-        !bossActive ||
-        bossDead
-    ) {
+    if (!bossActive || bossDead) {
         return;
     }
 
@@ -2070,23 +1966,13 @@ function loseBossFight() {
     clearTimeout(bossPowerTimeout);
 
     bossFight.style.display = "none";
-
     loserScreen.style.display = "flex";
 
     document.body.style.cursor = "default";
 }
 
-
-/* =========================
-   DEFEAT
-========================= */
-
 function defeatBoss() {
-
-    if (
-        !bossActive ||
-        bossDead
-    ) {
+    if (!bossActive || bossDead) {
         return;
     }
 
@@ -2099,7 +1985,6 @@ function defeatBoss() {
     bossHealthFill.style.width = "0%";
 
     bossFight.style.display = "none";
-
     winScreen.style.display = "flex";
 
     document.body.style.cursor = "default";
@@ -2113,7 +1998,6 @@ let damirCode = "";
 let damirSecret = false;
 
 document.addEventListener("keydown", function(event) {
-
     if (event.key.length !== 1) {
         return;
     }
@@ -2121,7 +2005,6 @@ document.addEventListener("keydown", function(event) {
     damirCode += event.key.toLowerCase();
 
     if (damirCode.endsWith("wehatedamir")) {
-
         damirCode = "";
         damirSecret = true;
 
@@ -2135,9 +2018,7 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-
 function spawnDamir() {
-
     const img = document.createElement("img");
 
     img.src = "damir.png";
@@ -2165,11 +2046,7 @@ function spawnDamir() {
     }, 3000);
 }
 
-
-/* Add this inside your existing CLICK ME handler */
-
 button.addEventListener("click", function() {
-
     if (!damirSecret) {
         return;
     }
@@ -2180,15 +2057,11 @@ button.addEventListener("click", function() {
     sound.play().catch(function() {});
 
     for (let i = 0; i < 20; i++) {
-
         setTimeout(function() {
             spawnDamir();
         }, i * 70);
-
     }
-
 });
-
 </script>
 
 </body>
