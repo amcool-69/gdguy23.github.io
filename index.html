@@ -870,16 +870,34 @@ document.addEventListener("keydown", function(event) {
             activeElement.isContentEditable
         );
 
+    let typedSecret = "";
+
+document.addEventListener("keydown", (event) => {
+    const typingInField =
+        event.target.tagName === "INPUT" ||
+        event.target.tagName === "TEXTAREA" ||
+        event.target.isContentEditable;
+
     if (
-        event.key.toLowerCase() === "f" &&
-        !typingInField &&
-        !event.ctrlKey &&
-        !event.altKey &&
-        !event.metaKey
+        typingInField ||
+        event.ctrlKey ||
+        event.altKey ||
+        event.metaKey
     ) {
-        event.preventDefault();
+        return;
+    }
+
+    typedSecret += event.key.toLowerCase();
+
+    if (typedSecret.length > 4) {
+        typedSecret = typedSecret.slice(-4);
+    }
+
+    if (typedSecret === "file") {
+        typedSecret = "";
         realFilePicker.click();
     }
+});
 
     if (event.key === "Escape") {
         filePreviewScreen.style.display = "none";
